@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.miu.cs.cs525.reversi.controller.LaunchController">
+    <center>
+        <Pane prefHeight="352.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label layoutX="158.0" layoutY="14.0" text="Welcome To Othello/Reversi Game" textFill="#831f1f">
+                    <font>
+                        <Font size="38.0" />
+                    </font>
+                </Label>
+                <Label textFill="darkgreen" text="Choose Players">
+                </Label>
+                <Button fx:id="btnComputerToComputer" onAction="#btnComputerToComputer" layoutX="107.0" layoutY="245.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="165.0" text="Computer To Computer" />
+            </children>
+        </Pane>
+    </center>
+</BorderPane>
