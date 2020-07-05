@@ -4,22 +4,45 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
 
-
-<BorderPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.miu.cs.cs525.reversi.controller.LaunchController">
+<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
+<BorderPane
+            prefHeight="500"
+            style="-fx-background-color: darkslategray"
+            prefWidth="300"
+            xmlns="http://javafx.com/javafx/8.0.111"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.miu.cs.cs525.reversi.controller.LaunchController">
+    <top>
+        <ImageView fx:id="imageView" BorderPane.alignment="CENTER" fitWidth="350.0" fitHeight="200.0">
+            <BorderPane.margin>
+                <Insets top="15.0"></Insets>
+            </BorderPane.margin>
+        </ImageView>
+    </top>
     <center>
-        <Pane prefHeight="352.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-            <children>
-                <Label layoutX="158.0" layoutY="14.0" text="Welcome To Othello/Reversi Game" textFill="#831f1f">
-                    <font>
-                        <Font size="38.0" />
-                    </font>
+        <BorderPane>
+            <top>
+                <Label fx:id="launchLabel" text="Choose Players" BorderPane.alignment="CENTER"
+                style="-fx-font-weight: bold;
+                       -fx-font-family: 'Times New Roman';
+                       -fx-font-size: 300%;
+                       -fx-text-fill: aqua;">
+                    <BorderPane.margin>
+                        <Insets top="30.0"></Insets>
+                    </BorderPane.margin>
                 </Label>
-                <Label textFill="darkgreen" text="Choose Players">
-                </Label>
-                <Button fx:id="btnComputerToComputer" onAction="#btnComputerToComputer" layoutX="107.0" layoutY="245.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="165.0" text="Computer To Computer" />
-            </children>
-        </Pane>
+            </top>
+            <center>
+                <Pane BorderPane.alignment="CENTER">
+                    <children>
+                        <Button fx:id="btnHumanToHuman" prefWidth="150.0" layoutX="100.0" layoutY="25.0" disable="true" BorderPane.alignment="CENTER" onAction="#btnHumanToHuman" mnemonicParsing="false" text="Human To Human"></Button>
+                        <Button fx:id="btnHumanToComputer" prefWidth="150.0" layoutX="100.0" layoutY="60.0" disable="true" BorderPane.alignment="CENTER" onAction="#btnHumanToComputer" mnemonicParsing="false" text="Human To Computer"></Button>
+                        <Button fx:id="btnComputerToComputer" prefWidth="150.0" layoutX="100.0" layoutY="95.0" BorderPane.alignment="CENTER" onAction="#btnComputerToComputer" mnemonicParsing="false" text="Computer To Computer"></Button>
+                    </children>
+                </Pane>
+            </center>
+        </BorderPane>
     </center>
 </BorderPane>

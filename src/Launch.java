@@ -1,11 +1,13 @@
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Launch extends Application {
@@ -18,18 +20,22 @@ public class Launch extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws Exception, FileNotFoundException {
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Othello/Reversi Game");
         showMainView();
     }
 
     private void showMainView() throws IOException {
         FXMLLoader loader = new FXMLLoader();
+//        File file = new File("src/edu/miu/cs/cs525/reversi/view/");
         loader.setLocation(Launch.class.getResource("Launch.fxml"));
         mainLayout = loader.load();
         Scene scene = new Scene(mainLayout);
+//        scene.getStylesheets().add(this.getClass().getResource("main.css").toExternalForm());
         primaryStage.setScene(scene);
+        this.primaryStage.setTitle("Othello/Reversi Game");
+        this.primaryStage.setResizable(false);
+        this.primaryStage.centerOnScreen();
         primaryStage.show();
     }
 }

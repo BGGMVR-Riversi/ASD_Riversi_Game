@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane
+        prefHeight="500"
+        style="-fx-background-color: darkslategray"
+        prefWidth="300"
+        xmlns="http://javafx.com/javafx/8.0.111"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="edu.miu.cs.cs525.reversi.controller.NetworkUIController">
+
+</BorderPane>
