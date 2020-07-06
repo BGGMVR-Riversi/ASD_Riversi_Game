@@ -1,5 +1,9 @@
 package edu.miu.cs.cs525.reversi.controller;
 
+import edu.miu.cs.cs525.reversi.view.Launch;
+import edu.miu.cs.cs525.reversi.view.NetworkUI;
+import edu.miu.cs.cs525.reversi.view.PlayersUI;
+import edu.miu.cs.cs525.reversi.view.ReversiSingleton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -12,21 +16,21 @@ import java.util.ResourceBundle;
 
 public class LaunchController implements Initializable {
 
-    public Button button;
+    private PlayersUI playersUI = new PlayersUI();
 
     @FXML
     private ImageView imageView;
 
-    public void btnComputerToComputer(){
-        System.out.println("You choose computer to computer option!!!");
+    public void btnNewGame() throws Exception {
+        playersUI.showPlayersUIView();
     }
 
-    public void btnHumanToComputer(){
-        System.out.println("You choose human to computer option!!!");
+    public void btnAbout(){
+
     }
 
-    public void btnHumanToHuman(){
-        System.out.println("You choose human to human option!!!");
+    public void btnRules(){
+
     }
 
     @Override
