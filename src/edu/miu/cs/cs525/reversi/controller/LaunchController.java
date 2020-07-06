@@ -1,9 +1,6 @@
 package edu.miu.cs.cs525.reversi.controller;
 
-import edu.miu.cs.cs525.reversi.view.Launch;
-import edu.miu.cs.cs525.reversi.view.NetworkUI;
-import edu.miu.cs.cs525.reversi.view.PlayersUI;
-import edu.miu.cs.cs525.reversi.view.ReversiSingleton;
+import edu.miu.cs.cs525.reversi.view.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -16,7 +13,7 @@ import java.util.ResourceBundle;
 
 public class LaunchController implements Initializable {
 
-    private PlayersUI playersUI = new PlayersUI();
+    private UITarget playersUI = new UIAdapter();
 
     @FXML
     private ImageView imageView;

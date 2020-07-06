@@ -1,7 +1,8 @@
 package edu.miu.cs.cs525.reversi.controller;
 
-import edu.miu.cs.cs525.reversi.view.BoardUI;
 import edu.miu.cs.cs525.reversi.view.ReversiSingleton;
+import edu.miu.cs.cs525.reversi.view.UIAdapter;
+import edu.miu.cs.cs525.reversi.view.UITarget;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
@@ -15,7 +16,7 @@ import java.util.ResourceBundle;
 public class NetworkUIController implements Initializable {
 
     private ReversiSingleton reversiSingleton;
-    private BoardUI boardUI = new BoardUI();
+    private UITarget boardUI = new UIAdapter();
 
     private String player1HostAddress;
     private String player1PortNumber;

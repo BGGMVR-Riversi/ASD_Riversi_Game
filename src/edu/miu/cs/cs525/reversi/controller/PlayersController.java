@@ -1,7 +1,8 @@
 package edu.miu.cs.cs525.reversi.controller;
 
-import edu.miu.cs.cs525.reversi.view.NetworkUI;
 import edu.miu.cs.cs525.reversi.view.ReversiSingleton;
+import edu.miu.cs.cs525.reversi.view.UIAdapter;
+import edu.miu.cs.cs525.reversi.view.UITarget;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
@@ -13,7 +14,7 @@ import java.util.ResourceBundle;
 
 public class PlayersController implements Initializable {
 
-    private NetworkUI networkUI = new NetworkUI();
+    private UITarget networkUI = new UIAdapter();
     private static ReversiSingleton reversiSingletonObj = ReversiSingleton.getInstance();
 
     @FXML
