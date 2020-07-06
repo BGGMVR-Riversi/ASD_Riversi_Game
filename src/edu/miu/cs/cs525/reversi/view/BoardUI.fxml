@@ -12,5 +12,24 @@
             xmlns="http://javafx.com/javafx/8.0.111"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="edu.miu.cs.cs525.reversi.controller.BoardUIController">
+    <top>
+        <MenuBar>
+            <Menu fx:id="mFile" text="File">
+                <MenuItem text="Save Game" onAction="#handleSaveState"/>
+                <MenuItem text="Load Game" onAction="#handleLoadState"/>
+            </Menu>
+            <Menu fx:id="mGame" text="Game">
+                <MenuItem text="New Game" onAction="#handleNewGame"/>
+                <MenuItem text="Exit" onAction="#handleExitGame"/>
+            </Menu>
+            <Menu fx:id="mOption" text="Option">
+                <MenuItem text="Network" />
+                <MenuItem text="Speed" />
+            </Menu>
+            <Menu fx:id="mAbout" text="About">
+                <MenuItem text="Help" />
+            </Menu>
+        </MenuBar>
+    </top>
 
 </BorderPane>
