@@ -30,7 +30,7 @@ public class UIAdaptee {
         boardpane.getChildren().addAll(tileGroup, pieceGroup);
         commonBorderPaneUI.setPrefSize(940, HEIGHT * TILE_SIZE);
 //        commonBorderPaneUI.getChildren().addAll(pieceGroup);
-        commonBorderPaneUI.setCenter(boardpane);
+//        commonBorderPaneUI.setCenter(boardpane);
 
         for (int y = 0; y < HEIGHT; y++) {
             for (int x = 0; x < WIDTH; x++) {
@@ -87,7 +87,9 @@ public class UIAdaptee {
         commonBorderPaneUI = loader.load();
 //        Scene scene = new Scene(commonBorderPaneUI);
 //        ReversiSingleton.stage.setScene(scene);
-        ReversiSingleton.stage.setScene(new Scene(createBoard()));
+        Scene scene = new Scene(createBoard());
+        scene.getStylesheets().add(this.getClass().getResource("style.css").toExternalForm());
+        ReversiSingleton.stage.setScene(scene);
         ReversiSingleton.stage.show();
     }
 
@@ -96,6 +98,7 @@ public class UIAdaptee {
         loader.setLocation(UIAdaptee.class.getResource("NetworkUI.fxml"));
         commonBorderPaneUI = loader.load();
         Scene scene = new Scene(commonBorderPaneUI);
+        scene.getStylesheets().add(this.getClass().getResource("style.css").toExternalForm());
         ReversiSingleton.stage.setScene(scene);
         ReversiSingleton.stage.show();
     }
@@ -105,6 +108,7 @@ public class UIAdaptee {
         loader.setLocation(UIAdaptee.class.getResource("PlayersUI.fxml"));
         commonBorderPaneUI = loader.load();
         Scene scene = new Scene(commonBorderPaneUI);
+        scene.getStylesheets().add(this.getClass().getResource("style.css").toExternalForm());
         ReversiSingleton.stage.setScene(scene);
         ReversiSingleton.stage.show();
     }

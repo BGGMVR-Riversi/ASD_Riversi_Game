@@ -9,9 +9,6 @@ import java.io.IOException;
 
 public class ReversiSingleton {
 
-
-
-
     private static ReversiSingleton reversiSingletonObj;
     public static Stage stage;
     private BorderPane mainLayout;
@@ -30,11 +27,10 @@ public class ReversiSingleton {
 
     public void showMainView() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-//        File file = new File("src/edu/miu/cs/cs525/reversi/view/");
         loader.setLocation(Launch.class.getResource("Launch.fxml"));
         mainLayout = loader.load();
         Scene scene = new Scene(mainLayout);
-//        scene.getStylesheets().add(this.getClass().getResource("main.css").toExternalForm());
+        scene.getStylesheets().add(this.getClass().getResource("style.css").toExternalForm());
         stage.setScene(scene);
         this.stage.setTitle("Othello/Reversi Game");
         this.stage.setResizable(false);

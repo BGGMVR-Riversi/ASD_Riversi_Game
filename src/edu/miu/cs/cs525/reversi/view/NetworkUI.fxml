@@ -18,11 +18,7 @@
         <left>
             <BorderPane>
                 <top>
-                    <Label text="Player One" BorderPane.alignment="CENTER"
-                           style="-fx-font-weight: bold;
-                       -fx-font-family: 'Times New Roman';
-                       -fx-font-size: 300%;
-                       -fx-text-fill: aqua;">
+                    <Label text="Player One" BorderPane.alignment="CENTER" styleClass="lblNtkUIPlayer">
                         <BorderPane.margin>
                             <Insets top="30.0" left="5.0"></Insets>
                         </BorderPane.margin>
@@ -32,10 +28,10 @@
                     <Pane BorderPane.alignment="CENTER">
                         <children>
                             <ImageView fx:id="palyer1ImageView" BorderPane.alignment="CENTER" fitWidth="250.0" fitHeight="100.0" layoutX="5.0" layoutY="20.0"></ImageView>
-                            <Label layoutX="5.0" layoutY="150.0" text="Host Address: " style="-fx-text-fill: aqua; -fx-font-weight: bold"></Label>
+                            <Label layoutX="5.0" layoutY="150.0" text="Host Address: " styleClass="lblHostAddressAndPort"></Label>
                             <TextField fx:id="txtPlayer1HostAddress" layoutX="92.0" layoutY="150.0"></TextField>
                             <Label fx:id="lblErrorMessagePlayer1HostAddress" layoutX="107.0" layoutY="218.0" textFill="#d31515" />
-                            <Label layoutX="5.0" layoutY="190.0" text="Port Number: " style="-fx-text-fill: aqua; -fx-font-weight: bold"></Label>
+                            <Label layoutX="5.0" layoutY="190.0" text="Port Number: " styleClass="lblHostAddressAndPort"></Label>
                             <TextField fx:id="txtPlayer1PortNumber" layoutX="92.0" layoutY="190.0"></TextField>
                             <Label fx:id="lblErrorMessagePlayer1PortNumber" layoutX="107.0" layoutY="218.0" textFill="#d31515" />
                         </children>
@@ -46,11 +42,7 @@
         <right>
             <BorderPane>
                 <top>
-                    <Label text="Player Two" BorderPane.alignment="CENTER"
-                           style="-fx-font-weight: bold;
-                       -fx-font-family: 'Times New Roman';
-                       -fx-font-size: 300%;
-                       -fx-text-fill: aqua;">
+                    <Label text="Player Two" BorderPane.alignment="CENTER" styleClass="lblNtkUIPlayer">
                         <BorderPane.margin>
                             <Insets top="30.0" right="5.0"></Insets>
                         </BorderPane.margin>
@@ -60,10 +52,10 @@
                     <Pane BorderPane.alignment="CENTER">
                         <children>
                             <ImageView fx:id="palyer2ImageView" BorderPane.alignment="CENTER" fitWidth="250.0" fitHeight="100.0" layoutX="5.0" layoutY="20.0"></ImageView>
-                            <Label layoutX="5.0" layoutY="150.0" text="Host Address: " style="-fx-text-fill: aqua; -fx-font-weight: bold"></Label>
+                            <Label layoutX="5.0" layoutY="150.0" text="Host Address: " styleClass="lblHostAddressAndPort"></Label>
                             <TextField fx:id="txtPlayer2HostAddress" layoutX="92.0" layoutY="150.0"></TextField>
                             <Label fx:id="lblErrorMessagePlayer2HostAddress" layoutX="107.0" layoutY="218.0" textFill="#d31515" />
-                            <Label layoutX="5.0" layoutY="190.0" text="Port Number: " style="-fx-text-fill: aqua; -fx-font-weight: bold"></Label>
+                            <Label layoutX="5.0" layoutY="190.0" text="Port Number: " styleClass="lblHostAddressAndPort"></Label>
                             <TextField fx:id="txtPlayer2PortNumber" layoutX="92.0" layoutY="190.0"></TextField>
                             <Label fx:id="lblErrorMessagePlayer2PortNumber" layoutX="107.0" layoutY="218.0" textFill="#d31515" />
                         </children>

@@ -8,9 +8,10 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.geometry.Insets?>
-<BorderPane prefHeight="617"
+<?import javafx.scene.shape.Box?>
+<BorderPane prefHeight="540"
             style="-fx-background-color: darkslategray"
-            prefWidth="673"
+            prefWidth="680"
             xmlns="http://javafx.com/javafx/8.0.111"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="edu.miu.cs.cs525.reversi.controller.BoardUIController">
@@ -39,18 +40,9 @@
             <center>
                 <Pane>
                     <children>
-                        <Label text="Set Score" layoutX="10.0" layoutY="150.0" style="
-                        -fx-font-weight: bold;
-                        -fx-font-size: 100%"
-                        textFill="aqua"></Label>
-                        <Label text="Player1" layoutX="10.0" layoutY="120.0" style="
-                        -fx-font-weight: bold;
-                        -fx-font-size: 100%"
-                        textFill="aqua"></Label>
-                        <Label text="Your Turn" disable="true" layoutX="10.0" layoutY="200.0" style="
-                        -fx-font-weight: bold;
-                        -fx-font-size: 100%"
-                        textFill="aqua"></Label>
+                        <Label text="Set Score" layoutX="10.0" layoutY="150.0" styleClass="playersLabel" textFill="aqua"></Label>
+                        <Label text="Player1" layoutX="10.0" layoutY="120.0" styleClass="playersLabel" textFill="aqua"></Label>
+                        <Label text="Your Turn" disable="true" layoutX="10.0" layoutY="200.0" styleClass="playersLabel" textFill="aqua"></Label>
                     </children>
                 </Pane>
             </center>
@@ -59,20 +51,18 @@
     <center>
         <Pane>
             <children>
-                <HBox prefHeight="28.5" prefWidth="533" style="
-                -fx-background-color: whitesmoke;
-                -fx-border-style: none;" alignment="BASELINE_CENTER">
-                    <Button mnemonicParsing="false" style="-fx-border-style: none" disable="true">
+                <HBox prefHeight="28.5" prefWidth="540" styleClass="navigationHBox" alignment="BASELINE_CENTER">
+                    <Button mnemonicParsing="false" styleClass="btnNavigation" disable="true">
                         <graphic>
                             <ImageView fx:id="imgFirst"></ImageView>
                         </graphic>
                     </Button>
-                    <Button mnemonicParsing="false" style="-fx-border-style: none" disable="true">
+                    <Button mnemonicParsing="false" styleClass="btnNavigation" disable="true">
                         <graphic>
                             <ImageView fx:id="imgPrevious"></ImageView>
                         </graphic>
                     </Button>
-                    <Button mnemonicParsing="false" style="-fx-border-style: none" disable="true">
+                    <Button mnemonicParsing="false" styleClass="btnNavigation" disable="true">
                         <graphic>
                             <ImageView fx:id="imgPlay"></ImageView>
                         </graphic>
@@ -82,17 +72,20 @@
 <!--                            <ImageView fx:id="imgPause"></ImageView>-->
 <!--                        </graphic>-->
 <!--                    </Button>-->
-                    <Button mnemonicParsing="false" style="-fx-border-style: none" disable="true">
+                    <Button mnemonicParsing="false" styleClass="btnNavigation" disable="true">
                         <graphic>
                             <ImageView fx:id="imgNext"></ImageView>
                         </graphic>
                     </Button>
-                    <Button mnemonicParsing="false" style="-fx-border-style: none" disable="true">
+                    <Button mnemonicParsing="false" styleClass="btnNavigation" disable="true">
                         <graphic>
                             <ImageView fx:id="imgLast"></ImageView>
                         </graphic>
                     </Button>
                 </HBox>
+                <BorderPane styleClass="board" prefHeight="540" prefWidth="540" layoutY="25">
+
+                </BorderPane>
             </children>
         </Pane>
     </center>
@@ -101,21 +94,15 @@
             <center>
                 <Pane>
                     <children>
-                        <Label text="Set Score" layoutX="10.0" layoutY="150.0" style="
-                        -fx-font-weight: bold;
-                        -fx-font-size: 100%"
-                               textFill="aqua"></Label>
-                        <Label text="Player2" layoutX="10.0" layoutY="120.0" style="
-                        -fx-font-weight: bold;
-                        -fx-font-size: 100%"
-                               textFill="aqua"></Label>
-                        <Label text="Your Turn" layoutX="10.0" layoutY="200.0" style="
-                        -fx-font-weight: bold;
-                        -fx-font-size: 100%"
-                               textFill="aqua"></Label>
+                        <Label text="Set Score" layoutX="10.0" layoutY="150.0" styleClass="playersLabel" textFill="aqua"></Label>
+                        <Label text="Player2" layoutX="10.0" layoutY="120.0" styleClass="playersLabel" textFill="aqua"></Label>
+                        <Label text="Your Turn" layoutX="10.0" layoutY="200.0" styleClass="playersLabel" textFill="aqua"></Label>
                     </children>
                 </Pane>
             </center>
         </BorderPane>
     </right>
+    <bottom>
+
+    </bottom>
 </BorderPane>
