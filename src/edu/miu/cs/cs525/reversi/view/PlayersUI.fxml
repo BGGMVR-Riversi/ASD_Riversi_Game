@@ -24,11 +24,7 @@
     <center>
         <BorderPane>
             <top>
-                <Label fx:id="launchLabel" text="Choose Players" BorderPane.alignment="CENTER"
-                style="-fx-font-weight: bold;
-                       -fx-font-family: 'Times New Roman';
-                       -fx-font-size: 300%;
-                       -fx-text-fill: aqua;">
+                <Label fx:id="launchLabel" text="Choose Players" BorderPane.alignment="CENTER" styleClass="lblPlayersUI">
                     <BorderPane.margin>
                         <Insets top="30.0"></Insets>
                     </BorderPane.margin>
