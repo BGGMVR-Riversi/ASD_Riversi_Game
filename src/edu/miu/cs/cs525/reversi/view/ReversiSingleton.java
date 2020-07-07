@@ -9,6 +9,9 @@ import java.io.IOException;
 
 public class ReversiSingleton {
 
+
+
+
     private static ReversiSingleton reversiSingletonObj;
     public static Stage stage;
     private BorderPane mainLayout;

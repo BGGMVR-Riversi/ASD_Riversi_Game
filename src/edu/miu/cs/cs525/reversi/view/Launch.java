@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Launch extends Application {
+public class  Launch extends Application {
 
     private ReversiSingleton reversiSingletonObj;
 
