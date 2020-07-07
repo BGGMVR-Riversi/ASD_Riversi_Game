@@ -1,4 +1,4 @@
-package edu.miu.cs.cs525.reversi.view;
+package edu.miu.cs.cs525.reversi.model;
 
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -37,5 +37,6 @@ public class Piece extends StackPane {
         ellipse.setTranslateY((TILE_SIZE - TILE_SIZE * 0.26 * 2) / 2);
 
         getChildren().addAll(bg, ellipse);
+
     }
 }

@@ -1,11 +1,12 @@
 package edu.miu.cs.cs525.reversi.view;
 
+import edu.miu.cs.cs525.reversi.model.Piece;
+import edu.miu.cs.cs525.reversi.model.PieceType;
+import edu.miu.cs.cs525.reversi.model.Tile;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
@@ -27,7 +28,7 @@ public class UIAdaptee {
         Pane boardpane = new Pane();
         boardpane.setPrefSize(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE);
         boardpane.getChildren().addAll(tileGroup, pieceGroup);
-        commonBorderPaneUI.setPrefSize(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE);
+        commonBorderPaneUI.setPrefSize(940, HEIGHT * TILE_SIZE);
 //        commonBorderPaneUI.getChildren().addAll(pieceGroup);
         commonBorderPaneUI.setCenter(boardpane);
 
@@ -63,8 +64,19 @@ public class UIAdaptee {
         return commonBorderPaneUI;
     }
 
+    public int toBoard(double pixel) {
+        return (int)(pixel + TILE_SIZE / 2) / TILE_SIZE - 1;
+    }
+
     public Piece makePiece(PieceType type, int x, int y) {
         Piece piece = new Piece(type, x, y);
+
+        tileGroup.setOnMouseClicked(e -> {
+            int posX = toBoard(e.getSceneX());
+            int posY = toBoard(e.getSceneY());
+            System.out.println("x=" + posX + ", y=" + posY);
+            pieceGroup.getChildren().add(new Piece(type, posX, posY));
+        });
 
         return piece;
     }
