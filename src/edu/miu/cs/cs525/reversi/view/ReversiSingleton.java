@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 public class ReversiSingleton {
@@ -27,7 +28,7 @@ public class ReversiSingleton {
 
     public void showMainView() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-//        File file = new File("src/edu/miu/cs/cs525/reversi/view/");
+//        File file = new File("src/edu/miu/cs/cs525/reversi/view/reversi-game.jpg");
         loader.setLocation(Launch.class.getResource("Launch.fxml"));
         mainLayout = loader.load();
         Scene scene = new Scene(mainLayout);

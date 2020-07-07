@@ -32,7 +32,7 @@ public class LaunchController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        File file = new File("src/edu/miu/cs/cs525/reversi/image/reversi-game.jpg");
+        File file = new File("src/edu/miu/cs/cs525/reversi/image/othello-board.png");
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
     }

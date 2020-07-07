@@ -62,6 +62,7 @@ public class BoardUIController implements Initializable {
         System.out.println("Load previous game state...");
     }
 
+
     @FXML
     public void handleExitGame() {
         System.out.println("Exiting game...");

@@ -1,79 +1,131 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.embed.swing.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.image.ImageView?>
 <?import javafx.geometry.Insets?>
-<BorderPane prefHeight="617"
-            style="-fx-background-color: darkslategray"
-            prefWidth="533"
-            xmlns="http://javafx.com/javafx/8.0.111"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="edu.miu.cs.cs525.reversi.controller.BoardUIController">
+
+<BorderPane prefHeight="617" prefWidth="533" style="-fx-background-color: saddlebrown;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.miu.cs.cs525.reversi.controller.BoardUIController">
 
     <top>
         <MenuBar>
-            <Menu fx:id="mFile" text="File">
-                <MenuItem text="Save Game" onAction="#handleSaveState"/>
-                <MenuItem text="Load Game" onAction="#handleLoadState"/>
-            </Menu>
-            <Menu fx:id="mGame" text="Game">
-                <MenuItem text="New Game" onAction="#handleNewGame"/>
-                <MenuItem text="Exit" onAction="#handleExitGame"/>
-            </Menu>
-            <Menu fx:id="mOption" text="Option">
-                <MenuItem text="Network" />
-                <MenuItem text="Speed" />
-            </Menu>
-            <Menu fx:id="mAbout" text="About">
-                <MenuItem text="Help" />
-            </Menu>
+           <menus>
+               <Menu fx:id="mFile" text="File">
+                  <items>
+                      <MenuItem onAction="#handleSaveState" text="Save Game" />
+                      <MenuItem onAction="#handleLoadState" text="Load Game" />
+                  </items>
+               </Menu>
+               <Menu fx:id="mGame" text="Game">
+                  <items>
+                      <MenuItem onAction="#handleNewGame" text="New Game" />
+                      <MenuItem onAction="#handleExitGame" text="Exit" />
+                  </items>
+               </Menu>
+               <Menu fx:id="mOption" text="Option">
+                  <items>
+                      <MenuItem text="Network" />
+                      <MenuItem text="Speed" />
+                  </items>
+               </Menu>
+               <Menu fx:id="mAbout" text="About">
+                  <items>
+                      <MenuItem text="Help" />
+                  </items>
+               </Menu>
+           </menus>
         </MenuBar>
     </top>
-    <center>
-        <Pane>
+   <center>
+        <Pane BorderPane.alignment="TOP_LEFT">
             <children>
-                <HBox prefHeight="28.5" prefWidth="533" style="
-                -fx-background-color: whitesmoke;
-                -fx-border-style: none;" alignment="BASELINE_CENTER">
-                    <Button mnemonicParsing="false" style="-fx-border-style: none" disable="true">
-                        <graphic>
-                            <ImageView fx:id="imgFirst"></ImageView>
-                        </graphic>
-                    </Button>
-                    <Button mnemonicParsing="false" style="-fx-border-style: none" disable="true">
-                        <graphic>
-                            <ImageView fx:id="imgPrevious"></ImageView>
-                        </graphic>
-                    </Button>
-                    <Button mnemonicParsing="false" style="-fx-border-style: none" disable="true">
-                        <graphic>
-                            <ImageView fx:id="imgPlay"></ImageView>
-                        </graphic>
-                    </Button>
-<!--                    <Button mnemonicParsing="false" style="-fx-border-style: none" disable="true">-->
-<!--                        <graphic>-->
-<!--                            <ImageView fx:id="imgPause"></ImageView>-->
-<!--                        </graphic>-->
-<!--                    </Button>-->
-                    <Button mnemonicParsing="false" style="-fx-border-style: none" disable="true">
-                        <graphic>
-                            <ImageView fx:id="imgNext"></ImageView>
-                        </graphic>
-                    </Button>
-                    <Button mnemonicParsing="false" style="-fx-border-style: none" disable="true">
-                        <graphic>
-                            <ImageView fx:id="imgLast"></ImageView>
-                        </graphic>
-                    </Button>
+                <HBox alignment="BASELINE_CENTER" prefHeight="28.5" prefWidth="533" style="                 -fx-background-color: whitesmoke;                 -fx-border-style: none;">
+                   <children>
+                       <Button disable="true" mnemonicParsing="false" style="-fx-border-style: none">
+                           <graphic>
+                               <ImageView fx:id="imgFirst" />
+                           </graphic>
+                       </Button>
+                       <Button disable="true" mnemonicParsing="false" style="-fx-border-style: none">
+                           <graphic>
+                               <ImageView fx:id="imgPrevious" />
+                           </graphic>
+                       </Button>
+                       <Button disable="true" mnemonicParsing="false" style="-fx-border-style: none">
+                           <graphic>
+                               <ImageView fx:id="imgPlay" />
+                           </graphic>
+                       </Button>
+   <!--                    <Button mnemonicParsing="false" style="-fx-border-style: none" disable="true">-->
+   <!--                        <graphic>-->
+   <!--                            <ImageView fx:id="imgPause"></ImageView>-->
+   <!--                        </graphic>-->
+   <!--                    </Button>-->
+                       <Button disable="true" mnemonicParsing="false" style="-fx-border-style: none">
+                           <graphic>
+                               <ImageView fx:id="imgNext" />
+                           </graphic>
+                       </Button>
+                       <Button disable="true" mnemonicParsing="false" style="-fx-border-style: none">
+                           <graphic>
+                               <ImageView fx:id="imgLast" />
+                           </graphic>
+                       </Button>
+                   </children>
                 </HBox>
+            <GridPane alignment="CENTER" gridLinesVisible="true" layoutY="30.0" prefHeight="555.0" prefWidth="400.0" style="-fx-background-color: green;">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <ImageView fx:id="blackIcon1" fitHeight="70.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <ImageView fx:id="whiteIcon1" fitHeight="70.0" fitWidth="50.0" layoutX="160.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                  <ImageView fx:id="blackIcon2" fitHeight="70.0" fitWidth="50.0" layoutX="210.0" layoutY="299.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                  <ImageView fx:id="whiteIcon2" fitHeight="70.0" fitWidth="50.0" layoutX="10.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+               </children>
+            </GridPane>
+            <ImageView fitHeight="50.0" fitWidth="30.0" layoutX="402.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="50.0" fitWidth="30.0" layoutX="400.0" layoutY="247.0" pickOnBounds="true" preserveRatio="true" />
+            <Text layoutX="432.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 1:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Text layoutX="430.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 2:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Region layoutX="484.0" layoutY="166.0" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: gray;" />
+            <Region layoutX="484.0" layoutY="242.0" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: gray;" />
             </children>
         </Pane>
-    </center>
+   </center>
 
 
 </BorderPane>
