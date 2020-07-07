@@ -6,12 +6,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
 <BorderPane prefHeight="617"
             style="-fx-background-color: darkslategray"
             prefWidth="533"
             xmlns="http://javafx.com/javafx/8.0.111"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="edu.miu.cs.cs525.reversi.controller.BoardUIController">
+
     <top>
         <MenuBar>
             <Menu fx:id="mFile" text="File">
@@ -31,5 +34,46 @@
             </Menu>
         </MenuBar>
     </top>
+    <center>
+        <Pane>
+            <children>
+                <HBox prefHeight="28.5" prefWidth="533" style="
+                -fx-background-color: whitesmoke;
+                -fx-border-style: none;" alignment="BASELINE_CENTER">
+                    <Button mnemonicParsing="false" style="-fx-border-style: none" disable="true">
+                        <graphic>
+                            <ImageView fx:id="imgFirst"></ImageView>
+                        </graphic>
+                    </Button>
+                    <Button mnemonicParsing="false" style="-fx-border-style: none" disable="true">
+                        <graphic>
+                            <ImageView fx:id="imgPrevious"></ImageView>
+                        </graphic>
+                    </Button>
+                    <Button mnemonicParsing="false" style="-fx-border-style: none" disable="true">
+                        <graphic>
+                            <ImageView fx:id="imgPlay"></ImageView>
+                        </graphic>
+                    </Button>
+<!--                    <Button mnemonicParsing="false" style="-fx-border-style: none" disable="true">-->
+<!--                        <graphic>-->
+<!--                            <ImageView fx:id="imgPause"></ImageView>-->
+<!--                        </graphic>-->
+<!--                    </Button>-->
+                    <Button mnemonicParsing="false" style="-fx-border-style: none" disable="true">
+                        <graphic>
+                            <ImageView fx:id="imgNext"></ImageView>
+                        </graphic>
+                    </Button>
+                    <Button mnemonicParsing="false" style="-fx-border-style: none" disable="true">
+                        <graphic>
+                            <ImageView fx:id="imgLast"></ImageView>
+                        </graphic>
+                    </Button>
+                </HBox>
+            </children>
+        </Pane>
+    </center>
+
 
 </BorderPane>

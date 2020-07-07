@@ -39,14 +39,14 @@
                         -fx-font-weight: bold;
                         -fx-border-color: lime;
                         -fx-border-style: double%;
-                        -fx-background-color: aqua" prefWidth="200.0" prefHeight="40.0" layoutX="85.0" layoutY="100.0" BorderPane.alignment="CENTER" onAction="#btnAbout" mnemonicParsing="false" text="About"></Button>
+                        -fx-background-color: aqua" prefWidth="200.0" prefHeight="40.0" layoutX="85.0" layoutY="100.0" BorderPane.alignment="CENTER" onAction="#btnAbout" mnemonicParsing="false" text="About" disable="true"></Button>
                         <Button fx:id="btnRules" style="
                         -fx-text-fill: black;
                         -fx-font-size: 150%;
                         -fx-font-weight: bold;
                         -fx-border-color: lime;
                         -fx-border-style: double%;
-                        -fx-background-color: aqua" prefWidth="200.0" prefHeight="40.0" layoutX="85.0" layoutY="160.0" BorderPane.alignment="CENTER" onAction="#btnRules" mnemonicParsing="false" text="Rules"></Button>
+                        -fx-background-color: aqua" prefWidth="200.0" prefHeight="40.0" layoutX="85.0" layoutY="160.0" BorderPane.alignment="CENTER" onAction="#btnRules" mnemonicParsing="false" text="Rules" disable="true"></Button>
                     </children>
                 </Pane>
             </center>
