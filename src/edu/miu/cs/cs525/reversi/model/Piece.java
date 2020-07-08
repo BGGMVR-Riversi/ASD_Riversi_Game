@@ -4,7 +4,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 
-import static edu.miu.cs.cs525.reversi.view.UIAdaptee.TILE_SIZE;
+import static edu.miu.cs.cs525.reversi.controller.BoardUIController.TILE_SIZE;
 
 public class Piece extends StackPane {
     private PieceType type;

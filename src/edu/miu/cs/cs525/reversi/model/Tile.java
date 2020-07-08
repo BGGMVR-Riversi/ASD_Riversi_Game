@@ -4,10 +4,9 @@ import edu.miu.cs.cs525.reversi.view.UIAdaptee;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import static edu.miu.cs.cs525.reversi.view.UIAdaptee.TILE_SIZE;
+import static edu.miu.cs.cs525.reversi.controller.BoardUIController.TILE_SIZE;
 
 public class Tile extends Rectangle {
-    private UIAdaptee ui;
     private Piece piece;
 
     private double mouseX, mouseY;
