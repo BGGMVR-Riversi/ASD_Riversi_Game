@@ -1,7 +1,6 @@
+package edu.miu.cs.cs525.reversi.monitor ;
+
 import javax.swing.UIManager ;
-
-import edu.miu.cs.cs525.reversi.monitor.MainForm;
-
 import java.awt.* ;
 
 public class Launch
