@@ -4,9 +4,14 @@ import java.awt.* ;
 import java.awt.event.* ;
 import javax.swing.* ;
 
+import edu.miu.cs.cs525.reversi.action_adapters.ChoosePlayerOkActionAdapter;
+import edu.miu.cs.cs525.reversi.action_adapters.ChoosePlayerRadioComputerPlayerActionAdapter;
+import edu.miu.cs.cs525.reversi.action_adapters.ChoosePlayerRadioNetPlayeActionAdapter;
+
 public class ChoosePlayerType extends JDialog
 {
-    JPanel panel1 = new JPanel() ;
+	private static final long serialVersionUID = 1L;
+	JPanel panel1 = new JPanel() ;
     JLabel lblHost = new JLabel() ;
     JLabel lblPort = new JLabel() ;
     JLabel lblPort2 = new JLabel() ;
@@ -57,17 +62,17 @@ public class ChoosePlayerType extends JDialog
         txtPort.setText( "" ) ;
         txtPort2.setText( "" ) ;
         cmdOK.setText( "OK" ) ;
-        cmdOK.addActionListener( new choosePlayerDLG_cmdOK_actionAdapter( this ) ) ;
+        cmdOK.addActionListener( new ChoosePlayerOkActionAdapter( this ) ) ;
 //        radioNetPlayer.setSelected( true ) ;
         radioNetPlayer.setText( "Network Player :" ) ;
-        radioNetPlayer.addActionListener( new choosePlayerDLG_radioNetPlayer_actionAdapter( this ) ) ;
+        radioNetPlayer.addActionListener( new ChoosePlayerRadioNetPlayeActionAdapter( this ) ) ;
         //radioComputerPlayer.addActionListener(new choosePlayerDLG_radioComputerPlayer_actionAdapter(this));
 //        radioComputerPlayer.setEnabled();
         radioComputerPlayer.setSelected(true);
         radioComputerPlayer.setText( "Computer Player" ) ;
         cmdCancel.setActionCommand( "Close" ) ;
         cmdCancel.setText( "Close" ) ;
-        cmdCancel.addActionListener( new choosePlayerDLG_cmdCancel_actionAdapter( this ) ) ;
+        cmdCancel.addActionListener( new ChoosePlayerRadioComputerPlayerActionAdapter( this ) ) ;
         getContentPane().add( panel1 ) ;
         panel1.add( radioNetPlayer, new GridBagConstraints( 0, 0, 1, 1, 0.0, 0.0
             , GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets( 20, 10, 0, 0 ), 0, 0 ) ) ;
@@ -91,11 +96,11 @@ public class ChoosePlayerType extends JDialog
                 , GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets( 0, 0, 0, 0 ), 0, 0 ) ) ;
         bgroup.add( radioNetPlayer ) ;
         bgroup.add( radioComputerPlayer ) ;
-        radioComputerPlayer.addActionListener( new choosePlayerDLG_radioComputerPlayer_actionAdapter( this ) ) ;
+        radioComputerPlayer.addActionListener( new ChoosePlayerRadioComputerPlayerActionAdapter( this ) ) ;
 //        radioComputerPlayer.doClick();
     }
 
-    void cmdOK_actionPerformed( ActionEvent e )
+    public void cmdOK_actionPerformed( ActionEvent e )
     {
         if( radioComputerPlayer.isSelected() ) {
             playerType = COMPUTER_PLAYER ;
@@ -128,7 +133,7 @@ public class ChoosePlayerType extends JDialog
         this.hide() ;
     }
 
-    void radioNetPlayer_actionPerformed( ActionEvent e )
+    public void radioNetPlayer_actionPerformed( ActionEvent e )
     {
         txtHost.setEnabled( true ) ;
         txtPort.setEnabled( true ) ;
@@ -137,7 +142,7 @@ public class ChoosePlayerType extends JDialog
         lblPort.setEnabled( true ) ;
     }
 
-    void radioComputerPlayer_actionPerformed( ActionEvent e )
+    public void radioComputerPlayer_actionPerformed( ActionEvent e )
     {
         radioComputerPlayer.setSelected(true);
         txtHost.setEnabled( false ) ;
@@ -147,72 +152,17 @@ public class ChoosePlayerType extends JDialog
         lblPort.setEnabled( false ) ;
     }
 
-    void cmdCancel_actionPerformed( ActionEvent e )
+    public void cmdCancel_actionPerformed( ActionEvent e )
     {
         playerType = NO_SELECTION ;
         this.dispose() ;
     }
 }
 
-class choosePlayerDLG_cmdOK_actionAdapter implements java.awt.event.ActionListener
-{
-    ChoosePlayerType adaptee ;
 
-    choosePlayerDLG_cmdOK_actionAdapter( ChoosePlayerType adaptee )
-    {
-        this.adaptee = adaptee ;
-    }
 
-    public void actionPerformed( ActionEvent e )
-    {
-        adaptee.cmdOK_actionPerformed( e ) ;
-    }
-}
 
-class choosePlayerDLG_radioNetPlayer_actionAdapter implements java.awt.event.ActionListener
-{
-    ChoosePlayerType adaptee ;
 
-    choosePlayerDLG_radioNetPlayer_actionAdapter( ChoosePlayerType adaptee )
-    {
-        this.adaptee = adaptee ;
-    }
 
-    public void actionPerformed( ActionEvent e )
-    {
-        adaptee.radioNetPlayer_actionPerformed( e ) ;
-    }
-}
 
-class choosePlayerDLG_radioComputerPlayer_actionAdapter implements java.awt.event.ActionListener
-{
-    ChoosePlayerType adaptee ;
 
-    choosePlayerDLG_radioComputerPlayer_actionAdapter( ChoosePlayerType adaptee )
-    {
-    	
-        this.adaptee = adaptee ;
-    }
-
-    public void actionPerformed( ActionEvent e )
-    {
-        adaptee.radioComputerPlayer_actionPerformed( e ) ;
-    }
-    
-    
-}
-
-class choosePlayerDLG_cmdCancel_actionAdapter implements java.awt.event.ActionListener
-{
-    ChoosePlayerType adaptee ;
-
-    choosePlayerDLG_cmdCancel_actionAdapter( ChoosePlayerType adaptee )
-    {
-        this.adaptee = adaptee ;
-    }
-
-    public void actionPerformed( ActionEvent e )
-    {
-        adaptee.cmdCancel_actionPerformed( e ) ;
-    }
-}

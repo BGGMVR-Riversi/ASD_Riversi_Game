@@ -3,13 +3,16 @@ package edu.miu.cs.cs525.reversi.monitor ;
 import java.awt.* ;
 import javax.swing.* ;
 
+import edu.miu.cs.cs525.reversi.action_adapters.MoveListWindowAdapter;
 import edu.miu.cs.cs525.reversi.common.*;
 
 import java.awt.event.* ;
 
 public class MoveList extends JFrame
 {
-    JScrollPane jScrollPane1 = new JScrollPane() ;
+
+	private static final long serialVersionUID = 1L;
+	JScrollPane jScrollPane1 = new JScrollPane() ;
     JTextArea txtList = new JTextArea() ;
     JFrame parent ;
 
@@ -33,14 +36,14 @@ public class MoveList extends JFrame
 
     private void jbInit() throws Exception
     {
-        txtList.setBackground( new Color( 41, 149, 206 ) ) ;
+        txtList.setBackground( new Color( 40, 149, 206 ) ) ;
         txtList.setFont( new java.awt.Font( "Default", 0, 14 ) ) ;
         txtList.setForeground( Color.white ) ;
         txtList.setEditable( false ) ;
         txtList.setMargin( new Insets( 15, 22, 0, 0 ) ) ;
         txtList.setText( "" ) ;
         jScrollPane1.setPreferredSize( new Dimension( 180, 600 ) ) ;
-        this.addWindowListener( new moveList_this_windowAdapter( this ) ) ;
+        this.addWindowListener( new MoveListWindowAdapter( this ) ) ;
         this.setResizable( false ) ;
         this.getContentPane().add( jScrollPane1, BorderLayout.CENTER ) ;
         jScrollPane1.getViewport().add( txtList, null ) ;
@@ -69,24 +72,11 @@ public class MoveList extends JFrame
         txtList.setText( s ) ;
     }
 
-    void this_windowClosing( WindowEvent e )
+    public void this_windowClosing( WindowEvent e )
     {
         ( ( MainForm ) parent ).menuShowMoveList.setState( false ) ;
     }
 
 }
 
-class moveList_this_windowAdapter extends java.awt.event.WindowAdapter
-{
-    MoveList adaptee ;
 
-    moveList_this_windowAdapter( MoveList adaptee )
-    {
-        this.adaptee = adaptee ;
-    }
-
-    public void windowClosing( WindowEvent e )
-    {
-        adaptee.this_windowClosing( e ) ;
-    }
-}
