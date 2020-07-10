@@ -40,9 +40,9 @@ public class NetworkPlayer extends GeneralPlayer {
 			address = new InetSocketAddress(hostAddress, portNumber2);
 			if (b.getStandardFormGame() != null && !b.getStandardFormGame().isEmpty()) {
 				String pos[] = b.getStandardFormGame().split(" ");
-//				System.out.println(hostAddress + " " + pos[pos.length - 1]);
+				// System.out.println(hostAddress + " " + pos[pos.length - 1]);
 				channel.sendTo(address, pos[pos.length - 1]);
-			} 
+			}
 			// channel.run();
 			move.set(channel.receiveFrom());
 
@@ -61,11 +61,13 @@ public class NetworkPlayer extends GeneralPlayer {
 
 	public static void getMove1() {
 		try {
-			channel.start();
-			address = new InetSocketAddress(hostAddress, portNumber2);
-			channel.sendTo(address, "Game over!!!");
-			channel.stop();
-			return;
+			if (hostAddress != null) {
+				channel.start();
+				address = new InetSocketAddress(hostAddress, portNumber2);
+				channel.sendTo(address, "Game over!!!");
+				channel.stop();
+				return;
+			}
 		} catch (IOException e) {
 
 			e.printStackTrace();
