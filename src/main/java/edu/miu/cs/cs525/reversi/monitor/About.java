@@ -4,9 +4,13 @@ import java.awt.* ;
 import java.awt.event.* ;
 import javax.swing.* ;
 
+import edu.miu.cs.cs525.reversi.action_adapters.AboutFormOkButtonActionAdapter;
+
 public class About extends JDialog
 {
-    JPanel mainPanel = new JPanel() ;
+
+	private static final long serialVersionUID = 1L;
+	JPanel mainPanel = new JPanel() ;
     ImageIcon iagnoImg = new ImageIcon() ;
     GridBagLayout gridBagLayout1 = new GridBagLayout() ;
     JButton btnOK = new JButton() ;
@@ -39,7 +43,7 @@ public class About extends JDialog
         setResizable( false ) ;
         mainPanel.setLayout( gridBagLayout1 ) ;
         btnOK.setText( "OK" ) ;
-        btnOK.addActionListener( new aboutForm_btnOK_actionAdapter( this ) ) ;
+        btnOK.addActionListener( new AboutFormOkButtonActionAdapter( this ) ) ;
         lblTitle.setFont( new java.awt.Font( "Default", 1, 30 ) ) ;
         lblTitle.setIcon( iagnoImg ) ;
         lblTitle.setIconTextGap( 15 ) ;
@@ -76,25 +80,10 @@ public class About extends JDialog
         dispose() ;
     }
 
-    void btnOK_actionPerformed( ActionEvent e )
+    public void btnOK_actionPerformed( ActionEvent e )
     {
         cancel() ;
 
     }
 
-}
-
-class aboutForm_btnOK_actionAdapter implements java.awt.event.ActionListener
-{
-    About adaptee ;
-
-    aboutForm_btnOK_actionAdapter( About adaptee )
-    {
-        this.adaptee = adaptee ;
-    }
-
-    public void actionPerformed( ActionEvent e )
-    {
-        adaptee.btnOK_actionPerformed( e ) ;
-    }
 }
