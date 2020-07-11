@@ -1,18 +1,19 @@
 package main.java.edu.miu.cs.cs525.reversi.network;
 
 public class JsonData {
+	private Integer x;
+	private Integer y;
+	private Integer row;
+	private Integer col;
+	
 	public void setX(Integer x) {
 		this.x = x;
 	}
-
-	private Integer x;
-	private String row;
-
-	public String getRow() {
+	public Integer getRow() {
 		return row;
 	}
 
-	public void setRow(String row) {
+	public void setRow(Integer row) {
 		this.row = row;
 	}
 
@@ -23,8 +24,6 @@ public class JsonData {
 	public void setCol(Integer col) {
 		this.col = col;
 	}
-
-	private Integer col;
 
 	public Integer getX() {
 		return x;
@@ -38,5 +37,5 @@ public class JsonData {
 		this.y = y;
 	}
 
-	private Integer y;
+	
 }
