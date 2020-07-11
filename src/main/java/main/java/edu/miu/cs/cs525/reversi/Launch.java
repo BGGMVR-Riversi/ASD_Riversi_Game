@@ -19,6 +19,7 @@ public class Launch
         catch( Exception e ) {
             e.printStackTrace() ;
         }
+        ReversiSingleton.getInstance();
         new Launch() ;
     }
     boolean packFrame = false ;
