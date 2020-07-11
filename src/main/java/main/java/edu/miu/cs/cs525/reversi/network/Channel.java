@@ -1,5 +1,7 @@
 package main.java.edu.miu.cs.cs525.reversi.network;
 
+import main.java.edu.miu.cs.cs525.reversi.utils.Utils;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -17,6 +19,7 @@ public class Channel implements Runnable {
 	private DatagramSocket socket;
 	private TargetJson targetJson = new JsonAdapter();
 	AdapteeJson adapteeJson= new AdapteeJson();
+	Utils utils = new Utils();
 
 	public void bind(int port) throws SocketException {
 		socket = new DatagramSocket(port);
@@ -67,7 +70,7 @@ public class Channel implements Runnable {
 		System.out.println("B "+pos);
 		int y=Character.getNumericValue(positions[1])-1;
 		
-		String jsonInputString = "{\"x\":"+adapteeJson.charToInt(positions[0])+",\"y\":"+y+"}";
+		String jsonInputString = "{\"x\":"+utils.charToInt(positions[0])+",\"y\":"+y+"}";
 		System.out.println("C "+jsonInputString);
 		StringBuilder response = new StringBuilder();
 		byte[] postDataBytes = jsonInputString.toString().getBytes("UTF-8");
