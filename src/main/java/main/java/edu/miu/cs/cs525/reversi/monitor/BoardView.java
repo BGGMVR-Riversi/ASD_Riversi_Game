@@ -5,6 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardViewPBMTimerActionAdapter;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardView_this_mouseAdapter;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardView_timer_actionAdapter;
@@ -25,6 +26,8 @@ public class BoardView extends JPanel {
 	public Timer timer;
 	public Timer pauseBeforeMoveTimer;
 	public JLabel statusBar = new JLabel();
+	public JLabel lblScoreBlack = new JLabel();
+	public JLabel lblScoreWhite = new JLabel();
 	TitledBorder titledBorder1;
 	BorderLayout borderLayout1 = new BorderLayout();
 	public MoveList mlPointer;
@@ -96,8 +99,16 @@ public class BoardView extends JPanel {
 		}
 		String s = board.getTurnString();
 		s += " ( ";
-		s += board.getPieceCount(board.PLAYER_BLACK) + " : ";
-		s += board.getPieceCount(board.PLAYER_WHITE);
+		lblScoreBlack.setText("Score: " + board.getPieceCount(board.PLAYER_BLACK));
+		lblScoreBlack.setForeground(ReversiSingleton.aqua);
+		ReversiSingleton.leftSidePane.add(lblScoreBlack);
+
+		lblScoreWhite.setText("Score: " + board.getPieceCount(board.PLAYER_WHITE));
+		lblScoreWhite.setForeground(ReversiSingleton.aqua);
+		ReversiSingleton.rightSidePane.add(lblScoreWhite);
+
+		ReversiSingleton.leftSidePane.add(ReversiSingleton.blackTurn);
+		ReversiSingleton.rightSidePane.add(ReversiSingleton.whiteTurn);
 		s += " ) ";
 		statusBar.setText(s);
 		if (gamePaused) {
@@ -118,7 +129,6 @@ public class BoardView extends JPanel {
 			return;
 		}
 		if (!board.isValidMove(move.r, move.c)) {
-			System.err.println("Please try again it is not valid position! "+"row "+move.r+" Col "+move.c);
 			return;
 		}
 		am = board.calculateMoveAnimation(move.r, move.c);

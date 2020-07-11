@@ -1,5 +1,8 @@
 package main.java.edu.miu.cs.cs525.reversi.common ;
 
+import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
+import main.java.edu.miu.cs.cs525.reversi.monitor.ShowCurrentPlayer;
+
 public class BoardInfo
 {
     public static int ROW_COUNT = 8 ;
@@ -47,6 +50,10 @@ public class BoardInfo
         moveCount = src.moveCount ;
         validMoveCount = src.validMoveCount ;
     }
+    
+    public void changePlayer (ShowCurrentPlayer showCurrentPlayer){
+        ReversiSingleton.showCurrentPlayer = showCurrentPlayer;
+    }
 
     public static void copyBoard( int[][] src, int[][] dest )
     {
@@ -78,7 +85,7 @@ public class BoardInfo
         b[3][4] = PLAYER_BLACK ;
         b[4][4] = PLAYER_WHITE ;
         b[4][3] = PLAYER_BLACK ;
-        turn = PLAYER_BLACK ;
+        turn = PLAYER_WHITE ;
     }
 
     private void goInADir( AnimationMatrix am, int rS, int cS, int rD, int cD )
@@ -200,9 +207,13 @@ public class BoardInfo
     public String getTurnString()
     {
         if( turn == PLAYER_BLACK ) {
+        	changePlayer(ReversiSingleton.blackPlayer);
+            ReversiSingleton.showCurrentPlayer.display();
             return "Black's Turn" ;
         }
         else if( turn == PLAYER_WHITE ) {
+        	changePlayer(ReversiSingleton.whitePlayer);
+            ReversiSingleton.showCurrentPlayer.display();
             return "White's Turn" ;
         }
         else if( turn == NO_GAME ) {

@@ -3,6 +3,7 @@ package main.java.edu.miu.cs.cs525.reversi.monitor ;
 import java.awt.* ;
 import javax.swing.* ;
 
+import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.MoveListWindowAdapter;
 import main.java.edu.miu.cs.cs525.reversi.common.*;
 
@@ -36,9 +37,9 @@ public class MoveList extends JFrame
 
     private void jbInit() throws Exception
     {
-        txtList.setBackground( new Color( 40, 149, 206 ) ) ;
+        txtList.setBackground( ReversiSingleton.darkGray ) ;
         txtList.setFont( new java.awt.Font( "Default", 0, 14 ) ) ;
-        txtList.setForeground( Color.white ) ;
+        txtList.setForeground( ReversiSingleton.aqua) ;
         txtList.setEditable( false ) ;
         txtList.setMargin( new Insets( 15, 22, 0, 0 ) ) ;
         txtList.setText( "" ) ;
