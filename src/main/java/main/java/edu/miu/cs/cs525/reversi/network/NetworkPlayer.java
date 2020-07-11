@@ -45,14 +45,15 @@ public class NetworkPlayer extends GeneralPlayer {
 					if (targetJson.isJson(result)) {
 						System.out.println("AdapteeReceived: " + targetJson.JsontoString(result));
 						move.set(targetJson.JsontoString(result));
+						return move;
 					}
 
 				} else {
 					channel.sendTo(address, pos[pos.length - 1]);
-					move.set(channel.receiveFrom());
 				}
 				
 			}
+			move.set(channel.receiveFrom());
 			return move;
 		} catch (IOException e) {
 			channel.stop();

@@ -29,7 +29,7 @@ public class AdapteeJson {
     public String JsonString(String str){
         JsonData data = new Gson().fromJson(str, JsonData.class);
 
-        String result = util.intToString(data.getX())+(data.getY()+1);
+        String result = util.intToString(data.getRow())+(data.getCol()+1);
         return  result;
 
     }

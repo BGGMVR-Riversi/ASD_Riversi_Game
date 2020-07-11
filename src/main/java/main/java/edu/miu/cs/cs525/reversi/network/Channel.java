@@ -48,7 +48,7 @@ public class Channel implements Runnable {
 	public String receiveFrom() throws IOException {
 		byte[] buffer = new byte[1024];
 		DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
-		System.out.println(packet);
+	//	System.out.println("Recieved packet: "+packet);
 		socket.receive(packet);
 		String packetString = new String(buffer, 0, packet.getLength());
 		if (targetJson.isJson(packetString)){

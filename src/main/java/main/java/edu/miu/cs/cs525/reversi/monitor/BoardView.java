@@ -118,6 +118,7 @@ public class BoardView extends JPanel {
 			return;
 		}
 		if (!board.isValidMove(move.r, move.c)) {
+			System.err.println("Please try again it is not valid position! "+"row "+move.r+" Col "+move.c);
 			return;
 		}
 		am = board.calculateMoveAnimation(move.r, move.c);
