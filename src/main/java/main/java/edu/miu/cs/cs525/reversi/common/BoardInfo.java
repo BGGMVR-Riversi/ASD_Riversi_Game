@@ -85,7 +85,7 @@ public class BoardInfo
         b[3][4] = PLAYER_BLACK ;
         b[4][4] = PLAYER_WHITE ;
         b[4][3] = PLAYER_BLACK ;
-        turn = PLAYER_WHITE ;
+        turn = PLAYER_BLACK ;
     }
 
     private void goInADir( AnimationMatrix am, int rS, int cS, int rD, int cD )
