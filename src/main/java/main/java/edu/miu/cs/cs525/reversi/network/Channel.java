@@ -1,5 +1,7 @@
 package main.java.edu.miu.cs.cs525.reversi.network;
 
+import main.java.edu.miu.cs.cs525.reversi.utils.Utils;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,13 +12,17 @@ import java.net.DatagramSocket;
 import java.net.SocketAddress;
 import java.net.SocketException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
 public class Channel implements Runnable {
 	private DatagramSocket socket;
 	private TargetJson targetJson = new JsonAdapter();
-	AdapteeJson adapteeJson= new AdapteeJson();
+	AdapteeJson adapteeJson = new AdapteeJson();
+	Utils utils = new Utils();
 
 	public void bind(int port) throws SocketException {
 		socket = new DatagramSocket(port);
@@ -41,14 +47,14 @@ public class Channel implements Runnable {
 		System.out.println("Sent: " + msg);
 		socket.send(packet);
 	}
-	
+
 	public String receiveFrom() throws IOException {
 		byte[] buffer = new byte[1024];
 		DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
-		System.out.println(packet);
+		// System.out.println("Recieved packet: "+packet);
 		socket.receive(packet);
 		String packetString = new String(buffer, 0, packet.getLength());
-		if (targetJson.isJson(packetString)){
+		if (targetJson.isJson(packetString)) {
 			System.out.println("AdapteeReceived: " + targetJson.JsontoString(packetString));
 			return targetJson.JsontoString(packetString);
 		}
@@ -56,26 +62,26 @@ public class Channel implements Runnable {
 		System.out.println("Received: " + msg);
 		return new String(buffer, 0, packet.getLength());
 	}
-	
-	
-	public String postRequest(URL url, String requestMethod, String pos) throws UnsupportedEncodingException, IOException {
+
+	public String postRequest(URL url, String requestMethod, String pos)
+			throws UnsupportedEncodingException, IOException {
 		HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
 		connection.setRequestMethod(requestMethod);
 		connection.setRequestProperty("Content-Type", "application/json; utf-8");
 		connection.setRequestProperty("Accept", "application/json");
-		char[] positions= pos.toCharArray();
-		System.out.println("B "+pos);
-		int y=Character.getNumericValue(positions[1])-1;
-		
-		String jsonInputString = "{\"x\":"+adapteeJson.charToInt(positions[0])+",\"y\":"+y+"}";
-		System.out.println("C "+jsonInputString);
+		char[] positions = pos.toCharArray();
+		System.out.println("B " + pos);
+		int y = Character.getNumericValue(positions[1]) - 1;
+
+		String jsonInputString = "{\"row\":" + utils.charToInt(positions[0]) + ",\"col\":" + y + "}";
+		System.out.println("C " + jsonInputString);
 		StringBuilder response = new StringBuilder();
 		byte[] postDataBytes = jsonInputString.toString().getBytes("UTF-8");
 		connection.setDoOutput(true);
 		try (DataOutputStream writer = new DataOutputStream(connection.getOutputStream())) {
 			DatagramPacket packet = new DatagramPacket(postDataBytes, postDataBytes.length);
 			String msg = new String(postDataBytes, 0, packet.getLength());
-			System.out.println("Sending: "+msg);
+			System.out.println("Sending: " + msg);
 			writer.write(postDataBytes);
 			writer.flush();
 			writer.close();
@@ -85,7 +91,54 @@ public class Channel implements Runnable {
 				while ((responseLine = br.readLine()) != null) {
 					response.append(responseLine.trim());
 				}
-				System.out.println("Receiving"+response.toString());
+				System.out.println("Receiving" + response.toString());
+			}
+		} finally {
+			connection.disconnect();
+		}
+		return response.toString();
+	}
+
+	public String getRequestTeam3(URL url, String requestMethod, String pos)
+			throws UnsupportedEncodingException, IOException {
+		HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+		connection.setRequestMethod(requestMethod);
+		connection.setRequestProperty("Content-Type", "application/json; utf-8");
+		connection.setRequestProperty("Accept", "application/json");
+		Map<String, String> params = new HashMap<>();
+		char[] positions = pos.toCharArray();
+		params.put("x", Character.toString(positions[0]));
+		params.put("y", Character.toString(positions[1]));
+
+		StringBuilder postData = new StringBuilder();
+		for (Map.Entry<String, String> param : params.entrySet()) {
+			if (postData.length() != 0) {
+				postData.append('&');
+			}
+			postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+			postData.append('=');
+			postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+		}
+
+		// String jsonInputString = "{\"x\":4,\"y\":2}";
+		StringBuilder response = new StringBuilder();
+
+		byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+		connection.setDoOutput(true);
+		try (DataOutputStream writer = new DataOutputStream(connection.getOutputStream())) {
+			DatagramPacket packet = new DatagramPacket(postDataBytes, postDataBytes.length);
+			String msg = new String(postDataBytes, 0, packet.getLength());
+
+			System.out.println(msg);
+			writer.write(postDataBytes);
+			writer.flush();
+			writer.close();
+			try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"))) {
+				String responseLine = null;
+				while ((responseLine = br.readLine()) != null) {
+					response.append(responseLine.trim());
+				}
+				System.out.println(response.toString());
 			}
 		} finally {
 			connection.disconnect();
