@@ -37,9 +37,9 @@ public class MoveList extends JFrame
 
     private void jbInit() throws Exception
     {
-        txtList.setBackground( ReversiSingleton.darkGray ) ;
+        txtList.setBackground( ReversiSingleton.getDarkGray() ) ;
         txtList.setFont( new java.awt.Font( "Default", 0, 14 ) ) ;
-        txtList.setForeground( ReversiSingleton.aqua) ;
+        txtList.setForeground( ReversiSingleton.getAqua()) ;
         txtList.setEditable( false ) ;
         txtList.setMargin( new Insets( 15, 22, 0, 0 ) ) ;
         txtList.setText( "" ) ;
