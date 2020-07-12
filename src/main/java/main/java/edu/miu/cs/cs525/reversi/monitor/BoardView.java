@@ -183,6 +183,8 @@ public class BoardView extends JPanel {
 				int p2 = board.getPieceCount(board.PLAYER_WHITE);
 				s += " ( ";
 				s += p1 + " : " + p2;
+				lblScoreBlack.setText("Score: " + p1);
+				lblScoreWhite.setText("Score: " + p2);
 				s += " ) ";
 				if (p1 == p2 && board.turn == board.PLAYER_BLACK) {
 					s += " It's a Draw ! ";
@@ -194,13 +196,12 @@ public class BoardView extends JPanel {
 
 				} else if (p1 > p2) {
 					s += " Black is Winner ! ";
-					lblScoreBlack.setText("Score: " + p1);
 					ReversiSingleton.setCurrentPlayer(new BlackPlayer());
 					ReversiSingleton.getCurrentPlayer().winner();
 					playerBPointer.getMove(board);
 				} else {
 					s += " White is Winner ! ";
-					lblScoreWhite.setText("Score: " + p2);
+					System.out.println(p2);
 					ReversiSingleton.setCurrentPlayer(new WhitePlayer());
 					ReversiSingleton.getWinner();
 					playerWPointer.getMove(board);
