@@ -27,7 +27,7 @@ public class EndStrategy implements MoveStrategy {
                 }
             }
         }else {
-            NetworkPlayer.getMove1();
+            NetworkPlayer.getEndMove();
         }
         return move;
     }
