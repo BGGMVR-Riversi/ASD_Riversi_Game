@@ -21,8 +21,9 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JToolBar;
 
 import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
+import main.java.edu.miu.cs.cs525.reversi.action_adapters.ActionEventFactory;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardViewToolBarActionAdapter;
-import main.java.edu.miu.cs.cs525.reversi.action_adapters.ChoosePlayerOkActionAdapter;
+import main.java.edu.miu.cs.cs525.reversi.action_adapters.ChoosePlayerOkAction;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.MainFormMenuActionAdapter;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.MainFormWindowAdapter;
 import main.java.edu.miu.cs.cs525.reversi.network.NetworkPlayer;
@@ -342,7 +343,8 @@ public class MainForm extends JFrame {
 			contents.playerBPointer = new ComputerPlayer();
 			dlg.radioComputerPlayer_actionPerformed(e);
 			dlg.radioComputerPlayer.setSelected(true);
-			dlg.radioComputerPlayer.addActionListener(new ChoosePlayerOkActionAdapter(dlg));
+			ActionEventFactory.getActionPerformed("ChoosePlayerOkAction");
+			dlg.radioComputerPlayer.addActionListener(ActionEventFactory.ac.initializeInstance(dlg));
 			dlg.radioComputerPlayer.doClick();
 		}
 		contents.updateTurn();
@@ -377,7 +379,8 @@ public class MainForm extends JFrame {
 			contents.playerWPointer = new ComputerPlayer();
 			dlg.radioComputerPlayer_actionPerformed(e);
 			dlg.radioComputerPlayer.setSelected(true);
-			dlg.radioComputerPlayer.addActionListener(new ChoosePlayerOkActionAdapter(dlg));
+			ActionEventFactory.getActionPerformed("ChoosePlayerOkAction");
+			dlg.radioComputerPlayer.addActionListener(ActionEventFactory.ac.initializeInstance(dlg));
 			dlg.radioComputerPlayer.doClick();
 
 		}
