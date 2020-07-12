@@ -117,8 +117,10 @@ public class BoardView extends JPanel {
 		}
 		if (board.turn == board.PLAYER_BLACK && playerBPointer != null) {
 			pauseBeforeMoveTimer.start();
+			System.out.println("A updateTurn Getting called always");
 		} else if (board.turn == board.PLAYER_WHITE && playerWPointer != null) {
 			pauseBeforeMoveTimer.start();
+			System.out.println("B updateTurn Getting called always");
 		}
 	}
 
@@ -165,8 +167,10 @@ public class BoardView extends JPanel {
 		pauseBeforeMoveTimer.stop();
 		if (board.turn == board.PLAYER_BLACK && playerBPointer != null) {
 			startMove(playerBPointer.getMove(board));
+			pauseBeforeMoveTimer.stop();
 		} else if (board.turn == board.PLAYER_WHITE && playerWPointer != null) {
 			startMove(playerWPointer.getMove(board));
+			pauseBeforeMoveTimer.stop();
 		}
 	}
 
@@ -210,7 +214,7 @@ public class BoardView extends JPanel {
 				if (mlPointer != null) {
 					mlPointer.updateMoveList(board);
 				}
-
+				System.out.println("This part should get called only when the game is over");
 			} else {
 				updateTurn();
 			}

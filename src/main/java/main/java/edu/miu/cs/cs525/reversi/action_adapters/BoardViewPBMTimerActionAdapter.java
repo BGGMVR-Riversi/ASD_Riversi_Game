@@ -4,8 +4,7 @@ import java.awt.event.ActionEvent;
 
 import main.java.edu.miu.cs.cs525.reversi.monitor.BoardView;
 
-public 
-class BoardViewPBMTimerActionAdapter implements java.awt.event.ActionListener
+public class BoardViewPBMTimerActionAdapter implements java.awt.event.ActionListener
 {
     BoardView adaptee ;
 

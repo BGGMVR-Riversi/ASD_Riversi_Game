@@ -68,11 +68,11 @@ public class Channel implements Runnable {
 		connection.setRequestProperty("Content-Type", "application/json; utf-8");
 		connection.setRequestProperty("Accept", "application/json");
 		char[] positions = pos.toCharArray();
-		System.out.println("B " + pos);
+		System.out.println("Channel postRequest " + pos);
 		int y = Character.getNumericValue(positions[1]) - 1;
 
 		String jsonInputString = "{\"row\":" + utils.charToInt(positions[0]) + ",\"col\":" + y + "}";
-		System.out.println("C " + jsonInputString);
+		System.out.println("postRequest jsonInputString " + jsonInputString);
 		StringBuilder response = new StringBuilder();
 		byte[] postDataBytes = jsonInputString.toString().getBytes("UTF-8");
 		connection.setDoOutput(true);

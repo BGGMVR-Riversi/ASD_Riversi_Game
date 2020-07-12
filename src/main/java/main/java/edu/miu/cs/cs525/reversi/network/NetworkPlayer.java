@@ -40,10 +40,9 @@ public class NetworkPlayer extends GeneralPlayer {
 			address = new InetSocketAddress(hostAddress, portNumber2);
 			if (b.getStandardFormGame() != null && !b.getStandardFormGame().isEmpty()) {
 				String pos[] = b.getStandardFormGame().split(" ");
-				// System.out.println("A "+hostAddress);
 				if (hostAddress.startsWith("https://")) {
 					String result = channel.postRequest(new URL(hostAddress), "POST", pos[pos.length - 1]);
-					System.out.println("B " + result);
+					System.out.println("getMove network getMove " + result);
 					if (targetJson.isJson(result)) {
 						System.out.println("AdapteeReceived: " + targetJson.JsontoString(result));
 						move.set(targetJson.JsontoString(result));
