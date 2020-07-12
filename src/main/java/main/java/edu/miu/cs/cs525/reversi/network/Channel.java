@@ -70,8 +70,9 @@ public class Channel implements Runnable {
 		char[] positions = pos.toCharArray();
 		System.out.println("B " + pos);
 		int y = Character.getNumericValue(positions[1]) - 1;
-
-		String jsonInputString = "{\"row\":" + utils.charToInt(positions[0]) + ",\"col\":" + y + "}";
+		//both  ways can be used for differnet board views or similar for team1
+		//String jsonInputString = "{\"row\":" + utils.charToInt(positions[0]) + ",\"col\":" + y + "}";
+        String jsonInputString = "{\"row\":" + y + ",\"col\":" + utils.charToInt(positions[0]) + "}";
 		System.out.println("C " + jsonInputString);
 		StringBuilder response = new StringBuilder();
 		byte[] postDataBytes = jsonInputString.toString().getBytes("UTF-8");
