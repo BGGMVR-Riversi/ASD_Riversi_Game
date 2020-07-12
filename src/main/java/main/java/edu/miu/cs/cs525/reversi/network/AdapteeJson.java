@@ -8,7 +8,6 @@ import org.json.JSONObject;
 
 
 public class AdapteeJson {
-    private  final Gson gson = new Gson();
     Utils util = new Utils();
     public boolean isJson(String jsonInString){
 
@@ -28,8 +27,9 @@ public class AdapteeJson {
     }
     public String JsonString(String str){
         JsonData data = new Gson().fromJson(str, JsonData.class);
-
-        String result = util.intToString(data.getRow())+(data.getCol()+1);
+        //We removed this to match with team 2
+      //  String result = util.intToString(data.getRow())+(data.getCol()+1);
+        String result = util.intToString(data.getX())+(data.getY()+1);
         return  result;
 
     }

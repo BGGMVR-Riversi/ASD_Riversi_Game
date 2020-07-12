@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.HttpURLConnection;
 import java.net.SocketAddress;
 import java.net.SocketException;
 import java.net.URL;
@@ -99,50 +100,24 @@ public class Channel implements Runnable {
 		return response.toString();
 	}
 
-	public String getRequestTeam3(URL url, String requestMethod, String pos)
+	public String getRequestTeam2(URL url, String requestMethod)
 			throws UnsupportedEncodingException, IOException {
-		HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		connection.setRequestMethod(requestMethod);
 		connection.setRequestProperty("Content-Type", "application/json; utf-8");
 		connection.setRequestProperty("Accept", "application/json");
-		Map<String, String> params = new HashMap<>();
-		char[] positions = pos.toCharArray();
-		params.put("x", Character.toString(positions[0]));
-		params.put("y", Character.toString(positions[1]));
-
-		StringBuilder postData = new StringBuilder();
-		for (Map.Entry<String, String> param : params.entrySet()) {
-			if (postData.length() != 0) {
-				postData.append('&');
-			}
-			postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
-			postData.append('=');
-			postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
-		}
-
-		// String jsonInputString = "{\"x\":4,\"y\":2}";
-		StringBuilder response = new StringBuilder();
-
-		byte[] postDataBytes = postData.toString().getBytes("UTF-8");
-		connection.setDoOutput(true);
-		try (DataOutputStream writer = new DataOutputStream(connection.getOutputStream())) {
-			DatagramPacket packet = new DatagramPacket(postDataBytes, postDataBytes.length);
-			String msg = new String(postDataBytes, 0, packet.getLength());
-
-			System.out.println(msg);
-			writer.write(postDataBytes);
-			writer.flush();
-			writer.close();
-			try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"))) {
-				String responseLine = null;
-				while ((responseLine = br.readLine()) != null) {
-					response.append(responseLine.trim());
-				}
-				System.out.println(response.toString());
-			}
+		StringBuilder content = new StringBuilder();
+		try (BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+		    String line;
+		    content = new StringBuilder();
+		    while ((line = input.readLine()) != null) {
+		        // Append each line of the response and separate them
+		        content.append(line);
+		        content.append(System.lineSeparator());
+		    }
 		} finally {
-			connection.disconnect();
+		    connection.disconnect();
 		}
-		return response.toString();
+		return content.toString();
 	}
 }
