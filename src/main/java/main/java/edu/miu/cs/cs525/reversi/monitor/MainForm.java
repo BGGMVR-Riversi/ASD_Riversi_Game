@@ -24,6 +24,7 @@ import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardViewToolBarActionAdapter;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.ChoosePlayerOkActionAdapter;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.MainFormMenuActionAdapter;
+import main.java.edu.miu.cs.cs525.reversi.action_adapters.MainFormWindowAdapter;
 import main.java.edu.miu.cs.cs525.reversi.network.NetworkPlayer;
 
 public class MainForm extends JFrame {
@@ -105,6 +106,7 @@ public class MainForm extends JFrame {
 		this.setResizable(false);
 		this.setSize(new Dimension(636 + 60, 543 + 95));
 		this.setTitle("Java Othello / Reversi");
+		this.addWindowListener(new MainFormWindowAdapter(this));
 		menuGameNew.setIcon(newGameIcon);
 		menuGameNew.addActionListener(new MainFormMenuActionAdapter(this, "GameNew"));
 		menuGameExit.setIcon(exitGameIcon);
@@ -330,11 +332,11 @@ public class MainForm extends JFrame {
 			try {
 				String id = ((NetworkPlayer) contents.playerBPointer).identify();
 				menuBlackPlayerComputer.setText(id + " @ ( " + dlg.hostAddress + ":" + dlg.portNumber + " )");
-				// ReversiSingleton.txtTeam4=dlg.hostAddress ;
+//				ReversiSingleton.txtTeam4=dlg.hostAddress ;
 			} catch (Exception exc) {
 			}
 		} else if (contents.playerBPointer == null) {
-			// Here we need to put the old code
+			//Here we need to put the old code
 			menuBlackPlayerComputer.setSelected(true);
 			menuBlackPlayerComputer.setEnabled(true);
 			contents.playerBPointer = new ComputerPlayer();
@@ -345,8 +347,7 @@ public class MainForm extends JFrame {
 		}
 		contents.updateTurn();
 	}
-
-	// Here we need to put the old code
+	//Here we need to put the old code
 	public void menuBlackPlayerHuman_actionPerformed(ActionEvent e) {
 		menuBlackPlayerHuman.setText("Human");
 	}
@@ -370,7 +371,7 @@ public class MainForm extends JFrame {
 			} catch (Exception exc) {
 			}
 		} else if (contents.playerWPointer == null) {
-			// Here we need to put the old code
+			//Here we need to put the old code
 			menuWhitePlayerComputer.setSelected(true);
 			menuWhitePlayerComputer.setEnabled(true);
 			contents.playerWPointer = new ComputerPlayer();
@@ -384,7 +385,7 @@ public class MainForm extends JFrame {
 	}
 
 	public void menuWhitePlayerHuman_actionPerformed(ActionEvent e) {
-		// Here we need to put the old code
+		//Here we need to put the old code
 		menuWhitePlayerHuman.setText("Human");
 	}
 
@@ -396,4 +397,13 @@ public class MainForm extends JFrame {
 		ml.setVisible(menuShowMoveList.getState());
 		repaint();
 	}
+
+	public void this_windowOpened(WindowEvent e) {
+		Dimension frmSize = getSize();
+		Point l = this.getLocationOnScreen();
+		ml.setLocation(l.x + frmSize.width, l.y);
+		ml.show();
+		this.toFront();
+	}
 }
+

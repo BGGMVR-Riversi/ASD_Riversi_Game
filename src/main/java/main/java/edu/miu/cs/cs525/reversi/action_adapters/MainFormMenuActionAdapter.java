@@ -38,6 +38,8 @@ public class MainFormMenuActionAdapter implements ActionListener {
 			adaptee.menuHelpAbout_actionPerformed(e);
 		} else if (menuItem.equals("SpeedItems")) {
 			adaptee.menuSpeedItems_actionPerformed(e, n);
+		}else if (menuItem.equals("ShowMoveList")) {
+			adaptee.menuShowMoveList_actionPerformed(e);
 		}
 	}
 }
