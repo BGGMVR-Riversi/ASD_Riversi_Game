@@ -83,7 +83,7 @@ public class MainForm extends JFrame {
 	ImageIcon aboutImg = new ImageIcon();
 	ImageIcon exitGameImg = new ImageIcon();
 	
-	JLabel lblTeam4 = new JLabel(ReversiSingleton.txtTeam4);
+	JLabel lblTeam4 = new JLabel("Team 4");
 	JLabel lblOrForBlack = new JLabel("or");
 	JLabel lblBlackPlayer = new JLabel("Black Player");
 	JLabel lblOtherTeam = new JLabel("Other Team");
@@ -200,26 +200,26 @@ public class MainForm extends JFrame {
 		toolBar.add(nextButton);
 		toolBar.add(lastButton);
 		
-		lblTeam4.setForeground(ReversiSingleton.aqua);
-		lblOrForBlack.setForeground(ReversiSingleton.aqua);
-		lblBlackPlayer.setForeground(ReversiSingleton.aqua);
-		lblWhitePlayer.setForeground(ReversiSingleton.aqua);
-		lblOrForWhite.setForeground(ReversiSingleton.aqua);
-		lblOtherTeam.setForeground(ReversiSingleton.aqua);
+		lblTeam4.setForeground(ReversiSingleton.getAqua());
+		lblOrForBlack.setForeground(ReversiSingleton.getAqua());
+		lblBlackPlayer.setForeground(ReversiSingleton.getAqua());
+		lblWhitePlayer.setForeground(ReversiSingleton.getAqua());
+		lblOrForWhite.setForeground(ReversiSingleton.getAqua());
+		lblOtherTeam.setForeground(ReversiSingleton.getAqua());
 		
-		ReversiSingleton.leftSidePane.add(lblTeam4);
-		ReversiSingleton.leftSidePane.add(lblOrForBlack);
-		ReversiSingleton.leftSidePane.add(lblBlackPlayer);
-		ReversiSingleton.rightSidePane.add(lblOtherTeam);
-		ReversiSingleton.rightSidePane.add(lblOrForWhite);
-		ReversiSingleton.rightSidePane.add(lblWhitePlayer);
+		ReversiSingleton.getLeftPane().add(lblTeam4);
+		ReversiSingleton.getLeftPane().add(lblOrForBlack);
+		ReversiSingleton.getLeftPane().add(lblBlackPlayer);
+		ReversiSingleton.getRightPane().add(lblOtherTeam);
+		ReversiSingleton.getRightPane().add(lblOrForWhite);
+		ReversiSingleton.getRightPane().add(lblWhitePlayer);
 		
 		contentPane.add(toolBar, BorderLayout.NORTH);
 		ml = new MoveList("Move List", this);
 		contents = new BoardView(ml, this, 1);
-		contentPane.add(ReversiSingleton.leftSidePane, BorderLayout.WEST);
+		contentPane.add(ReversiSingleton.getLeftPane(), BorderLayout.WEST);
 		contentPane.add(contents, BorderLayout.CENTER);
-		contentPane.add(ReversiSingleton.rightSidePane, BorderLayout.EAST);
+		contentPane.add(ReversiSingleton.getRightPane(), BorderLayout.EAST);
 	}
 
 	public void continueGame() {
@@ -341,7 +341,7 @@ public class MainForm extends JFrame {
 			try {
 				String id = ((NetworkPlayer) contents.playerBPointer).identify();
 				menuBlackPlayerComputer.setText(id + " @ ( " + dlg.hostAddress + ":" + dlg.portNumber + " )");
-				ReversiSingleton.txtTeam4=dlg.hostAddress ;
+//				ReversiSingleton.txtTeam4=dlg.hostAddress ;
 			} catch (Exception exc) {
 			}
 		} else if (contents.playerBPointer == null) {

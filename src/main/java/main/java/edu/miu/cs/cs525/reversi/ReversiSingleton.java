@@ -13,23 +13,23 @@ import main.java.edu.miu.cs.cs525.reversi.monitor.WhitePlayer;
 public class ReversiSingleton {
 	
 	private static ReversiSingleton reversiSingletonObj;
-    public static ShowCurrentPlayer showCurrentPlayer;
+    private static ShowCurrentPlayer showCurrentPlayer;
 
     // Create Colors
-    public static Color darkGray;
-    public static Color aqua;
+    private static Color darkGray;
+    private static Color aqua;
     
-    public static String txtTeam4;
+//    private static String txtTeam4;
     
     // Left Side Pane
-    public static JPanel leftSidePane;
-    public static JLabel blackTurn;
-    public static BlackPlayer blackPlayer;
+    private static JPanel leftSidePane;
+    private static JLabel blackTurn;
+    private static BlackPlayer blackPlayer;
 
     // Right Side Pane
-    public static JPanel rightSidePane;
-    public static JLabel whiteTurn;
-    public static WhitePlayer whitePlayer;
+    private static JPanel rightSidePane;
+    private static JLabel whiteTurn;
+    private static WhitePlayer whitePlayer;
 
     private ReversiSingleton(){}
 
@@ -39,7 +39,7 @@ public class ReversiSingleton {
                 if(reversiSingletonObj == null){
                     reversiSingletonObj = new ReversiSingleton();
                     showCurrentPlayer = new BlackPlayer();
-                    txtTeam4 = "Team 4";
+//                    txtTeam4 = "Team 4";
 
                     darkGray = new Color(47,79,79);
                     aqua = new Color(0, 255, 255);
@@ -63,5 +63,44 @@ public class ReversiSingleton {
         }
         return reversiSingletonObj;
     }
-
+    
+    public static ShowCurrentPlayer getCurrentPlayer() {
+    	return showCurrentPlayer;
+    }
+    
+    public static void setCurrentPlayer(ShowCurrentPlayer showCurrentPlayer) {
+    	ReversiSingleton.showCurrentPlayer = showCurrentPlayer;
+    }
+    
+    public static BlackPlayer getBlackPlayer() {
+    	return blackPlayer;
+    }
+    
+    public static WhitePlayer getWhitePlayer() {
+    	return whitePlayer;
+    }
+    
+    public static Color getDarkGray() {
+    	return darkGray;
+    }
+    
+    public static Color getAqua() {
+    	return aqua;
+    }
+    
+    public static JPanel getLeftPane() {
+    	return leftSidePane;
+    }
+    
+    public static JLabel getBlackTurn() {
+    	return blackTurn;
+    }
+    
+    public static JPanel getRightPane() {
+    	return rightSidePane;
+    }
+    
+    public static JLabel getWhiteTurn() {
+    	return whiteTurn;
+    }
 }
