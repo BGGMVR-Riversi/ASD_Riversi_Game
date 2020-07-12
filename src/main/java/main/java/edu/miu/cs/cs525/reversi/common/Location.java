@@ -2,67 +2,67 @@ package main.java.edu.miu.cs.cs525.reversi.common ;
 
 public class Location
 {
-    public int r, c ;
+    public int row, column ;
 
     public Location()
     {
-        r = 0 ;
-        c = 0 ;
+        row = 0 ;
+        column = 0 ;
     }
 
     public Location( Location src )
     {
-        r = src.r ;
-        c = src.c ;
+        row = src.row ;
+        column = src.column ;
     }
 
     public Location( int ir, int ic )
     {
-        r = ir ;
-        c = ic ;
+        row = ir ;
+        column = ic ;
     }
 
     public void set( Location src )
     {
-        r = src.r ;
-        c = src.c ;
+        row = src.row ;
+        column = src.column ;
     }
 
     public void set( int ir, int ic )
     {
-        r = ir ;
-        c = ic ;
+        row = ir ;
+        column = ic ;
     }
 
     public void set( String standardForm )
     {
         switch( standardForm.charAt( 0 ) ) {
             case 'A':
-                c = 0 ;
+                column = 0 ;
                 break ;
             case 'B':
-                c = 1 ;
+                column = 1 ;
                 break ;
             case 'C':
-                c = 2 ;
+                column = 2 ;
                 break ;
             case 'D':
-                c = 3 ;
+                column = 3 ;
                 break ;
             case 'E':
-                c = 4 ;
+                column = 4 ;
                 break ;
             case 'F':
-                c = 5 ;
+                column = 5 ;
                 break ;
             case 'G':
-                c = 6 ;
+                column = 6 ;
                 break ;
             case 'H':
-                c = 7 ;
+                column = 7 ;
                 break ;
         }
-        r = ( int ) ( standardForm.charAt( 1 ) ) - 49 ;
+        row = ( int ) ( standardForm.charAt( 1 ) ) - 49 ;
     }
 
     public Location( String standardForm )
@@ -73,7 +73,7 @@ public class Location
     public String getStandardForm()
     {
         String s = "" ;
-        switch( c ) {
+        switch( column ) {
             case 0:
                 s = "A" ;
                 break ;
@@ -99,15 +99,15 @@ public class Location
                 s = "H" ;
                 break ;
         }
-        s = s + ( r + 1 ) ;
+        s = s + ( row + 1 ) ;
         return s ;
     }
 
     public static Location add( Location x , Location y )
     {
         Location result = new Location(x);
-        result.r += y.r ;
-        result.c += y.c ;
+        result.row += y.row ;
+        result.column += y.column ;
         return result;
     }
 }

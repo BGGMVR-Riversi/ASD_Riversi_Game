@@ -179,13 +179,11 @@ public class BoardInfo
             b[r][c] = EMPTY ;
             return new AnimationMatrix() ;
         }
-        moveHistory[moveCount].c = c ;
-        moveHistory[moveCount].r = r ;
+        moveHistory[moveCount].column = c ;
+        moveHistory[moveCount].row = r ;
         turnHistory[moveCount] = turn ;
-//        System.out.println( moveHistory[moveCount].getStandardForm() ) ;
         moveCount++ ;
         validMoveCount = moveCount ;
-        // changing turn for next move
         changeTurn() ;
         return anim ;
     }
@@ -201,7 +199,7 @@ public class BoardInfo
 
     public int performMove( Location l )
     {
-        return performMove( l.r, l.c ) ;
+        return performMove( l.row, l.column ) ;
     }
 
     public String getTurnString()
@@ -365,7 +363,7 @@ public class BoardInfo
             return false ;
         }
         if( moveCount == validMoveCount - 1 ) {
-            performMove( moveHistory[moveCount].r, moveHistory[moveCount].c ) ;
+            performMove( moveHistory[moveCount].row, moveHistory[moveCount].column ) ;
         }
         else {
             moveCount++ ;
@@ -457,19 +455,19 @@ public class BoardInfo
     {
         int i, j, c = 0, rm = 0, cm = 0, rec = 0 ;
         boolean e ;
-        Location dir = new Location( ( corner.r <= ROW_COUNT / 2 ? +1 : -1 ), ( corner.c <= COL_COUNT / 2 ? +1 : -1 ) ) ;
-        if( b[corner.r][corner.c] == player ) {
+        Location dir = new Location( ( corner.row <= ROW_COUNT / 2 ? +1 : -1 ), ( corner.column <= COL_COUNT / 2 ? +1 : -1 ) ) ;
+        if( b[corner.row][corner.column] == player ) {
             c++ ;
-            i = corner.r + dir.r ;
+            i = corner.row + dir.row ;
             e = false ;
             while( !e ) {
-                if( dir.r == +1 && i >= rMAx ) {
+                if( dir.row == +1 && i >= rMAx ) {
                     break ;
                 }
-                if( dir.r == -1 && i <= rMAx ) {
+                if( dir.row == -1 && i <= rMAx ) {
                     break ;
                 }
-                if( b[i][corner.c] == player ) {
+                if( b[i][corner.column] == player ) {
                     c++ ;
                     rec = 1 ;
                     rm = i ;
@@ -477,18 +475,18 @@ public class BoardInfo
                 else {
                     e = true ;
                 }
-                i = i + dir.r ;
+                i = i + dir.row ;
             }
-            j = corner.c + dir.c ;
+            j = corner.column + dir.column ;
             e = false ;
             while( !e ) {
-                if( dir.c == +1 && j >= cMax ) {
+                if( dir.column == +1 && j >= cMax ) {
                     break ;
                 }
-                if( dir.c == -1 && j <= cMax ) {
+                if( dir.column == -1 && j <= cMax ) {
                     break ;
                 }
-                if( b[corner.r][j] == player ) {
+                if( b[corner.row][j] == player ) {
                     c++ ;
                     rec++ ;
                     cm = j ;
@@ -496,12 +494,12 @@ public class BoardInfo
                 else {
                     e = true ;
                 }
-                j = j + dir.c ;
+                j = j + dir.column ;
             }
             if( rec > 1 ) {
                 Location newCorner = new Location() ;
-                newCorner.r = corner.r + dir.r ;
-                newCorner.c = corner.c + dir.c ;
+                newCorner.row = corner.row + dir.row ;
+                newCorner.column = corner.column + dir.column ;
                 c += countCornerStablePieces( player, newCorner, rm, cm ) ;
             }
         }
@@ -513,14 +511,14 @@ public class BoardInfo
         int c = 0 ;
         Location dir = new Location() ;
         Location iter = new Location() ;
-        if( corner1.r == corner2.r ) {
+        if( corner1.row == corner2.row ) {
             dir.set( 0, 1 ) ;
         }
         else {
             dir.set( 1, 0 ) ;
         }
-        for( iter.set( corner1 ) ; iter.r <= corner2.r && iter.c <= corner2.c ; iter = Location.add( iter, dir ) ) {
-            if( b[iter.r][iter.c] == player ) {
+        for( iter.set( corner1 ) ; iter.row <= corner2.row && iter.column <= corner2.column ; iter = Location.add( iter, dir ) ) {
+            if( b[iter.row][iter.column] == player ) {
                 c++ ;
             }
             else {
@@ -528,12 +526,12 @@ public class BoardInfo
             }
         }
         if( n < 3 ) {
-            int tmp = dir.r ;
-            dir.r = dir.c ;
-            dir.c = tmp ;
-            if( corner2.r == 7 && corner2.c == 7 ) {
-                dir.r = -dir.r ;
-                dir.c = -dir.c ;
+            int tmp = dir.row ;
+            dir.row = dir.column ;
+            dir.column = tmp ;
+            if( corner2.row == 7 && corner2.column == 7 ) {
+                dir.row = -dir.row ;
+                dir.column = -dir.column ;
             }
             tmp = countRepetitions( player, Location.add( corner1, dir ), Location.add( corner2, dir ), n + 1 ) ;
             if( tmp > 0 ) {

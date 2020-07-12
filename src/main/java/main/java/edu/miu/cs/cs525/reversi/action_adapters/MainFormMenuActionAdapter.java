@@ -26,7 +26,7 @@ public class MainFormMenuActionAdapter implements ActionListener {
 			adaptee.menuGameNew_actionPerformed(e);
 		} else if (menuItem.equals("GameExit")) {
 			adaptee.menuGameExit_actionPerformed(e);
-		}  else if (menuItem.equals("BlackPlayerHuman")) {
+		} else if (menuItem.equals("BlackPlayerHuman")) {
 			adaptee.menuBlackPlayerHuman_actionPerformed(e);
 		} else if (menuItem.equals("BlackPlayerComputer")) {
 			adaptee.menuBlackPlayerComputer_actionPerformed(e);

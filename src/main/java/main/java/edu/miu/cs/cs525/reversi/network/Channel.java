@@ -1,7 +1,5 @@
 package main.java.edu.miu.cs.cs525.reversi.network;
 
-import main.java.edu.miu.cs.cs525.reversi.utils.Utils;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -13,11 +11,10 @@ import java.net.HttpURLConnection;
 import java.net.SocketAddress;
 import java.net.SocketException;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
+
+import main.java.edu.miu.cs.cs525.reversi.utils.Utils;
 
 public class Channel implements Runnable {
 	private DatagramSocket socket;
@@ -100,23 +97,22 @@ public class Channel implements Runnable {
 		return response.toString();
 	}
 
-	public String getRequestTeam2(URL url, String requestMethod)
-			throws UnsupportedEncodingException, IOException {
+	public String getRequestTeam2(URL url, String requestMethod) throws UnsupportedEncodingException, IOException {
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		connection.setRequestMethod(requestMethod);
 		connection.setRequestProperty("Content-Type", "application/json; utf-8");
 		connection.setRequestProperty("Accept", "application/json");
 		StringBuilder content = new StringBuilder();
 		try (BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-		    String line;
-		    content = new StringBuilder();
-		    while ((line = input.readLine()) != null) {
-		        // Append each line of the response and separate them
-		        content.append(line);
-		        content.append(System.lineSeparator());
-		    }
+			String line;
+			content = new StringBuilder();
+			while ((line = input.readLine()) != null) {
+				// Append each line of the response and separate them
+				content.append(line);
+				content.append(System.lineSeparator());
+			}
 		} finally {
-		    connection.disconnect();
+			connection.disconnect();
 		}
 		return content.toString();
 	}

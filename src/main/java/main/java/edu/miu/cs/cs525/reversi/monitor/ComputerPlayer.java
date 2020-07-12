@@ -2,25 +2,24 @@ package main.java.edu.miu.cs.cs525.reversi.monitor;
 
 import main.java.edu.miu.cs.cs525.reversi.algorithm.EndStrategy;
 import main.java.edu.miu.cs.cs525.reversi.algorithm.MidStrategy;
-import main.java.edu.miu.cs.cs525.reversi.algorithm.MiniMax;
 import main.java.edu.miu.cs.cs525.reversi.algorithm.MoveStrategy;
-import main.java.edu.miu.cs.cs525.reversi.algorithm.OpeningStrategy;
-import main.java.edu.miu.cs.cs525.reversi.common.*;
-import main.java.edu.miu.cs.cs525.reversi.network.NetworkPlayer;
+import main.java.edu.miu.cs.cs525.reversi.common.BoardInfo;
+import main.java.edu.miu.cs.cs525.reversi.common.GeneralPlayer;
+import main.java.edu.miu.cs.cs525.reversi.common.Location;
 
 public class ComputerPlayer extends GeneralPlayer {
-	
+
 	public Location getMove(BoardInfo b) {
 		MoveStrategy strategy;
 		Location move = new Location(-1, -1); // Illegal Move
 
-//		 if( b.moveCount < 10 ) {
-			// Opening moves
-			// Trying to take most Strategic Square ( with maximum heuristic value )
-//			 strategy = new OpeningStrategy();
-//			 strategy.move(b, move);
-//		 }
-//		 else
+		// if( b.moveCount < 10 ) {
+		// Opening moves
+		// Trying to take most Strategic Square ( with maximum heuristic value )
+		// strategy = new OpeningStrategy();
+		// strategy.move(b, move);
+		// }
+		// else
 		if (b.moveCount < 50) {
 			// Mid Game moves
 			// Using non-Perfect MiniMax of Depth 5

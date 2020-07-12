@@ -19,7 +19,6 @@ public class BoardView extends JPanel {
 	public int animationSpeed = 5;
 	public GeneralPlayer playerBPointer;
 	public GeneralPlayer playerWPointer;
-	public boolean showGuides = true;
 	public boolean gamePaused = true;
 	public ImageIcon pieces = new ImageIcon();
 	public ImageIcon border = new ImageIcon();
@@ -55,7 +54,7 @@ public class BoardView extends JPanel {
 				sx = (b % 8) * 60;
 				sy = (b / 8) * 60;
 				g.drawImage(pieces.getImage(), x, y, x + 60, y + 60, sx, sy, sx + 60, sy + 60, this);
-				if (!timer.isRunning() && showGuides) {
+				if (!timer.isRunning()) {
 					b = m.get(i, j);
 					if (b != 0 && b != -1) {
 						g.drawString("" + b, x + 25, y + 35);
@@ -125,13 +124,14 @@ public class BoardView extends JPanel {
 		if (gamePaused) {
 			return;
 		}
-		if (move.r < 0 || move.r > 7 || move.c < 0 || move.c > 7) {
+		if (move.row < 0 || move.row > 7 || move.column < 0 || move.column > 7) {
 			return;
 		}
-		if (!board.isValidMove(move.r, move.c)) {
+		if (!board.isValidMove(move.row, move.column)) {
+			System.err.println("Please select a valid move! Col: "+move.column+" Row: "+move.row);
 			return;
 		}
-		am = board.calculateMoveAnimation(move.r, move.c);
+		am = board.calculateMoveAnimation(move.row, move.column);
 		repaint();
 		timer.start();
 	}
