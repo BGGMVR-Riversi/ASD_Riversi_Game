@@ -4,9 +4,6 @@ import java.awt.AWTEvent;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 
@@ -27,7 +24,6 @@ import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardViewToolBarActionAdapter;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.ChoosePlayerOkActionAdapter;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.MainFormMenuActionAdapter;
-import main.java.edu.miu.cs.cs525.reversi.action_adapters.MainFormWindowAdapter;
 import main.java.edu.miu.cs.cs525.reversi.network.NetworkPlayer;
 
 public class MainForm extends JFrame {
@@ -41,7 +37,7 @@ public class MainForm extends JFrame {
 	JMenu menuPlayers = new JMenu(" Players");
 	JMenu menuBlackPlayer = new JMenu(" Black ");
 	JMenu menuWhitePlayer = new JMenu(" White ");
-	
+
 	JRadioButtonMenuItem menuBlackPlayerHuman = new JRadioButtonMenuItem("Human");
 	JRadioButtonMenuItem menuBlackPlayerComputer = new JRadioButtonMenuItem("Computer");
 	JRadioButtonMenuItem menuWhitePlayerHuman = new JRadioButtonMenuItem("Human");
@@ -69,9 +65,6 @@ public class MainForm extends JFrame {
 	JButton pauseButton = new JButton();
 	JButton nextButton = new JButton();
 	JButton lastButton = new JButton();
-	//JButton newGameButton = new JButton();
-	//JButton aboutButton = new JButton();
-	//JButton exitGameButton = new JButton();
 	JToolBar toolBar = new JToolBar();
 	ImageIcon firstImg = new ImageIcon();
 	ImageIcon prevImg = new ImageIcon();
@@ -82,7 +75,7 @@ public class MainForm extends JFrame {
 	ImageIcon newGameImg = new ImageIcon();
 	ImageIcon aboutImg = new ImageIcon();
 	ImageIcon exitGameImg = new ImageIcon();
-	
+
 	JLabel lblTeam4 = new JLabel("Team 4");
 	JLabel lblOrForBlack = new JLabel("or");
 	JLabel lblBlackPlayer = new JLabel("Black Player");
@@ -95,7 +88,6 @@ public class MainForm extends JFrame {
 		enableEvents(AWTEvent.WINDOW_EVENT_MASK);
 		try {
 			jbInit();
-			ChoosePlayerType c = new ChoosePlayerType();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -113,7 +105,6 @@ public class MainForm extends JFrame {
 		this.setResizable(false);
 		this.setSize(new Dimension(636 + 60, 543 + 95));
 		this.setTitle("Java Othello / Reversi");
-		this.addWindowListener(new MainFormWindowAdapter(this));
 		menuGameNew.setIcon(newGameIcon);
 		menuGameNew.addActionListener(new MainFormMenuActionAdapter(this, "GameNew"));
 		menuGameExit.setIcon(exitGameIcon);
@@ -193,27 +184,27 @@ public class MainForm extends JFrame {
 		pauseButton.setIcon(pauseImg);
 		nextButton.setIcon(nextImg);
 		lastButton.setIcon(lastImg);
-		
+
 		toolBar.add(firstButton);
 		toolBar.add(prevButton);
 		toolBar.add(pauseButton);
 		toolBar.add(nextButton);
 		toolBar.add(lastButton);
-		
+
 		lblTeam4.setForeground(ReversiSingleton.getAqua());
 		lblOrForBlack.setForeground(ReversiSingleton.getAqua());
 		lblBlackPlayer.setForeground(ReversiSingleton.getAqua());
 		lblWhitePlayer.setForeground(ReversiSingleton.getAqua());
 		lblOrForWhite.setForeground(ReversiSingleton.getAqua());
 		lblOtherTeam.setForeground(ReversiSingleton.getAqua());
-		
+
 		ReversiSingleton.getLeftPane().add(lblTeam4);
 		ReversiSingleton.getLeftPane().add(lblOrForBlack);
 		ReversiSingleton.getLeftPane().add(lblBlackPlayer);
 		ReversiSingleton.getRightPane().add(lblOtherTeam);
 		ReversiSingleton.getRightPane().add(lblOrForWhite);
 		ReversiSingleton.getRightPane().add(lblWhitePlayer);
-		
+
 		contentPane.add(toolBar, BorderLayout.NORTH);
 		ml = new MoveList("Move List", this);
 		contents = new BoardView(ml, this, 1);
@@ -303,8 +294,6 @@ public class MainForm extends JFrame {
 		System.exit(0);
 	}
 
-//	
-
 	// Help | About action performed
 	public void menuHelpAbout_actionPerformed(ActionEvent e) {
 		About dlg = new About(this);
@@ -341,25 +330,23 @@ public class MainForm extends JFrame {
 			try {
 				String id = ((NetworkPlayer) contents.playerBPointer).identify();
 				menuBlackPlayerComputer.setText(id + " @ ( " + dlg.hostAddress + ":" + dlg.portNumber + " )");
-//				ReversiSingleton.txtTeam4=dlg.hostAddress ;
+				// ReversiSingleton.txtTeam4=dlg.hostAddress ;
 			} catch (Exception exc) {
 			}
 		} else if (contents.playerBPointer == null) {
-			//Here we need to put the old code
+			// Here we need to put the old code
 			menuBlackPlayerComputer.setSelected(true);
 			menuBlackPlayerComputer.setEnabled(true);
 			contents.playerBPointer = new ComputerPlayer();
 			dlg.radioComputerPlayer_actionPerformed(e);
 			dlg.radioComputerPlayer.setSelected(true);
-
 			dlg.radioComputerPlayer.addActionListener(new ChoosePlayerOkActionAdapter(dlg));
 			dlg.radioComputerPlayer.doClick();
-
-
 		}
 		contents.updateTurn();
 	}
-	//Here we need to put the old code
+
+	// Here we need to put the old code
 	public void menuBlackPlayerHuman_actionPerformed(ActionEvent e) {
 		menuBlackPlayerHuman.setText("Human");
 	}
@@ -383,14 +370,12 @@ public class MainForm extends JFrame {
 			} catch (Exception exc) {
 			}
 		} else if (contents.playerWPointer == null) {
-			//Here we need to put the old code
+			// Here we need to put the old code
 			menuWhitePlayerComputer.setSelected(true);
 			menuWhitePlayerComputer.setEnabled(true);
 			contents.playerWPointer = new ComputerPlayer();
 			dlg.radioComputerPlayer_actionPerformed(e);
-
 			dlg.radioComputerPlayer.setSelected(true);
-
 			dlg.radioComputerPlayer.addActionListener(new ChoosePlayerOkActionAdapter(dlg));
 			dlg.radioComputerPlayer.doClick();
 
@@ -399,7 +384,7 @@ public class MainForm extends JFrame {
 	}
 
 	public void menuWhitePlayerHuman_actionPerformed(ActionEvent e) {
-		//Here we need to put the old code
+		// Here we need to put the old code
 		menuWhitePlayerHuman.setText("Human");
 	}
 
@@ -411,16 +396,4 @@ public class MainForm extends JFrame {
 		ml.setVisible(menuShowMoveList.getState());
 		repaint();
 	}
-
-	public void this_windowOpened(WindowEvent e) {
-		Dimension frmSize = getSize();
-		Point l = this.getLocationOnScreen();
-		ml.setLocation(l.x + frmSize.width, l.y);
-		ml.show();
-		this.toFront();
-	}
 }
-
-
-
-

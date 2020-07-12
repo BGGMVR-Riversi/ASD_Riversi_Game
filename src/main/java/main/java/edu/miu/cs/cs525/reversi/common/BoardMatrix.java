@@ -83,8 +83,8 @@ public class BoardMatrix
             for( j = 0 ; j < nc ; j++ ) {
                 if( mat[i][j] > max ) {
                     max = mat[i][j] ;
-                    l.r = i ;
-                    l.c = j ;
+                    l.row = i ;
+                    l.column = j ;
                 }
             }
         }
