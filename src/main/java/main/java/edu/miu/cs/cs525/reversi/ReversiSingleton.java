@@ -14,6 +14,8 @@ public class ReversiSingleton {
 	
 	private static ReversiSingleton reversiSingletonObj;
     private static ShowCurrentPlayer showCurrentPlayer;
+    private static JLabel winner;
+    private static JLabel gameOver;
 
     // Create Colors
     private static Color darkGray;
@@ -39,10 +41,15 @@ public class ReversiSingleton {
                 if(reversiSingletonObj == null){
                     reversiSingletonObj = new ReversiSingleton();
                     showCurrentPlayer = new BlackPlayer();
+                    winner = new JLabel();
+                    gameOver = new JLabel();
 //                    txtTeam4 = "Team 4";
 
                     darkGray = new Color(47,79,79);
                     aqua = new Color(0, 255, 255);
+                    winner.setForeground(aqua);
+                    gameOver.setForeground(aqua);
+                    gameOver.setText("Game Over");
 
                     leftSidePane = new JPanel(new GridLayout(10,1));
                     leftSidePane.setBackground(darkGray);
@@ -102,5 +109,13 @@ public class ReversiSingleton {
     
     public static JLabel getWhiteTurn() {
     	return whiteTurn;
+    }
+    
+    public static JLabel getWinner() {
+    	return winner;
+    }
+    
+    public static JLabel getGameOverLabel() {
+    	return gameOver;
     }
 }

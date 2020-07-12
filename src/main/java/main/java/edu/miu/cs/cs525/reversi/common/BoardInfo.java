@@ -220,6 +220,7 @@ public class BoardInfo
             return "" ;
         }
         else if( turn == GAME_OVER ) {
+        	ReversiSingleton.getCurrentPlayer().notDisplay();
             return "Game Over !!" ;
         }
         else {
