@@ -54,9 +54,9 @@ public class NetworkPlayer extends GeneralPlayer {
 					char[] positions = pos[pos.length - 1].toCharArray();
 					StringBuilder url = new StringBuilder();
 					url.append(hostAddress+"?");
-					url.append("\"x\"="+String.valueOf(utils.charToInt(positions[0])));
+					url.append("x="+String.valueOf(utils.charToInt(positions[0])));
 					url.append("&");
-					url.append("\"y\"="+String.valueOf(utils.charToInt(positions[1])));
+					url.append("y="+ Character.getNumericValue(positions[1]-1));
 					System.out.println("Team 2 URL equals "+url.toString());
 					String result = channel.getRequestTeam2(new URL(url.toString()), "GET");
 					System.out.println("Team 2 result: "+result);

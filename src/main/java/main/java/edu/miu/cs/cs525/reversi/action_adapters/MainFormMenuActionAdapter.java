@@ -26,9 +26,7 @@ public class MainFormMenuActionAdapter implements ActionListener {
 			adaptee.menuGameNew_actionPerformed(e);
 		} else if (menuItem.equals("GameExit")) {
 			adaptee.menuGameExit_actionPerformed(e);
-		} else if (menuItem.equals("PieceSetItems")) {
-			adaptee.menuPieceSetItems_actionPerformed(e, n);
-		} else if (menuItem.equals("BlackPlayerHuman")) {
+		}  else if (menuItem.equals("BlackPlayerHuman")) {
 			adaptee.menuBlackPlayerHuman_actionPerformed(e);
 		} else if (menuItem.equals("BlackPlayerComputer")) {
 			adaptee.menuBlackPlayerComputer_actionPerformed(e);
@@ -40,14 +38,6 @@ public class MainFormMenuActionAdapter implements ActionListener {
 			adaptee.menuHelpAbout_actionPerformed(e);
 		} else if (menuItem.equals("SpeedItems")) {
 			adaptee.menuSpeedItems_actionPerformed(e, n);
-		} else if (menuItem.equals("ShowGuides")) {
-			adaptee.menuShowGuides_actionPerformed(e);
-		} else if (menuItem.equals("ShowMoveList")) {
-			adaptee.menuShowMoveList_actionPerformed(e);
-		} else if (menuItem.equals("CopyGame")) {
-			adaptee.menuCopyGame_actionPerformed(e);
-		} else if (menuItem.equals("PasteGame")) {
-			adaptee.menuPasteGame_actionPerformed(e);
 		}
 	}
 }

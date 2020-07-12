@@ -3,13 +3,11 @@ package main.java.edu.miu.cs.cs525.reversi.monitor;
 import java.awt.AWTEvent;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Insets;
 import java.awt.Point;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 
 import javax.swing.ButtonGroup;
@@ -33,31 +31,20 @@ import main.java.edu.miu.cs.cs525.reversi.action_adapters.MainFormWindowAdapter;
 import main.java.edu.miu.cs.cs525.reversi.network.NetworkPlayer;
 
 public class MainForm extends JFrame {
+	private static final long serialVersionUID = 1L;
 	JPanel contentPane;
 	JMenuBar menuBar = new JMenuBar();
 	JMenu menuGame = new JMenu("Game");
 	JMenu menuOptions = new JMenu("Options");
 	JMenuItem menuGameNew = new JMenuItem(" New");
 	JMenuItem menuGameExit = new JMenuItem(" Exit");
-	JMenu menuPieceSet = new JMenu(" Piece Set"); // Piece Set Menu
-	JRadioButtonMenuItem menuPieceSetItems[] = new JRadioButtonMenuItem[7];
-//	ButtonGroup PSGroup = new ButtonGroup(); // Piece Set Items Group
 	JMenu menuPlayers = new JMenu(" Players");
 	JMenu menuBlackPlayer = new JMenu(" Black ");
 	JMenu menuWhitePlayer = new JMenu(" White ");
-	// JRadioButtonMenuItem menuBlackPlayerHuman = new JRadioButtonMenuItem( "Human"
-	// ) ;
+	
 	JRadioButtonMenuItem menuBlackPlayerHuman = new JRadioButtonMenuItem("Human");
-	// JRadioButtonMenuItem menuBlackPlayerComputer = new JRadioButtonMenuItem(
-	// "Choose ..." ) ;
 	JRadioButtonMenuItem menuBlackPlayerComputer = new JRadioButtonMenuItem("Computer");
 	JRadioButtonMenuItem menuWhitePlayerHuman = new JRadioButtonMenuItem("Human");
-
-	// JRadioButtonMenuItem menuWhitePlayerHuman = new JRadioButtonMenuItem( "Human"
-	// ) ;
-
-	// JRadioButtonMenuItem menuWhitePlayerComputer = new JRadioButtonMenuItem(
-	// "Choose ..." ) ;
 	JRadioButtonMenuItem menuWhitePlayerComputer = new JRadioButtonMenuItem("Computer");
 
 	ButtonGroup BGroup = new ButtonGroup(); // Black Player Group
@@ -69,27 +56,22 @@ public class MainForm extends JFrame {
 	JMenu menuSpeed = new JMenu(" Speed");
 	JRadioButtonMenuItem menuSpeedItems[] = new JRadioButtonMenuItem[6];
 	ButtonGroup SGroup = new ButtonGroup(); // Animation Speed Group
-	JCheckBoxMenuItem menuShowGuides = new JCheckBoxMenuItem(" Show Guides");
 	ImageIcon newGameIcon = new ImageIcon();
 	ImageIcon exitGameIcon = new ImageIcon();
 	ImageIcon aboutIcon = new ImageIcon();
 	ImageIcon playersIcon = new ImageIcon();
 	ImageIcon speedIcon = new ImageIcon();
-	ImageIcon pieceSetIcon = new ImageIcon();
-	ImageIcon copyIcon = new ImageIcon();
-	ImageIcon pasteIcon = new ImageIcon();
 	MoveList ml;
 	JCheckBoxMenuItem menuShowMoveList = new JCheckBoxMenuItem(" Show Move List");
-//	JMenuItem menuCopyGame = new JMenuItem(" Copy Game to ClipBoard");
-//	JMenuItem menuPasteGame = new JMenuItem(" Paste Game from ClipBoard");
+
 	JButton firstButton = new JButton();
 	JButton prevButton = new JButton();
 	JButton pauseButton = new JButton();
 	JButton nextButton = new JButton();
 	JButton lastButton = new JButton();
-	JButton newGameButton = new JButton();
-	JButton aboutButton = new JButton();
-	JButton exitGameButton = new JButton();
+	//JButton newGameButton = new JButton();
+	//JButton aboutButton = new JButton();
+	//JButton exitGameButton = new JButton();
 	JToolBar toolBar = new JToolBar();
 	ImageIcon firstImg = new ImageIcon();
 	ImageIcon prevImg = new ImageIcon();
@@ -121,14 +103,11 @@ public class MainForm extends JFrame {
 
 	// Component initialization
 	private void jbInit() throws Exception {
-		newGameIcon = new ImageIcon("../images/new.png");
+		newGameIcon = new ImageIcon(MainForm.class.getResource("../images/new.png"));
 		exitGameIcon = new ImageIcon(MainForm.class.getResource("../images/quit.png"));
 		aboutIcon = new ImageIcon(MainForm.class.getResource("../images/about.png"));
 		playersIcon = new ImageIcon(MainForm.class.getResource("../images/players.png"));
 		speedIcon = new ImageIcon(MainForm.class.getResource("../images/eyes.png"));
-		pieceSetIcon = new ImageIcon(MainForm.class.getResource("../images/nibbles.png"));
-		copyIcon = new ImageIcon(MainForm.class.getResource("../images/copy.png"));
-		pasteIcon = new ImageIcon(MainForm.class.getResource("../images/paste.png"));
 		contentPane = (JPanel) this.getContentPane();
 		contentPane.setLayout(borderLayout1);
 		this.setResizable(false);
@@ -139,34 +118,20 @@ public class MainForm extends JFrame {
 		menuGameNew.addActionListener(new MainFormMenuActionAdapter(this, "GameNew"));
 		menuGameExit.setIcon(exitGameIcon);
 		menuGameExit.addActionListener(new MainFormMenuActionAdapter(this, "GameExit"));
-//		menuPieceSetItems[0] = new JRadioButtonMenuItem("Blend           ");
-//		menuPieceSetItems[1] = new JRadioButtonMenuItem("Classic         ");
-//		menuPieceSetItems[2] = new JRadioButtonMenuItem("Flip Blend      ");
-//		menuPieceSetItems[3] = new JRadioButtonMenuItem("Shrink          ");
-//		menuPieceSetItems[4] = new JRadioButtonMenuItem("Standard I      ", true);
-//		menuPieceSetItems[5] = new JRadioButtonMenuItem("Standard II     ");
-//		menuPieceSetItems[6] = new JRadioButtonMenuItem("Sun & Moon      ");
 		menuBlackPlayerComputer.addActionListener(new MainFormMenuActionAdapter(this, "BlackPlayerComputer"));
 		menuBlackPlayerHuman.addActionListener(new MainFormMenuActionAdapter(this, "BlackPlayerHuman"));
 		menuWhitePlayerComputer.addActionListener(new MainFormMenuActionAdapter(this, "WhitePlayerComputer"));
 		menuWhitePlayerHuman.addActionListener(new MainFormMenuActionAdapter(this, "WhitePlayerHuman"));
 		menuHelpAbout.setIcon(aboutIcon);
-		menuShowGuides.addActionListener(new MainFormMenuActionAdapter(this, "ShowGuides"));
-		menuShowGuides.setState(true);
 		menuShowMoveList.addActionListener(new MainFormMenuActionAdapter(this, "ShowMoveList"));
 		menuShowMoveList.setState(true);
-//		menuCopyGame.addActionListener(new MainFormMenuActionAdapter(this, "CopyGame"));
-//		menuCopyGame.setIcon(copyIcon);
-//		menuPasteGame.addActionListener(new MainFormMenuActionAdapter(this, "PasteGame"));
-//		menuPasteGame.setIcon(pasteIcon);
+
 		WGroup.add(menuWhitePlayerComputer);
 		WGroup.add(menuWhitePlayerHuman);
 		menuWhitePlayerComputer.setSelected(true);
 		menuBlackPlayerComputer.setSelected(true);
-		// menuBlackPlayerHuman.setSelected( false ) ;
 		BGroup.add(menuBlackPlayerComputer);
 		BGroup.add(menuBlackPlayerHuman);
-		// menuWhitePlayerHuman.setSelected( false ) ;
 		menuSpeedItems[0] = new JRadioButtonMenuItem("1.0 x");
 		menuSpeedItems[1] = new JRadioButtonMenuItem("2.0 x");
 		menuSpeedItems[2] = new JRadioButtonMenuItem("3.0 x");
@@ -181,14 +146,7 @@ public class MainForm extends JFrame {
 		menuSpeedItems[5].addActionListener(new MainFormMenuActionAdapter(this, "SpeedItems", 30));
 		menuHelpAbout.addActionListener(new MainFormMenuActionAdapter(this, "HelpAbout"));
 		menuGame.add(menuGameNew);
-//		menuGame.add(menuCopyGame);
-//		menuGame.add(menuPasteGame);
 		menuGame.add(menuGameExit);
-//		for (int i = 0; i < menuPieceSetItems.length; i++) {
-//			menuPieceSetItems[i].addActionListener(new MainFormMenuActionAdapter(this, "PieceSetItems", i));
-//			menuPieceSet.add(menuPieceSetItems[i]);
-//			PSGroup.add(menuPieceSetItems[i]);
-//		}
 		menuBlackPlayer.add(menuBlackPlayerComputer);
 		menuBlackPlayer.add(menuBlackPlayerHuman);
 		menuWhitePlayer.add(menuWhitePlayerComputer);
@@ -201,14 +159,11 @@ public class MainForm extends JFrame {
 			menuSpeed.add(menuSpeedItems[i]);
 		}
 		menuPlayers.setIcon(playersIcon);
-//		menuPieceSet.setIcon(pieceSetIcon);
 		menuSpeed.setIcon(speedIcon);
 		menuBar.add(menuGame);
-//		menuOptions.add(menuPieceSet);
 		menuOptions.add(menuPlayers);
 		menuOptions.add(menuSpeed);
 		menuOptions.add(menuShowMoveList);
-//		menuOptions.add(menuShowGuides);
 		menuBar.add(menuOptions);
 		menuBar.add(menuHelp);
 		this.setJMenuBar(menuBar);
@@ -218,9 +173,6 @@ public class MainForm extends JFrame {
 		playImg = new ImageIcon(MainForm.class.getResource("../images/play.png"));
 		nextImg = new ImageIcon(MainForm.class.getResource("../images/next.png"));
 		lastImg = new ImageIcon(MainForm.class.getResource("../images/last.png"));
-//		newGameImg = new ImageIcon(MainForm.class.getResource("../images/new.png"));
-//		aboutImg = new ImageIcon(MainForm.class.getResource("../images/about.png"));
-//		exitGameImg = new ImageIcon(MainForm.class.getResource("../images/quit.png"));
 		firstButton.setEnabled(false);
 		firstButton.setToolTipText("First Move");
 		firstButton.addActionListener(new BoardViewToolBarActionAdapter(this, "firstButton"));
@@ -236,20 +188,11 @@ public class MainForm extends JFrame {
 		pauseButton.setEnabled(false);
 		pauseButton.setToolTipText("Pause Game");
 		pauseButton.addActionListener(new BoardViewToolBarActionAdapter(this, "pauseButton"));
-		newGameButton.setToolTipText("New Game");
-//		newGameButton.addActionListener(new BoardViewToolBarActionAdapter(this, "newGameButton"));
-//		aboutButton.setToolTipText("About");
-//		aboutButton.addActionListener(new BoardViewToolBarActionAdapter(this, "aboutButton"));
-//		exitGameButton.setToolTipText("Exit");
-//		exitGameButton.addActionListener(new BoardViewToolBarActionAdapter(this, "exitGameButton"));
 		firstButton.setIcon(firstImg);
 		prevButton.setIcon(prevImg);
 		pauseButton.setIcon(pauseImg);
 		nextButton.setIcon(nextImg);
 		lastButton.setIcon(lastImg);
-//		newGameButton.setIcon(newGameImg);
-//		aboutButton.setIcon(aboutImg);
-//		exitGameButton.setIcon(exitGameImg);
 		
 		toolBar.add(firstButton);
 		toolBar.add(prevButton);
@@ -315,18 +258,6 @@ public class MainForm extends JFrame {
 		}
 	}
 
-	public void newGameButton_actionPerformed(ActionEvent e) {
-		menuGameNew_actionPerformed(e);
-	}
-
-	public void exitGameButton_actionPerformed(ActionEvent e) {
-		menuGameExit_actionPerformed(e);
-	}
-
-	public void aboutButton_actionPerformed(ActionEvent e) {
-		menuHelpAbout_actionPerformed(e);
-	}
-
 	public void prevButton_actionPerformed(ActionEvent e) {
 		if (contents.timer.isRunning()) {
 			return;
@@ -372,34 +303,7 @@ public class MainForm extends JFrame {
 		System.exit(0);
 	}
 
-	public void menuPieceSetItems_actionPerformed(ActionEvent e, int n) {
-		String ps = "";
-		switch (n) {
-		case 0:
-			ps = "blend.png";
-			break;
-		case 1:
-			ps = "classic.png";
-			break;
-		case 2:
-			ps = "flipblend.png";
-			break;
-		case 3:
-			ps = "shrink.png";
-			break;
-		case 4:
-			ps = "standard-1.png";
-			break;
-		case 5:
-			ps = "standard-2.png";
-			break;
-		case 6:
-			ps = "sunmoon.png";
-			break;
-		}
-		contents.pieces = new ImageIcon(main.java.edu.miu.cs.cs525.reversi.monitor.MainForm.class.getResource("../images/" + ps));
-		repaint();
-	}
+//	
 
 	// Help | About action performed
 	public void menuHelpAbout_actionPerformed(ActionEvent e) {
@@ -441,7 +345,7 @@ public class MainForm extends JFrame {
 			} catch (Exception exc) {
 			}
 		} else if (contents.playerBPointer == null) {
-			// menuBlackPlayerHuman.setSelected( true ) ;
+			//Here we need to put the old code
 			menuBlackPlayerComputer.setSelected(true);
 			menuBlackPlayerComputer.setEnabled(true);
 			contents.playerBPointer = new ComputerPlayer();
@@ -451,17 +355,12 @@ public class MainForm extends JFrame {
 			dlg.radioComputerPlayer.addActionListener(new ChoosePlayerOkActionAdapter(dlg));
 			dlg.radioComputerPlayer.doClick();
 
-			// dlg.radioCocmdOK_actionPerformed(e);
-			// dlg. radioComputerPlayer.addActionListener( new
-			// choosePlayerDLG_cmdOK_actionAdapter( dlg.COMPUTER_PLAYER ) ) ;
 
 		}
 		contents.updateTurn();
 	}
-
+	//Here we need to put the old code
 	public void menuBlackPlayerHuman_actionPerformed(ActionEvent e) {
-		// contents.playerBPointer = null ;
-		// menuBlackPlayerComputer.setText( "Choose ..." ) ;
 		menuBlackPlayerHuman.setText("Human");
 	}
 
@@ -484,7 +383,7 @@ public class MainForm extends JFrame {
 			} catch (Exception exc) {
 			}
 		} else if (contents.playerWPointer == null) {
-			// menuWhitePlayerHuman.setSelected( true ) ;
+			//Here we need to put the old code
 			menuWhitePlayerComputer.setSelected(true);
 			menuWhitePlayerComputer.setEnabled(true);
 			contents.playerWPointer = new ComputerPlayer();
@@ -500,41 +399,12 @@ public class MainForm extends JFrame {
 	}
 
 	public void menuWhitePlayerHuman_actionPerformed(ActionEvent e) {
-		// contents.playerWPointer = null ;
-		// menuWhitePlayerComputer.setText( "Choose ..." ) ;
+		//Here we need to put the old code
 		menuWhitePlayerHuman.setText("Human");
 	}
 
 	public void menuSpeedItems_actionPerformed(ActionEvent e, int n) {
 		contents.animationSpeed = n;
-	}
-
-	public void menuShowGuides_actionPerformed(ActionEvent e) {
-		contents.showGuides = menuShowGuides.getState();
-		repaint();
-	}
-
-	public void menuCopyGame_actionPerformed(ActionEvent e) {
-		StringSelection s = new StringSelection(contents.board.getStandardFormGame());
-		getToolkit().getSystemClipboard().setContents(s, null);
-	}
-
-	public void menuPasteGame_actionPerformed(ActionEvent e) {
-		// ***************************************
-		String d = "";
-		Transferable s = getToolkit().getSystemClipboard().getContents(null);
-		try {
-			d = (String) s.getTransferData(DataFlavor.stringFlavor);
-		} catch (Exception exc) {
-			System.err.println(this.getClass().getName() + " : " + exc.getMessage());
-		}
-		pauseButton.setEnabled(true);
-		pauseGame();
-		contents.timer.stop();
-		contents.board.setStandardFormGame(d);
-		contents.repaint();
-		contents.updateTurn();
-		// ***************************************
 	}
 
 	public void menuShowMoveList_actionPerformed(ActionEvent e) {
