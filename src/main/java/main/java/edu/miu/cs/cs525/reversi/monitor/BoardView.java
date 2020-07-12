@@ -121,6 +121,7 @@ public class BoardView extends JPanel {
 			pauseBeforeMoveTimer.start();
 		}
 	}
+	
 
 	public void startMove(Location move) {
 		if (gamePaused) {
