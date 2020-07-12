@@ -108,6 +108,8 @@ public class BoardView extends JPanel {
 
 		ReversiSingleton.getLeftPane().add(ReversiSingleton.getBlackTurn());
 		ReversiSingleton.getRightPane().add(ReversiSingleton.getWhiteTurn());
+		ReversiSingleton.getWinner().setVisible(false);
+		ReversiSingleton.getGameOverLabel().setVisible(false);
 		s += " ) ";
 		statusBar.setText(s);
 		if (gamePaused) {
@@ -192,9 +194,15 @@ public class BoardView extends JPanel {
 
 				} else if (p1 > p2) {
 					s += " Black is Winner ! ";
+					lblScoreBlack.setText("Score: " + p1);
+					ReversiSingleton.setCurrentPlayer(new BlackPlayer());
+					ReversiSingleton.getCurrentPlayer().winner();
 					playerBPointer.getMove(board);
 				} else {
 					s += " White is Winner ! ";
+					lblScoreWhite.setText("Score: " + p2);
+					ReversiSingleton.setCurrentPlayer(new WhitePlayer());
+					ReversiSingleton.getWinner();
 					playerWPointer.getMove(board);
 				}
 				statusBar.setText(s);
