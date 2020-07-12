@@ -6,7 +6,7 @@ public class WhitePlayer implements ShowCurrentPlayer {
 
     @Override
     public void display() {
-        ReversiSingleton.whiteTurn.setVisible(true);
-        ReversiSingleton.blackTurn.setVisible(false);
+        ReversiSingleton.getWhiteTurn().setVisible(true);
+        ReversiSingleton.getBlackTurn().setVisible(false);
     }
 }

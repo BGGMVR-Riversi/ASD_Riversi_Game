@@ -52,7 +52,7 @@ public class BoardInfo
     }
     
     public void changePlayer (ShowCurrentPlayer showCurrentPlayer){
-        ReversiSingleton.showCurrentPlayer = showCurrentPlayer;
+        ReversiSingleton.setCurrentPlayer(showCurrentPlayer);
     }
 
     public static void copyBoard( int[][] src, int[][] dest )
@@ -85,7 +85,7 @@ public class BoardInfo
         b[3][4] = PLAYER_BLACK ;
         b[4][4] = PLAYER_WHITE ;
         b[4][3] = PLAYER_BLACK ;
-        turn = PLAYER_WHITE ;
+        turn = PLAYER_BLACK ;
     }
 
     private void goInADir( AnimationMatrix am, int rS, int cS, int rD, int cD )
@@ -207,13 +207,13 @@ public class BoardInfo
     public String getTurnString()
     {
         if( turn == PLAYER_BLACK ) {
-        	changePlayer(ReversiSingleton.blackPlayer);
-            ReversiSingleton.showCurrentPlayer.display();
+        	changePlayer(ReversiSingleton.getBlackPlayer());
+            ReversiSingleton.getCurrentPlayer().display();
             return "Black's Turn" ;
         }
         else if( turn == PLAYER_WHITE ) {
-        	changePlayer(ReversiSingleton.whitePlayer);
-            ReversiSingleton.showCurrentPlayer.display();
+        	changePlayer(ReversiSingleton.getWhitePlayer());
+            ReversiSingleton.getCurrentPlayer().display();
             return "White's Turn" ;
         }
         else if( turn == NO_GAME ) {

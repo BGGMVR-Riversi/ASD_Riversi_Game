@@ -100,15 +100,15 @@ public class BoardView extends JPanel {
 		String s = board.getTurnString();
 		s += " ( ";
 		lblScoreBlack.setText("Score: " + board.getPieceCount(board.PLAYER_BLACK));
-		lblScoreBlack.setForeground(ReversiSingleton.aqua);
-		ReversiSingleton.leftSidePane.add(lblScoreBlack);
+		lblScoreBlack.setForeground(ReversiSingleton.getAqua());
+		ReversiSingleton.getLeftPane().add(lblScoreBlack);
 
 		lblScoreWhite.setText("Score: " + board.getPieceCount(board.PLAYER_WHITE));
-		lblScoreWhite.setForeground(ReversiSingleton.aqua);
-		ReversiSingleton.rightSidePane.add(lblScoreWhite);
+		lblScoreWhite.setForeground(ReversiSingleton.getAqua());
+		ReversiSingleton.getRightPane().add(lblScoreWhite);
 
-		ReversiSingleton.leftSidePane.add(ReversiSingleton.blackTurn);
-		ReversiSingleton.rightSidePane.add(ReversiSingleton.whiteTurn);
+		ReversiSingleton.getLeftPane().add(ReversiSingleton.getBlackTurn());
+		ReversiSingleton.getRightPane().add(ReversiSingleton.getWhiteTurn());
 		s += " ) ";
 		statusBar.setText(s);
 		if (gamePaused) {
