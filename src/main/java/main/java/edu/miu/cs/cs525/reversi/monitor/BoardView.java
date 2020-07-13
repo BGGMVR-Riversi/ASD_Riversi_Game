@@ -10,6 +10,7 @@ import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardViewPBMTimerActio
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardView_this_mouseAdapter;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardView_timer_actionAdapter;
 import main.java.edu.miu.cs.cs525.reversi.common.*;
+import main.java.edu.miu.cs.cs525.reversi.network.NetworkPlayer;
 
 public class BoardView extends JPanel {
 
@@ -87,7 +88,9 @@ public class BoardView extends JPanel {
 		statusBar.setText(" ");
 		add(statusBar, BorderLayout.SOUTH);
 	}
-
+	/*public void updatePassTurn(BoardInfo board) {
+		NetworkPlayer.getMove1(board);
+	}*/
 	public void updateTurn() {
 		if (mlPointer != null) {
 			mlPointer.updateMoveList(board);
@@ -116,10 +119,12 @@ public class BoardView extends JPanel {
 			return;
 		}
 		if (board.turn == board.PLAYER_BLACK && playerBPointer != null) {
+
 			pauseBeforeMoveTimer.start();
 		} else if (board.turn == board.PLAYER_WHITE && playerWPointer != null) {
 			pauseBeforeMoveTimer.start();
 		}
+
 	}
 
 	public void startMove(Location move) {
@@ -203,7 +208,7 @@ public class BoardView extends JPanel {
 					s += " White is Winner ! ";
 					System.out.println(p2);
 					ReversiSingleton.setCurrentPlayer(new WhitePlayer());
-					ReversiSingleton.getWinner();
+					ReversiSingleton.getCurrentPlayer().winner();
 					playerWPointer.getMove(board);
 				}
 				statusBar.setText(s);
