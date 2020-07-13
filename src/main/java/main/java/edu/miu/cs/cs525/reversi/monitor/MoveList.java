@@ -75,7 +75,7 @@ public class MoveList extends JFrame
 
     public void this_windowClosing( WindowEvent e )
     {
-        ( ( MainForm ) parent ).menuShowMoveList.setState( false ) ;
+        ( ( ReversiSingleton.getMainForm() ) ).menuShowMoveList.setState( false ) ;
     }
 
 }

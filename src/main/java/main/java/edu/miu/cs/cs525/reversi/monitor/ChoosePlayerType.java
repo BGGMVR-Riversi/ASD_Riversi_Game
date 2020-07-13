@@ -21,7 +21,7 @@ public class ChoosePlayerType extends JDialog
     JTextField txtPort2 = new JTextField() ;
     JButton cmdOK = new JButton() ;
     JRadioButton radioNetPlayer = new JRadioButton() ;
-    JRadioButton radioComputerPlayer = new JRadioButton() ;
+    public JRadioButton radioComputerPlayer = new JRadioButton() ;
     ButtonGroup bgroup = new ButtonGroup() ;
     public static int COMPUTER_PLAYER = 1 ;
     public static int NET_PLAYER = 2 ;

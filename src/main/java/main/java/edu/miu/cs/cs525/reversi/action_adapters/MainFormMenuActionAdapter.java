@@ -7,6 +7,7 @@ import main.java.edu.miu.cs.cs525.reversi.monitor.MainForm;
 
 public class MainFormMenuActionAdapter implements ActionListener {
 	MainForm adaptee;
+	AbstractTwo abTwo = new MenuTemplate();
 	String menuItem;
 	int n;
 
@@ -23,23 +24,23 @@ public class MainFormMenuActionAdapter implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (menuItem.equals("GameNew")) {
-			adaptee.menuGameNew_actionPerformed(e);
+			abTwo.menuGameNew_actionPerformed(e);
 		} else if (menuItem.equals("GameExit")) {
-			adaptee.menuGameExit_actionPerformed(e);
+			abTwo.menuGameExit_actionPerformed(e);
 		} else if (menuItem.equals("BlackPlayerHuman")) {
-			adaptee.menuBlackPlayerHuman_actionPerformed(e);
+			abTwo.menuBlackPlayerHuman_actionPerformed(e);
 		} else if (menuItem.equals("BlackPlayerComputer")) {
-			adaptee.menuBlackPlayerComputer_actionPerformed(e);
+			abTwo.menuBlackPlayerComputer_actionPerformed(e);
 		} else if (menuItem.equals("WhitePlayerHuman")) {
-			adaptee.menuWhitePlayerHuman_actionPerformed(e);
+			abTwo.menuWhitePlayerHuman_actionPerformed(e);
 		} else if (menuItem.equals("WhitePlayerComputer")) {
-			adaptee.menuWhitePlayerComputer_actionPerformed(e);
+			abTwo.menuWhitePlayerComputer_actionPerformed(e);
 		} else if (menuItem.equals("HelpAbout")) {
-			adaptee.menuHelpAbout_actionPerformed(e);
+			abTwo.menuHelpAbout_actionPerformed(e);
 		} else if (menuItem.equals("SpeedItems")) {
-			adaptee.menuSpeedItems_actionPerformed(e, n);
+			abTwo.menuSpeedItems_actionPerformed(e, n);
 		}else if (menuItem.equals("ShowMoveList")) {
-			adaptee.menuShowMoveList_actionPerformed(e);
+			abTwo.menuShowMoveList_actionPerformed(e);
 		}
 	}
 }
