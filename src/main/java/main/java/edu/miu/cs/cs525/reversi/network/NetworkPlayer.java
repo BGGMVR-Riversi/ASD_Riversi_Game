@@ -12,12 +12,13 @@ import main.java.edu.miu.cs.cs525.reversi.utils.Utils;
 
 public class NetworkPlayer extends GeneralPlayer {
 
+	public static int counterNetwork;
 	static Channel channel = new Channel();
 	static String hostAddress;
 	int portNumber;
 	static int portNumber2;
 	static InetSocketAddress address;
-	private TargetJson targetJson = new JsonAdapter();
+	private  TargetJson targetJson = new JsonAdapter();
 	Utils utils = new Utils();
 
 	public NetworkPlayer(String hostAddress, int portNumber, int portNumber2) {
@@ -106,4 +107,6 @@ public class NetworkPlayer extends GeneralPlayer {
 		}
 
 	}
+
+
 }
