@@ -10,7 +10,7 @@ public class EndStrategy implements MoveStrategy {
         String poss;
         String[] pl;
         poss = b.getPossibleMoves();
-        System.out.println("A " + poss);
+        System.out.println("EndStrategy " + poss);
         if (!poss.isEmpty()) {
             pl = poss.split(",");
             move.set(pl[0]); // I have at least one Move !
