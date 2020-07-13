@@ -9,7 +9,8 @@ import org.json.JSONObject;
 
 public class AdapteeJson {
     Utils util = new Utils();
-    public boolean isJson(String jsonInString){
+
+    public boolean isJson(String jsonInString) {
 
         try {
             new JSONObject(jsonInString);
@@ -25,16 +26,23 @@ public class AdapteeJson {
 
 
     }
-    public String JsonString(String str){
+
+    public String JsonString(String str) {
         JsonData data = new Gson().fromJson(str, JsonData.class);
         //We removed this to match with team 2
-      //  String result = util.intToString(data.getRow())+(data.getCol()+1);
-        String result = util.intToString(data.getX())+(data.getY()+1);
-        return  result;
+        //updated for both teams
+        String result = "";
+        if (data.getX() != null & data.getY() != null) {
+            result = util.intToString(data.getX()) + (data.getY() + 1);
+        } else if (data.getRow() != null && data.getCol() != null) {
+            //changed to make similar view works in both cases
+            // result = util.intToString(data.getRow())+(data.getCol()+1);
+            result = util.intToString(data.getCol()) + (data.getRow() + 1);
+        }
+        //String result = util.intToString(data.getX())+(data.getY()+1);
+        return result;
 
     }
-
-
 
 
 }
