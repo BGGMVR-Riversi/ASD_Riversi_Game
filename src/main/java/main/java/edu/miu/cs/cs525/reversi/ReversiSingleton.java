@@ -59,10 +59,10 @@ public class ReversiSingleton {
                     rightSidePane.setBackground(darkGray);
                     whitePlayer = new WhitePlayer();
 
-                    blackTurn = new JLabel("Black Turn");
+                    blackTurn = new JLabel("Black's Turn");
                     blackTurn.setForeground(aqua);
                     blackTurn.setVisible(false);
-                    whiteTurn = new JLabel("White Turn");
+                    whiteTurn = new JLabel("White's Turn");
                     whiteTurn.setForeground(aqua);
                     whiteTurn.setVisible(false);
                 }

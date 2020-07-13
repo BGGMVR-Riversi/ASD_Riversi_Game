@@ -332,7 +332,6 @@ public class MainForm extends JFrame {
 			try {
 				String id = ((NetworkPlayer) contents.playerBPointer).identify();
 				menuBlackPlayerComputer.setText(id + " @ ( " + dlg.hostAddress + ":" + dlg.portNumber + " )");
-//				ReversiSingleton.txtTeam4=dlg.hostAddress ;
 			} catch (Exception exc) {
 			}
 		} else if (contents.playerBPointer == null) {
@@ -347,7 +346,6 @@ public class MainForm extends JFrame {
 		}
 		contents.updateTurn();
 	}
-	//Here we need to put the old code
 	public void menuBlackPlayerHuman_actionPerformed(ActionEvent e) {
 		menuBlackPlayerHuman.setText("Human");
 	}
@@ -385,7 +383,6 @@ public class MainForm extends JFrame {
 	}
 
 	public void menuWhitePlayerHuman_actionPerformed(ActionEvent e) {
-		//Here we need to put the old code
 		menuWhitePlayerHuman.setText("Human");
 	}
 
