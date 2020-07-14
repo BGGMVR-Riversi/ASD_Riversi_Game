@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 
 import main.java.edu.miu.cs.cs525.reversi.monitor.ChoosePlayerType;
 
-public class ChoosePlayerOkAction implements main.java.edu.miu.cs.cs525.reversi.action_adapters.ActionEvent
+public class ChoosePlayerOkAction implements ReversiActionEvent
 {
     ChoosePlayerType adaptee ;
 
@@ -14,7 +14,7 @@ public class ChoosePlayerOkAction implements main.java.edu.miu.cs.cs525.reversi.
     }
 
 	@Override
-	public main.java.edu.miu.cs.cs525.reversi.action_adapters.ActionEvent initializeInstance(Object o) {
+	public ReversiActionEvent initializeInstance(Object o) {
 		adaptee = (ChoosePlayerType) o;
 		return this;
 	}

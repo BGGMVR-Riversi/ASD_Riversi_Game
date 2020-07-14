@@ -19,7 +19,7 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JToolBar;
 
 import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
-import main.java.edu.miu.cs.cs525.reversi.action_adapters.ActionEventFactory;
+import main.java.edu.miu.cs.cs525.reversi.action_adapters.ReversiActionEventFactory;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardViewToolBarActionAdapter;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.MainFormMenuActionAdapter;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.MainFormWindowAdapter;
@@ -55,7 +55,7 @@ public class MainForm extends JFrame {
 	JRadioButtonMenuItem menuSpeedItems[] = new JRadioButtonMenuItem[6];
 	ButtonGroup SGroup = new ButtonGroup(); // Animation Speed Group
 	
-	JCheckBoxMenuItem menuShowMoveList = new JCheckBoxMenuItem(" Show Move List");
+//	JCheckBoxMenuItem menuShowMoveList = new JCheckBoxMenuItem(" Show Move List");
 
 	JToolBar toolBar = new JToolBar();
 
@@ -65,6 +65,10 @@ public class MainForm extends JFrame {
 	JLabel lblOtherTeam = new JLabel("Other Team");
 	JLabel lblOrForWhite = new JLabel("or");
 	JLabel lblWhitePlayer = new JLabel("White Player");
+	
+//	BoardView b;
+	
+//	MoveList ml;
 
 	// Construct the frame
 	public MainForm() {
@@ -94,11 +98,11 @@ public class MainForm extends JFrame {
 		ReversiSingleton.getMenuWhitePlayerComputer().addActionListener(new MainFormMenuActionAdapter(this, "WhitePlayerComputer"));
 		ReversiSingleton.getMenuWhitePlayerComputer().addActionListener(new MainFormMenuActionAdapter(this, "WhitePlayerHuman"));
 		menuHelpAbout.setIcon(imgClass.getAboutGameIcon());
-		menuShowMoveList.addActionListener(new MainFormMenuActionAdapter(this, "ShowMoveList"));
-		menuShowMoveList.setState(true);
+		ReversiSingleton.getMenuShowMoveList().addActionListener(new MainFormMenuActionAdapter(this, "ShowMoveList"));
+		ReversiSingleton.getMenuShowMoveList().setState(true);
 
 		WGroup.add(ReversiSingleton.getMenuWhitePlayerComputer());
-		WGroup.add(ReversiSingleton.getMenuWhitePlayerComputer());
+		WGroup.add(ReversiSingleton.getMenuWhitePlayerHuman());
 		ReversiSingleton.getMenuWhitePlayerComputer().setSelected(true);
 		ReversiSingleton.getMenuBlackPlayerComputer().setSelected(true);
 		BGroup.add(ReversiSingleton.getMenuBlackPlayerComputer());
@@ -121,7 +125,7 @@ public class MainForm extends JFrame {
 		menuBlackPlayer.add(ReversiSingleton.getMenuBlackPlayerComputer());
 		menuBlackPlayer.add(ReversiSingleton.getMenuBlackPlayerHuman());
 		menuWhitePlayer.add(ReversiSingleton.getMenuWhitePlayerComputer());
-		menuWhitePlayer.add(ReversiSingleton.getMenuWhitePlayerComputer());
+		menuWhitePlayer.add(ReversiSingleton.getMenuWhitePlayerHuman());
 		menuPlayers.add(menuBlackPlayer);
 		menuPlayers.add(menuWhitePlayer);
 		menuHelp.add(menuHelpAbout);
@@ -134,7 +138,7 @@ public class MainForm extends JFrame {
 		menuBar.add(menuGame);
 		menuOptions.add(menuPlayers);
 		menuOptions.add(menuSpeed);
-		menuOptions.add(menuShowMoveList);
+		menuOptions.add(ReversiSingleton.getMenuShowMoveList());
 		menuBar.add(menuOptions);
 		menuBar.add(menuHelp);
 		this.setJMenuBar(menuBar);
@@ -178,6 +182,10 @@ public class MainForm extends JFrame {
 		ReversiSingleton.getRightPane().add(lblOtherTeam);
 		ReversiSingleton.getRightPane().add(lblOrForWhite);
 		ReversiSingleton.getRightPane().add(lblWhitePlayer);
+		
+//		 ml = new MoveList("Move List", this);
+		
+//		 b = new BoardView(ReversiSingleton.getMoveList(), this, 1);
 
 		contentPane.add(toolBar, BorderLayout.NORTH);
 		contentPane.add(ReversiSingleton.getLeftPane(), BorderLayout.WEST);
@@ -197,7 +205,7 @@ public class MainForm extends JFrame {
 
 	public void newGame() {
 		ReversiSingleton.getBoardView().board.initBoard();
-		ReversiSingleton.getMainForm().repaint();
+		repaint();
 		ReversiSingleton.getPauseButton().setEnabled(true);
 		continueGame();
 	}
@@ -227,7 +235,7 @@ public class MainForm extends JFrame {
 		}
 		ReversiSingleton.getBoardView().board.takeBackOneMove();
 		ReversiSingleton.getBoardView().updateTurn();
-		ReversiSingleton.getMainForm().repaint();
+		repaint();
 	}
 
 	public void nextButton_actionPerformed(ActionEvent e) {
@@ -236,7 +244,7 @@ public class MainForm extends JFrame {
 		}
 		ReversiSingleton.getBoardView().board.redoOneMove();
 		ReversiSingleton.getBoardView().updateTurn();
-		ReversiSingleton.getMainForm().repaint();
+		repaint();
 	}
 
 	public void firstButton_actionPerformed(ActionEvent e) {
@@ -245,7 +253,7 @@ public class MainForm extends JFrame {
 		}
 		ReversiSingleton.getBoardView().board.takeBackAllMoves();
 		ReversiSingleton.getBoardView().updateTurn();
-		ReversiSingleton.getMainForm().repaint();
+		repaint();
 	}
 
 	public void lastButton_actionPerformed(ActionEvent e) {
@@ -254,7 +262,7 @@ public class MainForm extends JFrame {
 		}
 		ReversiSingleton.getBoardView().board.redoAllMoves();
 		ReversiSingleton.getBoardView().updateTurn();
-		ReversiSingleton.getMainForm().repaint();
+		repaint();
 	}
 
 	public void menuGameNew_actionPerformed(ActionEvent e) {
@@ -266,10 +274,10 @@ public class MainForm extends JFrame {
 	}
 
 	public void menuHelpAbout_actionPerformed(ActionEvent e) {
-		About dlg = new About(ReversiSingleton.getMainForm());
+		About dlg = new About(this);
 		Dimension dlgSize = dlg.getPreferredSize();
-		Dimension frmSize = ReversiSingleton.getMainForm().getSize();
-		Point loc = ReversiSingleton.getMainForm().getLocation();
+		Dimension frmSize = getSize();
+		Point loc = getLocation();
 		dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x, (frmSize.height - dlgSize.height) / 2 + loc.y);
 		dlg.setModal(true);
 		dlg.pack();
@@ -284,10 +292,10 @@ public class MainForm extends JFrame {
 	}
 
 	public void menuBlackPlayerComputer_actionPerformed(ActionEvent e) {
-		ChoosePlayerType dlg = new ChoosePlayerType(ReversiSingleton.getMainForm(), "Choose Black Player", true);
+		ChoosePlayerType dlg = new ChoosePlayerType(this, "Choose Black Player", true);
 		Dimension dlgSize = dlg.getPreferredSize();
-		Dimension frmSize = ReversiSingleton.getMainForm().getSize();
-		Point loc = ReversiSingleton.getMainForm().getLocation();
+		Dimension frmSize = getSize();
+		Point loc = getLocation();
 		dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x, (frmSize.height - dlgSize.height) / 2 + loc.y);
 		dlg.show();
 		if (dlg.playerType == dlg.COMPUTER_PLAYER) {
@@ -309,8 +317,8 @@ public class MainForm extends JFrame {
 			ReversiSingleton.getBoardView().playerBPointer = new ComputerPlayer();
 			dlg.radioComputerPlayer_actionPerformed(e);
 			dlg.radioComputerPlayer.setSelected(true);
-			ActionEventFactory.getActionPerformed("ChoosePlayerOkAction");
-			dlg.radioComputerPlayer.addActionListener(ActionEventFactory.ac.initializeInstance(dlg));
+			ReversiActionEventFactory.getActionPerformed("ChoosePlayerOkAction");
+			dlg.radioComputerPlayer.addActionListener(ReversiActionEventFactory.ac.initializeInstance(dlg));
 			dlg.radioComputerPlayer.doClick();
 		}
 		ReversiSingleton.getBoardView().updateTurn();
@@ -321,10 +329,10 @@ public class MainForm extends JFrame {
 	}
 
 	public void menuWhitePlayerComputer_actionPerformed(ActionEvent e) {
-		ChoosePlayerType dlg = new ChoosePlayerType(ReversiSingleton.getMainForm(), "Choose White Player", true);
+		ChoosePlayerType dlg = new ChoosePlayerType(this, "Choose White Player", true);
 		Dimension dlgSize = dlg.getPreferredSize();
-		Dimension frmSize = ReversiSingleton.getMainForm().getSize();
-		Point loc = ReversiSingleton.getMainForm().getLocation();
+		Dimension frmSize = getSize();
+		Point loc = getLocation();
 		dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x, (frmSize.height - dlgSize.height) / 2 + loc.y);
 		dlg.show();
 		if (dlg.playerType == dlg.COMPUTER_PLAYER) {
@@ -341,12 +349,11 @@ public class MainForm extends JFrame {
 		} else if (ReversiSingleton.getBoardView().playerWPointer == null) {
 			//Here we need to put the old code
 			ReversiSingleton.getMenuWhitePlayerComputer().setSelected(true);
-//			ReversiSingleton.getMenuWhitePlayerComputer().setEnabled(true);
 			ReversiSingleton.getBoardView().playerWPointer = new ComputerPlayer();
 			dlg.radioComputerPlayer_actionPerformed(e);
 			dlg.radioComputerPlayer.setSelected(true);
-			ActionEventFactory.getActionPerformed("ChoosePlayerOkAction");
-			dlg.radioComputerPlayer.addActionListener(ActionEventFactory.ac.initializeInstance(dlg));
+			ReversiActionEventFactory.getActionPerformed("ChoosePlayerOkAction");
+			dlg.radioComputerPlayer.addActionListener(ReversiActionEventFactory.ac.initializeInstance(dlg));
 			dlg.radioComputerPlayer.doClick();
 
 		}
@@ -354,7 +361,6 @@ public class MainForm extends JFrame {
 	}
 
 	public void menuWhitePlayerHuman_actionPerformed(ActionEvent e) {
-		//Here we need to put the old code
 		ReversiSingleton.getMenuWhitePlayerHuman().setText("Human");
 	}
 
@@ -364,7 +370,7 @@ public class MainForm extends JFrame {
 
 	public void menuShowMoveList_actionPerformed(ActionEvent e) {
 		ReversiSingleton.getMoveList().setVisible(ReversiSingleton.getMenuShowMoveList().getState());
-		ReversiSingleton.getMainForm().repaint();
+		repaint();
 	}
 	
 	public void this_windowOpened(WindowEvent e) {
