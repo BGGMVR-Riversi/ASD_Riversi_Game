@@ -2,9 +2,11 @@ package main.java.edu.miu.cs.cs525.reversi.monitor;
 
 public interface ShowCurrentPlayer {
 
-    void display();
+    void displayCurrentTurn();
     
-    void winner();
+    void displayWinner();
     
-    void notDisplay();
+    void notDisplayCurrentTurn();
+    
+    void showPlayer(String s);
 }
