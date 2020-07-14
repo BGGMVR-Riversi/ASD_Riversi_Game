@@ -3,10 +3,17 @@ package main.java.edu.miu.cs.cs525.reversi;
 import java.awt.Color;
 import java.awt.GridLayout;
 
+import javax.swing.AbstractButton;
+import javax.swing.JButton;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButtonMenuItem;
 
 import main.java.edu.miu.cs.cs525.reversi.monitor.BlackPlayer;
+import main.java.edu.miu.cs.cs525.reversi.monitor.BoardView;
+import main.java.edu.miu.cs.cs525.reversi.monitor.MainForm;
+import main.java.edu.miu.cs.cs525.reversi.monitor.MoveList;
 import main.java.edu.miu.cs.cs525.reversi.monitor.ShowCurrentPlayer;
 import main.java.edu.miu.cs.cs525.reversi.monitor.WhitePlayer;
 
@@ -32,6 +39,29 @@ public class ReversiSingleton {
     private static JPanel rightSidePane;
     private static JLabel whiteTurn;
     private static WhitePlayer whitePlayer;
+    
+    // Buttons
+    private static JButton firstButton;
+    private static JButton prevButton;
+    private static JButton pauseButton;
+    private static JButton nextButton;
+    private static JButton lastButton;
+    
+    // BoardView
+    private static BoardView b;
+    
+    // Main form and move list
+    private static MainForm m;
+    private static MoveList ml;
+    
+    // Radio Buttons
+    private static JRadioButtonMenuItem menuBlackPlayerComputer;
+    private static JRadioButtonMenuItem menuBlackPlayerHuman;
+    private static JRadioButtonMenuItem menuWhitePlayerHuman;
+	private static JRadioButtonMenuItem menuWhitePlayerComputer;
+	
+	// Check Box
+	private static JCheckBoxMenuItem menuShowMoveList;
 
     private ReversiSingleton(){}
 
@@ -39,7 +69,8 @@ public class ReversiSingleton {
         if(reversiSingletonObj == null){
             synchronized (ReversiSingleton.class){
                 if(reversiSingletonObj == null){
-                    reversiSingletonObj = new ReversiSingleton();
+                    reversiSingletonObj = new ReversiSingleton();                                     
+                             
                     showCurrentPlayer = new BlackPlayer();
                     winner = new JLabel();
                     gameOver = new JLabel();
@@ -65,6 +96,31 @@ public class ReversiSingleton {
                     whiteTurn = new JLabel("White's Turn");
                     whiteTurn.setForeground(aqua);
                     whiteTurn.setVisible(false);
+                    
+                    // Create object for each buttons
+                    firstButton = new JButton();
+                    prevButton = new JButton();
+                    pauseButton = new JButton();
+                    nextButton = new JButton();
+                    lastButton = new JButton();    
+                    
+                    // Create object for radio buttons
+                    menuBlackPlayerComputer = new JRadioButtonMenuItem("Computer");
+                    menuBlackPlayerHuman = new JRadioButtonMenuItem("Human");
+                    menuWhitePlayerComputer = new JRadioButtonMenuItem("Computer");
+                    menuWhitePlayerHuman = new JRadioButtonMenuItem("Human");
+                    
+                    // Create object for check box
+                    menuShowMoveList = new JCheckBoxMenuItem(" Show Move List");
+                    
+                    // Move list
+                    ml = new MoveList("Move List", m);
+                    
+                    // Create object board view
+                    b = new BoardView(ml, m, 1);
+                    
+                    // Main Form
+                    m = new MainForm();
                 }
             }
         }
@@ -117,5 +173,57 @@ public class ReversiSingleton {
     
     public static JLabel getGameOverLabel() {
     	return gameOver;
+    }
+    
+    public static JButton getFirstButton() {
+    	return firstButton;
+    }
+    
+    public static JButton getPrevButton() {
+    	return prevButton;
+    }
+    
+    public static JButton getPauseButton() {
+    	return pauseButton;
+    }
+    
+    public static JButton getNextButton() {
+    	return nextButton;
+    }
+    
+    public static JButton getLastButton() {
+    	return lastButton;
+    }
+    
+    public static BoardView getBoardView() {
+    	return b;
+    }
+    
+    public static MoveList getMoveList() {
+    	return ml;
+    }
+    
+    public static MainForm getMainForm() {
+    	return m;
+    }
+    
+    public static JRadioButtonMenuItem getMenuBlackPlayerComputer() {
+    	return menuBlackPlayerComputer;
+    }
+    
+    public static JRadioButtonMenuItem getMenuBlackPlayerHuman() {
+    	return menuBlackPlayerHuman;
+    }
+    
+    public static JRadioButtonMenuItem getMenuWhitePlayerComputer() {
+    	return menuWhitePlayerComputer;
+    }
+    
+    public static JRadioButtonMenuItem getMenuWhitePlayerHuman() {
+    	return menuWhitePlayerHuman;
+    }
+    
+    public static JCheckBoxMenuItem getMenuShowMoveList() {
+    	return menuShowMoveList;
     }
 }
