@@ -8,8 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 
 import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,11 +19,8 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JToolBar;
 
 import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
-import main.java.edu.miu.cs.cs525.reversi.action_adapters.AbstractBoardView;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.ActionEventFactory;
-import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardViewTemplate;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardViewToolBarActionAdapter;
-import main.java.edu.miu.cs.cs525.reversi.action_adapters.ChoosePlayerOkAction;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.MainFormMenuActionAdapter;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.MainFormWindowAdapter;
 import main.java.edu.miu.cs.cs525.reversi.network.NetworkPlayer;
@@ -35,7 +30,6 @@ public class MainForm extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	ImageClass imgClass = new ImageClass();
-	AbstractBoardView ab = new BoardViewTemplate();
 	
 	JPanel contentPane;
 	JMenuBar menuBar = new JMenuBar();
@@ -190,7 +184,189 @@ public class MainForm extends JFrame {
 		contentPane.add(ReversiSingleton.getBoardView(), BorderLayout.CENTER);
 		contentPane.add(ReversiSingleton.getRightPane(), BorderLayout.EAST);
 	}
+	
+	public void pauseGame() {
+		ReversiSingleton.getPauseButton().setIcon(imgClass.getPlayImg());
+		ReversiSingleton.getFirstButton().setEnabled(true);
+		ReversiSingleton.getPrevButton().setEnabled(true);
+		ReversiSingleton.getNextButton().setEnabled(true);
+		ReversiSingleton.getLastButton().setEnabled(true);
+		ReversiSingleton.getPauseButton().setToolTipText("Continue Game");
+		ReversiSingleton.getBoardView().gamePaused = true;
+	}
 
+	public void newGame() {
+		ReversiSingleton.getBoardView().board.initBoard();
+		ReversiSingleton.getMainForm().repaint();
+		ReversiSingleton.getPauseButton().setEnabled(true);
+		continueGame();
+	}
+
+	public void continueGame() {
+		ReversiSingleton.getPauseButton().setIcon(imgClass.getPauseImg());
+		ReversiSingleton.getFirstButton().setEnabled(false);
+		ReversiSingleton.getPrevButton().setEnabled(false);
+		ReversiSingleton.getNextButton().setEnabled(false);
+		ReversiSingleton.getLastButton().setEnabled(false);
+		ReversiSingleton.getPauseButton().setToolTipText("Pause Game");
+		ReversiSingleton.getBoardView().gamePaused = false;
+		ReversiSingleton.getBoardView().updateTurn();
+	}
+
+	public void pauseButton_actionPerformed(ActionEvent e) {
+		if (ReversiSingleton.getPauseButton().getToolTipText().equals("Pause Game")) {
+			pauseGame();
+		} else {
+			continueGame();
+		}
+	}
+
+	public void prevButton_actionPerformed(ActionEvent e) {
+		if (ReversiSingleton.getBoardView().timer.isRunning()) {
+			return;
+		}
+		ReversiSingleton.getBoardView().board.takeBackOneMove();
+		ReversiSingleton.getBoardView().updateTurn();
+		ReversiSingleton.getMainForm().repaint();
+	}
+
+	public void nextButton_actionPerformed(ActionEvent e) {
+		if (ReversiSingleton.getBoardView().timer.isRunning()) {
+			return;
+		}
+		ReversiSingleton.getBoardView().board.redoOneMove();
+		ReversiSingleton.getBoardView().updateTurn();
+		ReversiSingleton.getMainForm().repaint();
+	}
+
+	public void firstButton_actionPerformed(ActionEvent e) {
+		if (ReversiSingleton.getBoardView().timer.isRunning()) {
+			return;
+		}
+		ReversiSingleton.getBoardView().board.takeBackAllMoves();
+		ReversiSingleton.getBoardView().updateTurn();
+		ReversiSingleton.getMainForm().repaint();
+	}
+
+	public void lastButton_actionPerformed(ActionEvent e) {
+		if (ReversiSingleton.getBoardView().timer.isRunning()) {
+			return;
+		}
+		ReversiSingleton.getBoardView().board.redoAllMoves();
+		ReversiSingleton.getBoardView().updateTurn();
+		ReversiSingleton.getMainForm().repaint();
+	}
+
+	public void menuGameNew_actionPerformed(ActionEvent e) {
+		newGame();
+	}
+
+	public void menuGameExit_actionPerformed(ActionEvent e) {
+		System.exit(0);
+	}
+
+	public void menuHelpAbout_actionPerformed(ActionEvent e) {
+		About dlg = new About(ReversiSingleton.getMainForm());
+		Dimension dlgSize = dlg.getPreferredSize();
+		Dimension frmSize = ReversiSingleton.getMainForm().getSize();
+		Point loc = ReversiSingleton.getMainForm().getLocation();
+		dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x, (frmSize.height - dlgSize.height) / 2 + loc.y);
+		dlg.setModal(true);
+		dlg.pack();
+		dlg.show();
+	}
+
+	public void processWindowEvent(ActionEvent e) {
+//		super.processWindowEvent(e);
+		if (e.getID() == WindowEvent.WINDOW_CLOSING) {
+			menuGameExit_actionPerformed(null);
+		}
+	}
+
+	public void menuBlackPlayerComputer_actionPerformed(ActionEvent e) {
+		ChoosePlayerType dlg = new ChoosePlayerType(ReversiSingleton.getMainForm(), "Choose Black Player", true);
+		Dimension dlgSize = dlg.getPreferredSize();
+		Dimension frmSize = ReversiSingleton.getMainForm().getSize();
+		Point loc = ReversiSingleton.getMainForm().getLocation();
+		dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x, (frmSize.height - dlgSize.height) / 2 + loc.y);
+		dlg.show();
+		if (dlg.playerType == dlg.COMPUTER_PLAYER) {
+			ReversiSingleton.getBoardView().playerBPointer = new ComputerPlayer();
+			ReversiSingleton.getMenuBlackPlayerComputer().setText("Computer");
+
+		} else if (dlg.playerType == dlg.NET_PLAYER) {
+			ReversiSingleton.getBoardView().playerBPointer = new NetworkPlayer(dlg.hostAddress, dlg.portNumber, dlg.portNumber2);
+			try {
+				String id = ((NetworkPlayer) ReversiSingleton.getBoardView().playerBPointer).identify();
+				ReversiSingleton.getMenuBlackPlayerComputer().setText(id + " @ ( " + dlg.hostAddress + ":" + dlg.portNumber + " )");
+//				ReversiSingleton.txtTeam4=dlg.hostAddress ;
+			} catch (Exception exc) {
+			}
+		} else if (ReversiSingleton.getBoardView().playerBPointer == null) {
+			//Here we need to put the old code
+			ReversiSingleton.getMenuBlackPlayerComputer().setSelected(true);
+			ReversiSingleton.getMenuBlackPlayerComputer().setEnabled(true);
+			ReversiSingleton.getBoardView().playerBPointer = new ComputerPlayer();
+			dlg.radioComputerPlayer_actionPerformed(e);
+			dlg.radioComputerPlayer.setSelected(true);
+			ActionEventFactory.getActionPerformed("ChoosePlayerOkAction");
+			dlg.radioComputerPlayer.addActionListener(ActionEventFactory.ac.initializeInstance(dlg));
+			dlg.radioComputerPlayer.doClick();
+		}
+		ReversiSingleton.getBoardView().updateTurn();
+	}
+
+	public void menuBlackPlayerHuman_actionPerformed(ActionEvent e) {
+		ReversiSingleton.getMenuBlackPlayerHuman().setText("Human");
+	}
+
+	public void menuWhitePlayerComputer_actionPerformed(ActionEvent e) {
+		ChoosePlayerType dlg = new ChoosePlayerType(ReversiSingleton.getMainForm(), "Choose White Player", true);
+		Dimension dlgSize = dlg.getPreferredSize();
+		Dimension frmSize = ReversiSingleton.getMainForm().getSize();
+		Point loc = ReversiSingleton.getMainForm().getLocation();
+		dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x, (frmSize.height - dlgSize.height) / 2 + loc.y);
+		dlg.show();
+		if (dlg.playerType == dlg.COMPUTER_PLAYER) {
+			ReversiSingleton.getBoardView().playerWPointer = new ComputerPlayer();
+			ReversiSingleton.getMenuWhitePlayerComputer().setText("Computer");
+
+		} else if (dlg.playerType == dlg.NET_PLAYER) {
+			ReversiSingleton.getBoardView().playerWPointer = new NetworkPlayer(dlg.hostAddress, dlg.portNumber, dlg.portNumber2);
+			try {
+				String id = ((NetworkPlayer) ReversiSingleton.getBoardView().playerWPointer).identify();
+				ReversiSingleton.getMenuWhitePlayerComputer().setText(id + " @ ( " + dlg.hostAddress + ":" + dlg.portNumber + " )");
+			} catch (Exception exc) {
+			}
+		} else if (ReversiSingleton.getBoardView().playerWPointer == null) {
+			//Here we need to put the old code
+			ReversiSingleton.getMenuWhitePlayerComputer().setSelected(true);
+//			ReversiSingleton.getMenuWhitePlayerComputer().setEnabled(true);
+			ReversiSingleton.getBoardView().playerWPointer = new ComputerPlayer();
+			dlg.radioComputerPlayer_actionPerformed(e);
+			dlg.radioComputerPlayer.setSelected(true);
+			ActionEventFactory.getActionPerformed("ChoosePlayerOkAction");
+			dlg.radioComputerPlayer.addActionListener(ActionEventFactory.ac.initializeInstance(dlg));
+			dlg.radioComputerPlayer.doClick();
+
+		}
+		ReversiSingleton.getBoardView().updateTurn();
+	}
+
+	public void menuWhitePlayerHuman_actionPerformed(ActionEvent e) {
+		//Here we need to put the old code
+		ReversiSingleton.getMenuWhitePlayerHuman().setText("Human");
+	}
+
+	public void menuSpeedItems_actionPerformed(ActionEvent e, int n) {
+		ReversiSingleton.getBoardView().animationSpeed = n;
+	}
+
+	public void menuShowMoveList_actionPerformed(ActionEvent e) {
+		ReversiSingleton.getMoveList().setVisible(ReversiSingleton.getMenuShowMoveList().getState());
+		ReversiSingleton.getMainForm().repaint();
+	}
+	
 	public void this_windowOpened(WindowEvent e) {
 		Dimension frmSize = getSize();
 		Point l = this.getLocationOnScreen();
