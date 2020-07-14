@@ -13,7 +13,6 @@ public class MiniMax extends Thread
     BoardInfo b ;
     String[] possibleMoves ;
     public float[] moves ;
-    BoardEnum boardEnum;
 
     public MiniMax( int iCutOff, int player, BoardInfo b, String[] possibleMoves )
     {
@@ -27,8 +26,8 @@ public class MiniMax extends Thread
     public float Evaluate( BoardInfo bs )
     {
         int mp = bs.getPieceCount( ME ) ;
-        int op = 64 - bs.getPieceCount( boardEnum.EMPTY.value() ) - mp ;
-        if( bs.turn == boardEnum.GAME_OVER.value() ) {
+        int op = 64 - bs.getPieceCount( BoardEnum.EMPTY.value() ) - mp ;
+        if( bs.turn == BoardEnum.GAME_OVER.value() ) {
             if( mp > op ) {
                 return +100 + mp - op ;
             }
@@ -50,7 +49,7 @@ public class MiniMax extends Thread
 
     public float MaxValue( BoardInfo bs, int n, float alpha, float beta )
     {
-        if( bs.turn == boardEnum.GAME_OVER.value() || n == CUT_OFF ) {
+        if( bs.turn == BoardEnum.GAME_OVER.value() || n == CUT_OFF ) {
             return Evaluate( bs ) ;
         }
         String poss ;
@@ -78,7 +77,7 @@ public class MiniMax extends Thread
 
     public float MinValue( BoardInfo bs, int n, float alpha, float beta )
     {
-        if( bs.turn == boardEnum.GAME_OVER.value() || n == CUT_OFF ) {
+        if( bs.turn == BoardEnum.GAME_OVER.value() || n == CUT_OFF ) {
             return Evaluate( bs ) ;
         }
         String poss ;

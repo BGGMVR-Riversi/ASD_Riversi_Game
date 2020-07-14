@@ -3,9 +3,8 @@ package main.java.edu.miu.cs.cs525.reversi.common;
 import main.java.edu.miu.cs.cs525.reversi.mediator.BoardEnum;
 
 public class AnimationMatrix {
-	BoardEnum boardEnum;
-	public int numberOfRow = boardEnum.ROW_COUNT.value();
-	public int numberOfColumn = boardEnum.COL_COUNT.value();
+	public int numberOfRow = BoardEnum.ROW_COUNT.value();
+	public int numberOfColumn = BoardEnum.COL_COUNT.value();
 
 	private int[][] mat = new int[numberOfRow][numberOfColumn];
 

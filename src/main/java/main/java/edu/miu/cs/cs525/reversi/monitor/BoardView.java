@@ -1,18 +1,28 @@
 package main.java.edu.miu.cs.cs525.reversi.monitor;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.border.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.Timer;
+import javax.swing.border.TitledBorder;
 
 import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
-import main.java.edu.miu.cs.cs525.reversi.action_adapters.ReversiActionEventFactory;
-import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardView_PBMTimer_Action;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardView_this_mouseAdapter;
-import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardView_Timer_Action;
-import main.java.edu.miu.cs.cs525.reversi.common.*;
+import main.java.edu.miu.cs.cs525.reversi.action_adapters.ReversiActionEventFactory;
+import main.java.edu.miu.cs.cs525.reversi.common.AnimationMatrix;
+import main.java.edu.miu.cs.cs525.reversi.common.BoardInfo;
+import main.java.edu.miu.cs.cs525.reversi.common.BoardMatrix;
+import main.java.edu.miu.cs.cs525.reversi.common.GeneralPlayer;
+import main.java.edu.miu.cs.cs525.reversi.common.Location;
 import main.java.edu.miu.cs.cs525.reversi.mediator.BoardEnum;
-import main.java.edu.miu.cs.cs525.reversi.network.NetworkPlayer;
 
 public class BoardView extends JPanel {
 
@@ -36,7 +46,7 @@ public class BoardView extends JPanel {
 	public JFrame parent;
 	public int deltaX = 0, deltaY = 0;
 	public int boardBorder;
-	BoardEnum boardEnum;
+
 	public void paint(Graphics g) {
 		super.paint(g);
 		g.setColor(new Color(200, 200, 200));
@@ -47,8 +57,8 @@ public class BoardView extends JPanel {
 			m = board.getGainMatrix();
 		}
 		g.drawImage(border.getImage(), deltaX, deltaY, this);
-		for (int i = 0; i < boardEnum.ROW_COUNT.value(); i++) {
-			for (int j = 0; j < boardEnum.COL_COUNT.value(); j++) {
+		for (int i = 0; i < BoardEnum.ROW_COUNT.value(); i++) {
+			for (int j = 0; j < BoardEnum.COL_COUNT.value(); j++) {
 				x = deltaX + 31 + j * 60;
 				y = deltaY + 31 + i * 60;
 				b = board.board[i][j];
@@ -79,10 +89,10 @@ public class BoardView extends JPanel {
 	private void jbInit() throws Exception {
 		ReversiActionEventFactory.getActionPerformed("BoardView_Timer_Action");
 		timer = new Timer(50, ReversiActionEventFactory.ac.initializeInstance(this));
-		
+
 		ReversiActionEventFactory.getActionPerformed("BoardView_PBMTimer_Action");
 		pauseBeforeMoveTimer = new Timer(100, ReversiActionEventFactory.ac.initializeInstance(this));
-		
+
 		this.addMouseListener(new BoardView_this_mouseAdapter(this));
 		pieces = new ImageIcon(MainForm.class.getResource("../images/standard-1.png"));
 		border = new ImageIcon(MainForm.class.getResource("../images/540px-board-" + boardBorder + ".png"));
@@ -92,24 +102,26 @@ public class BoardView extends JPanel {
 		statusBar.setText(" ");
 		add(statusBar, BorderLayout.SOUTH);
 	}
-	/*public void updatePassTurn(BoardInfo board) {
-		NetworkPlayer.getMove1(board);
-	}*/
+
+	/*
+	 * public void updatePassTurn(BoardInfo board) { NetworkPlayer.getMove1(board);
+	 * }
+	 */
 	public void updateTurn() {
 		if (mlPointer != null) {
 			mlPointer.updateMoveList(board);
 		}
-		if (board.turn == boardEnum.NO_GAME.value()) {
+		if (board.turn == BoardEnum.NO_GAME.value()) {
 			statusBar.setText("To Start New Game choose Game | New.");
 			return;
 		}
 		String s = board.getTurnString();
 		s += " ( ";
-		lblScoreBlack.setText("Score: " + board.getPieceCount(boardEnum.PLAYER_BLACK.value()));
+		lblScoreBlack.setText("Score: " + board.getPieceCount(BoardEnum.PLAYER_BLACK.value()));
 		lblScoreBlack.setForeground(ReversiSingleton.getAqua());
 		ReversiSingleton.getLeftPane().add(lblScoreBlack);
 
-		lblScoreWhite.setText("Score: " + board.getPieceCount(boardEnum.PLAYER_WHITE.value()));
+		lblScoreWhite.setText("Score: " + board.getPieceCount(BoardEnum.PLAYER_WHITE.value()));
 		lblScoreWhite.setForeground(ReversiSingleton.getAqua());
 		ReversiSingleton.getRightPane().add(lblScoreWhite);
 
@@ -122,10 +134,10 @@ public class BoardView extends JPanel {
 		if (gamePaused) {
 			return;
 		}
-		if (board.turn == boardEnum.PLAYER_BLACK.value() && playerBPointer != null) {
+		if (board.turn == BoardEnum.PLAYER_BLACK.value() && playerBPointer != null) {
 
 			pauseBeforeMoveTimer.start();
-		} else if (board.turn == boardEnum.PLAYER_WHITE.value() && playerWPointer != null) {
+		} else if (board.turn == BoardEnum.PLAYER_WHITE.value() && playerWPointer != null) {
 			pauseBeforeMoveTimer.start();
 		}
 
@@ -139,7 +151,7 @@ public class BoardView extends JPanel {
 			return;
 		}
 		if (!board.isValidMove(move.row, move.column)) {
-			System.err.println("Please select a valid move! Col: "+move.column+" Row: "+move.row);
+			System.err.println("Please select a valid move! Col: " + move.column + " Row: " + move.row);
 			return;
 		}
 		am = board.calculateMoveAnimation(move.row, move.column);
@@ -151,7 +163,7 @@ public class BoardView extends JPanel {
 		if (timer.isRunning()) {
 			return;
 		}
-		if (board.turn == boardEnum.NO_GAME.value() || board.turn == boardEnum.GAME_OVER.value()) {
+		if (board.turn == BoardEnum.NO_GAME.value() || board.turn == BoardEnum.GAME_OVER.value()) {
 			statusBar.setText("To Start New Game choose Game | New.");
 			return;
 		}
@@ -163,18 +175,18 @@ public class BoardView extends JPanel {
 		if (Math.abs(br - 30) > 28 || Math.abs(bc - 30) > 28) {
 			return;
 		}
-		if (board.turn == boardEnum.PLAYER_BLACK.value() && playerBPointer == null) {
+		if (board.turn == BoardEnum.PLAYER_BLACK.value() && playerBPointer == null) {
 			startMove(new Location(r, c));
-		} else if (board.turn == boardEnum.PLAYER_WHITE.value() && playerWPointer == null) {
+		} else if (board.turn == BoardEnum.PLAYER_WHITE.value() && playerWPointer == null) {
 			startMove(new Location(r, c));
 		}
 	}
 
 	public void PBMTimer_actionPerformed(ActionEvent e) {
 		pauseBeforeMoveTimer.stop();
-		if (board.turn == boardEnum.PLAYER_BLACK.value() && playerBPointer != null) {
+		if (board.turn == BoardEnum.PLAYER_BLACK.value() && playerBPointer != null) {
 			startMove(playerBPointer.getMove(board));
-		} else if (board.turn == boardEnum.PLAYER_WHITE.value() && playerWPointer != null) {
+		} else if (board.turn == BoardEnum.PLAYER_WHITE.value() && playerWPointer != null) {
 			startMove(playerWPointer.getMove(board));
 		}
 	}
@@ -182,22 +194,22 @@ public class BoardView extends JPanel {
 	public void timer_actionPerformed(ActionEvent e) {
 		int count = am.perform(board, animationSpeed);
 		repaint();
-		if (count == boardEnum.ROW_COUNT.value() * boardEnum.COL_COUNT.value()) {
+		if (count == BoardEnum.ROW_COUNT.value() * BoardEnum.COL_COUNT.value()) {
 			timer.stop();
 			if (board.correctTurn() == 2) {
 				String s = "Game Over";
-				int p1 = board.getPieceCount(boardEnum.PLAYER_BLACK.value());
-				int p2 = board.getPieceCount(boardEnum.PLAYER_WHITE.value());
+				int p1 = board.getPieceCount(BoardEnum.PLAYER_BLACK.value());
+				int p2 = board.getPieceCount(BoardEnum.PLAYER_WHITE.value());
 				s += " ( ";
 				s += p1 + " : " + p2;
 				lblScoreBlack.setText("Score: " + p1);
 				lblScoreWhite.setText("Score: " + p2);
 				s += " ) ";
-				if (p1 == p2 && board.turn == boardEnum.PLAYER_BLACK.value()) {
+				if (p1 == p2 && board.turn == BoardEnum.PLAYER_BLACK.value()) {
 					s += " It's a Draw ! ";
 					playerBPointer.getMove(board);
 
-				} else if (p1 == p2 && board.turn == boardEnum.PLAYER_WHITE.value()) {
+				} else if (p1 == p2 && board.turn == BoardEnum.PLAYER_WHITE.value()) {
 					s += " It's a Draw ! ";
 					playerWPointer.getMove(board);
 
