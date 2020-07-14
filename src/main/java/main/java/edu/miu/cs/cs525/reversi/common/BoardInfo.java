@@ -2,9 +2,9 @@ package main.java.edu.miu.cs.cs525.reversi.common;
 
 import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
 import main.java.edu.miu.cs.cs525.reversi.mediator.BoardEnum;
-import main.java.edu.miu.cs.cs525.reversi.monitor.ShowCurrentPlayer;
+import main.java.edu.miu.cs.cs525.reversi.mediator.MediatorService;
 
-public class BoardInfo {
+public class BoardInfo implements MediatorService {
 
 	// Board :
 	public int[][] board = new int[BoardEnum.ROW_COUNT.value()][BoardEnum.COL_COUNT.value()];
@@ -13,7 +13,6 @@ public class BoardInfo {
 	public int turn;
 
 	// Move History :
-
 	public Location[] moveHistory = new Location[BoardEnum.MAX_MOVES.value() + 2];
 	public int[] turnHistory = new int[BoardEnum.MAX_MOVES.value() + 2];
 	public int[][][] boardHistory = new int[BoardEnum.MAX_MOVES.value()][BoardEnum.ROW_COUNT
@@ -43,19 +42,7 @@ public class BoardInfo {
 		validMoveCount = src.validMoveCount;
 	}
 
-	public void changePlayer(ShowCurrentPlayer showCurrentPlayer) {
-		ReversiSingleton.setCurrentPlayer(showCurrentPlayer);
-	}
-
-	public void copyBoard(int[][] src, int[][] dest) {
-		int i, j;
-		for (i = 0; i < BoardEnum.ROW_COUNT.value(); i++) {
-			for (j = 0; j < BoardEnum.COL_COUNT.value(); j++) {
-				dest[i][j] = src[i][j];
-			}
-		}
-	}
-
+	@Override
 	public void makeEmpty() {
 		int i, j;
 		for (i = 0; i < BoardEnum.ROW_COUNT.value(); i++) {
@@ -68,6 +55,7 @@ public class BoardInfo {
 		turn = BoardEnum.NO_GAME.value();
 	}
 
+	@Override
 	public void initBoard() {
 		makeEmpty();
 		board[3][3] = BoardEnum.PLAYER_WHITE.value();
@@ -104,6 +92,7 @@ public class BoardInfo {
 		}
 	}
 
+	@Override
 	public void changeTurn() {
 		if (turn == BoardEnum.PLAYER_BLACK.value()) {
 			turn = BoardEnum.PLAYER_WHITE.value();
@@ -112,6 +101,7 @@ public class BoardInfo {
 		}
 	}
 
+	@Override
 	public boolean isValidMove(int r, int c) {
 		int iD, jD, dCount = 0;
 		if (turn == BoardEnum.NO_GAME.value() || turn == BoardEnum.GAME_OVER.value()
@@ -137,6 +127,7 @@ public class BoardInfo {
 		}
 	}
 
+	@Override
 	public AnimationMatrix calculateMoveAnimation(int r, int c) {
 		AnimationMatrix anim = new AnimationMatrix();
 		int iD, jD, dCount = 0;
@@ -171,7 +162,7 @@ public class BoardInfo {
 		return anim;
 	}
 
-	public int performMove(int r, int c) {
+	private int performMove(int r, int c) {
 		// Performs a move with a trick :
 		// calculates move animation & then performs animation at once !
 		AnimationMatrix am = calculateMoveAnimation(r, c);
@@ -179,10 +170,12 @@ public class BoardInfo {
 		return correctTurn();
 	}
 
+	@Override
 	public int performMove(Location l) {
 		return performMove(l.row, l.column);
 	}
 
+	@Override
 	public String getTurnString() {
 		if (turn == BoardEnum.PLAYER_BLACK.value()) {
 			changePlayer(ReversiSingleton.getBlackPlayer());
@@ -202,6 +195,7 @@ public class BoardInfo {
 		}
 	}
 
+	@Override
 	public int getPieceCount(int player) {
 		int c = 0;
 		int i, j;
@@ -230,6 +224,7 @@ public class BoardInfo {
 		}
 	}
 
+	@Override
 	public BoardMatrix getGainMatrix() {
 		BoardMatrix m = new BoardMatrix();
 		int r, c, iD, jD;
@@ -260,6 +255,7 @@ public class BoardInfo {
 		return m;
 	}
 
+	@Override
 	public BoardMatrix getPossibleMovesMatrix() {
 		BoardMatrix m = getGainMatrix();
 		int i, j;
@@ -275,6 +271,7 @@ public class BoardInfo {
 		return m;
 	}
 
+	@Override
 	public int correctTurn() {
 		BoardMatrix m = getGainMatrix();
 		if (m.getMax() > 0) {
@@ -387,25 +384,17 @@ public class BoardInfo {
 		}
 	}
 
-	public String getPossibleMoves() {
-		String s = "";
-		BoardMatrix m = getGainMatrix();
-		int i, j;
-		for (i = 0; i < BoardEnum.ROW_COUNT.value(); i++) {
-			for (j = 0; j < BoardEnum.COL_COUNT.value(); j++) {
-				if (m.get(i, j) > 0) {
-					Location l = new Location(i, j);
-					s = s + l.getStandardForm() + ",";
-				}
-			}
+	private boolean isEmpty(int i, int j) {
+		if (i < 0 || i >= BoardEnum.ROW_COUNT.value() || j < 0 || j >= BoardEnum.COL_COUNT.value()) {
+			return false;
+		} else if (board[i][j] == BoardEnum.EMPTY.value()) {
+			return true;
+		} else {
+			return false;
 		}
-		if (s.length() > 0) {
-			s = s.substring(0, s.length() - 1);
-		}
-		return s;
 	}
 
-	public int countCornerStablePieces(int player, Location corner, int rMAx, int cMax) {
+	private int countCornerStablePieces(int player, Location corner, int rMAx, int cMax) {
 		int i, j, c = 0, rm = 0, cm = 0, rec = 0;
 		boolean e;
 		Location dir = new Location((corner.row <= BoardEnum.ROW_COUNT.value() / 2 ? +1 : -1),
@@ -458,6 +447,7 @@ public class BoardInfo {
 		return c;
 	}
 
+	
 	private int countRepetitions(int player, Location corner1, Location corner2, int n) {
 		int c = 0;
 		Location dir = new Location();
@@ -491,6 +481,7 @@ public class BoardInfo {
 		return c;
 	}
 
+	@Override
 	public int countStablePieces(int player) {
 		int sum = 0;
 		sum += countCornerStablePieces(player, new Location(0, 0), BoardEnum.ROW_COUNT.value(),
@@ -505,24 +496,7 @@ public class BoardInfo {
 		return sum;
 	}
 
-	public int getOpponent(int player) {
-		if (player == BoardEnum.PLAYER_BLACK.value()) {
-			return BoardEnum.PLAYER_WHITE.value();
-		} else {
-			return BoardEnum.PLAYER_BLACK.value();
-		}
-	}
-
-	private boolean isEmpty(int i, int j) {
-		if (i < 0 || i >= BoardEnum.ROW_COUNT.value() || j < 0 || j >= BoardEnum.COL_COUNT.value()) {
-			return false;
-		} else if (board[i][j] == BoardEnum.EMPTY.value()) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
+	@Override
 	public int countFrontier(int player) {
 		int f = 0;
 		int i, j;
