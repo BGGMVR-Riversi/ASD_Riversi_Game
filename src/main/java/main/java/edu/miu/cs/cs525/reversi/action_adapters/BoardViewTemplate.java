@@ -48,6 +48,10 @@ public class BoardViewTemplate extends Abstract {
 			pauseGame();
 		} else {
 			continueGame();
+			if (History.getInstance().size("redo") > 0) {
+				System.out.println("!!Clearing all redo history!!");
+				History.getInstance().clearRedoHistory();
+			}
 		}
 	}
 
@@ -58,7 +62,7 @@ public class BoardViewTemplate extends Abstract {
 		}
 		ReversiSingleton.getBoardView().board.takeBackOneMove();
 		if (History.getInstance().size("undo") <= 0) {
-			System.out.println("Nothing to Undo");
+			System.out.println("Nothing to undo from Memento");
 		} else {
 			Board.getInstance().restore(History.getInstance().popFromUndoList());
 		}
@@ -74,7 +78,7 @@ public class BoardViewTemplate extends Abstract {
 		}
 		ReversiSingleton.getBoardView().board.redoOneMove();
 		if (History.getInstance().size("redo") <= 0) {
-			System.out.println("Nothing to Redo");
+			System.out.println("Nothing to redo from Memento");
 		} else {
 			Board.getInstance().restore(History.getInstance().popFromRedoList());
 		}
@@ -89,6 +93,13 @@ public class BoardViewTemplate extends Abstract {
 			return;
 		}
 		ReversiSingleton.getBoardView().board.takeBackAllMoves();
+		if (History.getInstance().size("undo") <= 0) {
+			System.out.println("Nothing to undo from Memento");
+		} else {
+			History.getInstance().undoAllFromUndoList();
+		}
+		System.out.println("========== undoALL from Memento ==========");
+		
 		ReversiSingleton.getBoardView().updateTurn();
 		ReversiSingleton.getMainForm().repaint();
 	}
@@ -99,6 +110,13 @@ public class BoardViewTemplate extends Abstract {
 			return;
 		}
 		ReversiSingleton.getBoardView().board.redoAllMoves();
+		if (History.getInstance().size("redo") <= 0) {
+			System.out.println("Nothing to redo from Memento");
+		} else {
+			History.getInstance().redoAllFromRedoList();
+		}
+		System.out.println("========== redoALL from Memento ==========");
+		
 		ReversiSingleton.getBoardView().updateTurn();
 		ReversiSingleton.getMainForm().repaint();
 	}
