@@ -1,8 +1,13 @@
 package main.java.edu.miu.cs.cs525.reversi.common ;
 
+import main.java.edu.miu.cs.cs525.reversi.utils.Convert;
+import main.java.edu.miu.cs.cs525.reversi.utils.ConvertToInt;
+import main.java.edu.miu.cs.cs525.reversi.utils.ConvertToString;
+
 public class Location
 {
     public int row, column ;
+    Convert convert;
 
     public Location()
     {
@@ -36,33 +41,9 @@ public class Location
 
     public void set( String standardForm )
     {
-        switch( standardForm.charAt( 0 ) ) {
-            case 'A':
-                column = 0 ;
-                break ;
-            case 'B':
-                column = 1 ;
-                break ;
-            case 'C':
-                column = 2 ;
-                break ;
-            case 'D':
-                column = 3 ;
-                break ;
-            case 'E':
-                column = 4 ;
-                break ;
-            case 'F':
-                column = 5 ;
-                break ;
-            case 'G':
-                column = 6 ;
-                break ;
-            case 'H':
-                column = 7 ;
-                break ;
-        }
-        row = ( int ) ( standardForm.charAt( 1 ) ) - 49 ;
+    	convert = new ConvertToInt();
+    	column = convert.stringToInt(standardForm.charAt( 0 ));
+        row = (int)(standardForm.charAt( 1 )) - 49 ;
     }
 
     public Location( String standardForm )
@@ -73,32 +54,8 @@ public class Location
     public String getStandardForm()
     {
         String s = "" ;
-        switch( column ) {
-            case 0:
-                s = "A" ;
-                break ;
-            case 1:
-                s = "B" ;
-                break ;
-            case 2:
-                s = "C" ;
-                break ;
-            case 3:
-                s = "D" ;
-                break ;
-            case 4:
-                s = "E" ;
-                break ;
-            case 5:
-                s = "F" ;
-                break ;
-            case 6:
-                s = "G" ;
-                break ;
-            case 7:
-                s = "H" ;
-                break ;
-        }
+        convert = new ConvertToString();
+        s = convert.intToString(column);
         s = s + ( row + 1 ) ;
         return s ;
     }
