@@ -11,9 +11,9 @@ import main.java.edu.miu.cs.cs525.reversi.monitor.ChoosePlayerType;
 import main.java.edu.miu.cs.cs525.reversi.monitor.ComputerPlayer;
 import main.java.edu.miu.cs.cs525.reversi.network.NetworkPlayer;
 
-public class MenuTemplate extends AbstractTwo {
+public class MenuTemplate extends AbstractMenu {
 	
-	Abstract ab = new BoardViewTemplate();
+	AbstractBoardView ab = new BoardViewTemplate();
 
 	@Override
 	void menuGameNew_actionPerformed(ActionEvent e) {

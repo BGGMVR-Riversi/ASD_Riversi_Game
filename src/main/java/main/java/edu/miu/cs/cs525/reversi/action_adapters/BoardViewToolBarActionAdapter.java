@@ -8,7 +8,7 @@ import main.java.edu.miu.cs.cs525.reversi.monitor.MainForm;
 public class BoardViewToolBarActionAdapter implements java.awt.event.ActionListener
 {
     MainForm adaptee ;
-    Abstract ab = new BoardViewTemplate();
+    AbstractBoardView ab = new BoardViewTemplate();
     String tbItem ;
 
     public BoardViewToolBarActionAdapter( MainForm adaptee, String toolbarItem )

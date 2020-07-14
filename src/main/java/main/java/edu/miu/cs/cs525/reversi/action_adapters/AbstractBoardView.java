@@ -2,7 +2,7 @@ package main.java.edu.miu.cs.cs525.reversi.action_adapters;
 
 import java.awt.event.ActionEvent;
 
-public abstract class Abstract {
+public abstract class AbstractBoardView {
 
 	public abstract void pauseGame();
 	

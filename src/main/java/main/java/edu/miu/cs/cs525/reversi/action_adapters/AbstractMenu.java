@@ -2,7 +2,7 @@ package main.java.edu.miu.cs.cs525.reversi.action_adapters;
 
 import java.awt.event.ActionEvent;
 
-public abstract class AbstractTwo {
+public abstract class AbstractMenu {
 	
 	abstract void menuGameNew_actionPerformed(ActionEvent e);
 	

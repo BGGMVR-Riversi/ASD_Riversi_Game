@@ -21,7 +21,7 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JToolBar;
 
 import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
-import main.java.edu.miu.cs.cs525.reversi.action_adapters.Abstract;
+import main.java.edu.miu.cs.cs525.reversi.action_adapters.AbstractBoardView;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.ActionEventFactory;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardViewTemplate;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardViewToolBarActionAdapter;
@@ -35,7 +35,7 @@ public class MainForm extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	ImageClass imgClass = new ImageClass();
-	Abstract ab = new BoardViewTemplate();
+	AbstractBoardView ab = new BoardViewTemplate();
 	
 	JPanel contentPane;
 	JMenuBar menuBar = new JMenuBar();

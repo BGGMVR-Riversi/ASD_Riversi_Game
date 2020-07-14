@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
 import main.java.edu.miu.cs.cs525.reversi.utils.ImageClass;
 
-public class BoardViewTemplate extends Abstract {
+public class BoardViewTemplate extends AbstractBoardView {
 	
 	ImageClass imgClass = new ImageClass();
 	

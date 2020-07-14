@@ -7,7 +7,7 @@ import main.java.edu.miu.cs.cs525.reversi.monitor.MainForm;
 
 public class MainFormMenuActionAdapter implements ActionListener {
 	MainForm adaptee;
-	AbstractTwo abTwo = new MenuTemplate();
+	AbstractMenu abTwo = new MenuTemplate();
 	String menuItem;
 	int n;
 
