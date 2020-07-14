@@ -126,7 +126,7 @@ public class ReversiSingleton {
                     boardView = new BoardView(moveList, mainForm, 1);
                     
                     // Main Form
-                    m = new MainForm();
+                    mainForm = new MainForm();
                     
                     // Player Label
                     lblBlackPlayer = new JLabel();

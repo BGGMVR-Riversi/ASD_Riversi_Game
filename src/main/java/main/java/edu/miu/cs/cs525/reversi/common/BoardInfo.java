@@ -188,16 +188,16 @@ public class BoardInfo {
 	public String getTurnString() {
 		if (turn == BoardEnum.PLAYER_BLACK.value()) {
 			changePlayer(ReversiSingleton.getBlackPlayer());
-			ReversiSingleton.getCurrentPlayer().display();
+			ReversiSingleton.getCurrentPlayer().displayCurrentTurn();
 			return "Black's Turn";
 		} else if (turn == BoardEnum.PLAYER_WHITE.value()) {
 			changePlayer(ReversiSingleton.getWhitePlayer());
-			ReversiSingleton.getCurrentPlayer().display();
+			ReversiSingleton.getCurrentPlayer().displayCurrentTurn();
 			return "White's Turn";
 		} else if (turn == BoardEnum.NO_GAME.value()) {
 			return "";
 		} else if (turn == BoardEnum.GAME_OVER.value()) {
-			ReversiSingleton.getCurrentPlayer().notDisplay();
+			ReversiSingleton.getCurrentPlayer().notDisplayCurrentTurn();
 			return "Game Over !!";
 		} else {
 			return "";
