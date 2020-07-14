@@ -8,7 +8,8 @@ import java.net.URL;
 import main.java.edu.miu.cs.cs525.reversi.common.BoardInfo;
 import main.java.edu.miu.cs.cs525.reversi.common.GeneralPlayer;
 import main.java.edu.miu.cs.cs525.reversi.common.Location;
-import main.java.edu.miu.cs.cs525.reversi.utils.Utils;
+import main.java.edu.miu.cs.cs525.reversi.utils.Convert;
+import main.java.edu.miu.cs.cs525.reversi.utils.ConvertToInt;
 
 public class NetworkPlayer extends GeneralPlayer {
 
@@ -19,7 +20,7 @@ public class NetworkPlayer extends GeneralPlayer {
 	static int portNumber2;
 	static InetSocketAddress address;
 	private static TargetJson targetJson = new JsonAdapter();
-	Utils utils = new Utils();
+	Convert convert = new ConvertToInt();
 
 	public NetworkPlayer(String hostAddress, int portNumber, int portNumber2) {
 		try {
@@ -55,7 +56,7 @@ public class NetworkPlayer extends GeneralPlayer {
 					char[] positions = pos[pos.length - 1].toCharArray();
 					StringBuilder url = new StringBuilder();
 					url.append(hostAddress + "?");
-					url.append("x=" + String.valueOf(utils.charToInt(positions[0])));
+					url.append("x=" + String.valueOf(convert.stringToInt(positions[0])));
 					url.append("&");
 					url.append("y=" + Character.getNumericValue(positions[1] - 1));
 					System.out.println("Team 2 URL equals " + url.toString());

@@ -14,13 +14,15 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import main.java.edu.miu.cs.cs525.reversi.utils.Utils;
+import main.java.edu.miu.cs.cs525.reversi.utils.Convert;
+import main.java.edu.miu.cs.cs525.reversi.utils.ConvertToInt;
+import main.java.edu.miu.cs.cs525.reversi.utils.ConvertToString;
 
 public class Channel implements Runnable {
     private DatagramSocket socket;
     private TargetJson targetJson = new JsonAdapter();
     AdapteeJson adapteeJson = new AdapteeJson();
-    Utils utils = new Utils();
+    Convert convert = new ConvertToInt();
 
     public void bind(int port) throws SocketException {
         socket = new DatagramSocket(port);
@@ -42,7 +44,7 @@ public class Channel implements Runnable {
         char[] positions = msg.toCharArray();
         int y = Character.getNumericValue(positions[1]) - 1;
         /*********** Team 5 Json InputString format******************************/
-        String jsonInputString = "{\"x\":" + utils.charToInt(positions[0]) + ",\"y\":" + y + "}";
+        String jsonInputString = "{\"x\":" + convert.stringToInt(positions[0]) + ",\"y\":" + y + "}";
      //   String jsonInputString = "{\"x\":" + y + ",\"y\":" + utils.charToInt(positions[0]) + "}";
         System.out.println("sent from json " + jsonInputString);
         byte[] buffer = jsonInputString.getBytes();
@@ -82,7 +84,7 @@ public class Channel implements Runnable {
         /************************ jsonInputString for Team 1 and 3 use below one************************/
         //both ways can be used for different board views or similar for team1
          //String jsonInputString = "{\"row\":" + utils.charToInt(positions[0]) + ",\"col\":" + y + "}";
-        String jsonInputString = "{\"row\":" + y + ",\"col\":" + utils.charToInt(positions[0]) + "}";
+        String jsonInputString = "{\"row\":" + y + ",\"col\":" + convert.stringToInt(positions[0]) + "}";
         System.out.println("C " + jsonInputString);
         StringBuilder response = new StringBuilder();
         byte[] postDataBytes = jsonInputString.toString().getBytes("UTF-8");
