@@ -26,7 +26,22 @@ public class EndStrategy implements MoveStrategy {
                     }
                 }
             }
-        }else {
+//            if(pl.length==2){
+//                NetworkPlayer.getMove1(pl[1]);
+//                System.out.println("last of move"+ pl[1]);
+//
+//            }
+
+            else if (pl.length <= 2) {
+                for(int i=0;i<pl.length;i++) {
+//                    move.set(pl[i]);
+                    NetworkPlayer.getMove1(pl[i]);
+                    System.out.println("last+moves "+ pl[i]);
+                }
+
+            }
+        }
+        else {
             NetworkPlayer.getEndMove();
         }
         return move;
