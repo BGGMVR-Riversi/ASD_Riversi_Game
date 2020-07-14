@@ -11,6 +11,7 @@ import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardView_PBMTimer_Act
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardView_this_mouseAdapter;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardView_Timer_Action;
 import main.java.edu.miu.cs.cs525.reversi.common.*;
+import main.java.edu.miu.cs.cs525.reversi.mediator.BoardEnum;
 import main.java.edu.miu.cs.cs525.reversi.network.NetworkPlayer;
 
 public class BoardView extends JPanel {
@@ -35,24 +36,22 @@ public class BoardView extends JPanel {
 	public JFrame parent;
 	public int deltaX = 0, deltaY = 0;
 	public int boardBorder;
-
+	BoardEnum boardEnum;
 	public void paint(Graphics g) {
 		super.paint(g);
 		g.setColor(new Color(200, 200, 200));
 		g.setFont(new Font("Default", 1, 12));
 		int x, y, sx, sy, b;
-		int nr = board.ROW_COUNT;
-		int nc = board.COL_COUNT;
 		BoardMatrix m = new BoardMatrix();
 		if (!timer.isRunning()) {
 			m = board.getGainMatrix();
 		}
 		g.drawImage(border.getImage(), deltaX, deltaY, this);
-		for (int i = 0; i < nr; i++) {
-			for (int j = 0; j < nc; j++) {
+		for (int i = 0; i < boardEnum.ROW_COUNT.value(); i++) {
+			for (int j = 0; j < boardEnum.COL_COUNT.value(); j++) {
 				x = deltaX + 31 + j * 60;
 				y = deltaY + 31 + i * 60;
-				b = board.b[i][j];
+				b = board.board[i][j];
 				sx = (b % 8) * 60;
 				sy = (b / 8) * 60;
 				g.drawImage(pieces.getImage(), x, y, x + 60, y + 60, sx, sy, sx + 60, sy + 60, this);
@@ -100,17 +99,17 @@ public class BoardView extends JPanel {
 		if (mlPointer != null) {
 			mlPointer.updateMoveList(board);
 		}
-		if (board.turn == BoardInfo.NO_GAME) {
+		if (board.turn == boardEnum.NO_GAME.value()) {
 			statusBar.setText("To Start New Game choose Game | New.");
 			return;
 		}
 		String s = board.getTurnString();
 		s += " ( ";
-		lblScoreBlack.setText("Score: " + board.getPieceCount(board.PLAYER_BLACK));
+		lblScoreBlack.setText("Score: " + board.getPieceCount(boardEnum.PLAYER_BLACK.value()));
 		lblScoreBlack.setForeground(ReversiSingleton.getAqua());
 		ReversiSingleton.getLeftPane().add(lblScoreBlack);
 
-		lblScoreWhite.setText("Score: " + board.getPieceCount(board.PLAYER_WHITE));
+		lblScoreWhite.setText("Score: " + board.getPieceCount(boardEnum.PLAYER_WHITE.value()));
 		lblScoreWhite.setForeground(ReversiSingleton.getAqua());
 		ReversiSingleton.getRightPane().add(lblScoreWhite);
 
@@ -123,10 +122,10 @@ public class BoardView extends JPanel {
 		if (gamePaused) {
 			return;
 		}
-		if (board.turn == board.PLAYER_BLACK && playerBPointer != null) {
+		if (board.turn == boardEnum.PLAYER_BLACK.value() && playerBPointer != null) {
 
 			pauseBeforeMoveTimer.start();
-		} else if (board.turn == board.PLAYER_WHITE && playerWPointer != null) {
+		} else if (board.turn == boardEnum.PLAYER_WHITE.value() && playerWPointer != null) {
 			pauseBeforeMoveTimer.start();
 		}
 
@@ -152,7 +151,7 @@ public class BoardView extends JPanel {
 		if (timer.isRunning()) {
 			return;
 		}
-		if (board.turn == BoardInfo.NO_GAME || board.turn == BoardInfo.GAME_OVER) {
+		if (board.turn == boardEnum.NO_GAME.value() || board.turn == boardEnum.GAME_OVER.value()) {
 			statusBar.setText("To Start New Game choose Game | New.");
 			return;
 		}
@@ -164,18 +163,18 @@ public class BoardView extends JPanel {
 		if (Math.abs(br - 30) > 28 || Math.abs(bc - 30) > 28) {
 			return;
 		}
-		if (board.turn == board.PLAYER_BLACK && playerBPointer == null) {
+		if (board.turn == boardEnum.PLAYER_BLACK.value() && playerBPointer == null) {
 			startMove(new Location(r, c));
-		} else if (board.turn == board.PLAYER_WHITE && playerWPointer == null) {
+		} else if (board.turn == boardEnum.PLAYER_WHITE.value() && playerWPointer == null) {
 			startMove(new Location(r, c));
 		}
 	}
 
 	public void PBMTimer_actionPerformed(ActionEvent e) {
 		pauseBeforeMoveTimer.stop();
-		if (board.turn == board.PLAYER_BLACK && playerBPointer != null) {
+		if (board.turn == boardEnum.PLAYER_BLACK.value() && playerBPointer != null) {
 			startMove(playerBPointer.getMove(board));
-		} else if (board.turn == board.PLAYER_WHITE && playerWPointer != null) {
+		} else if (board.turn == boardEnum.PLAYER_WHITE.value() && playerWPointer != null) {
 			startMove(playerWPointer.getMove(board));
 		}
 	}
@@ -183,24 +182,22 @@ public class BoardView extends JPanel {
 	public void timer_actionPerformed(ActionEvent e) {
 		int count = am.perform(board, animationSpeed);
 		repaint();
-		if (count == board.ROW_COUNT * board.COL_COUNT) {
+		if (count == boardEnum.ROW_COUNT.value() * boardEnum.COL_COUNT.value()) {
 			timer.stop();
-			//WE NEED SOME MODIFICATION HERE FOR HUMAN TO HUMAN PLAYER THROWS ERROR
-			//AT THE END OF THE GAME
 			if (board.correctTurn() == 2) {
 				String s = "Game Over";
-				int p1 = board.getPieceCount(board.PLAYER_BLACK);
-				int p2 = board.getPieceCount(board.PLAYER_WHITE);
+				int p1 = board.getPieceCount(boardEnum.PLAYER_BLACK.value());
+				int p2 = board.getPieceCount(boardEnum.PLAYER_WHITE.value());
 				s += " ( ";
 				s += p1 + " : " + p2;
 				lblScoreBlack.setText("Score: " + p1);
 				lblScoreWhite.setText("Score: " + p2);
 				s += " ) ";
-				if (p1 == p2 && board.turn == board.PLAYER_BLACK) {
+				if (p1 == p2 && board.turn == boardEnum.PLAYER_BLACK.value()) {
 					s += " It's a Draw ! ";
 					playerBPointer.getMove(board);
 
-				} else if (p1 == p2 && board.turn == board.PLAYER_WHITE) {
+				} else if (p1 == p2 && board.turn == boardEnum.PLAYER_WHITE.value()) {
 					s += " It's a Draw ! ";
 					playerWPointer.getMove(board);
 
@@ -211,7 +208,6 @@ public class BoardView extends JPanel {
 					playerBPointer.getMove(board);
 				} else {
 					s += " White is Winner ! ";
-					System.out.println(p2);
 					ReversiSingleton.setCurrentPlayer(new WhitePlayer());
 					ReversiSingleton.getCurrentPlayer().winner();
 					playerWPointer.getMove(board);
