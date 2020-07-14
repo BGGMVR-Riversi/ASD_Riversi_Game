@@ -2,9 +2,10 @@ package main.java.edu.miu.cs.cs525.reversi.common;
 
 import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
 import main.java.edu.miu.cs.cs525.reversi.mediator.BoardEnum;
+import main.java.edu.miu.cs.cs525.reversi.mediator.MediatorService;
 import main.java.edu.miu.cs.cs525.reversi.monitor.ShowCurrentPlayer;
 
-public class BoardInfo {
+public class BoardInfo implements MediatorService {
 
 	// Board :
 	public int[][] board = new int[BoardEnum.ROW_COUNT.value()][BoardEnum.COL_COUNT.value()];
@@ -13,7 +14,6 @@ public class BoardInfo {
 	public int turn;
 
 	// Move History :
-
 	public Location[] moveHistory = new Location[BoardEnum.MAX_MOVES.value() + 2];
 	public int[] turnHistory = new int[BoardEnum.MAX_MOVES.value() + 2];
 	public int[][][] boardHistory = new int[BoardEnum.MAX_MOVES.value()][BoardEnum.ROW_COUNT
@@ -42,11 +42,11 @@ public class BoardInfo {
 		moveCount = src.moveCount;
 		validMoveCount = src.validMoveCount;
 	}
-
+	@Override
 	public void changePlayer(ShowCurrentPlayer showCurrentPlayer) {
 		ReversiSingleton.setCurrentPlayer(showCurrentPlayer);
 	}
-
+	@Override
 	public void copyBoard(int[][] src, int[][] dest) {
 		int i, j;
 		for (i = 0; i < BoardEnum.ROW_COUNT.value(); i++) {
@@ -55,7 +55,7 @@ public class BoardInfo {
 			}
 		}
 	}
-
+	@Override
 	public void makeEmpty() {
 		int i, j;
 		for (i = 0; i < BoardEnum.ROW_COUNT.value(); i++) {
@@ -67,7 +67,7 @@ public class BoardInfo {
 		validMoveCount = 0;
 		turn = BoardEnum.NO_GAME.value();
 	}
-
+	@Override
 	public void initBoard() {
 		makeEmpty();
 		board[3][3] = BoardEnum.PLAYER_WHITE.value();
@@ -524,7 +524,7 @@ public class BoardInfo {
 	}
 
 	public int countFrontier(int player) {
-		int f = 0;
+	  	int f = 0;
 		int i, j;
 		for (i = 0; i < BoardEnum.ROW_COUNT.value(); i++) {
 			for (j = 0; j < BoardEnum.COL_COUNT.value(); j++) {

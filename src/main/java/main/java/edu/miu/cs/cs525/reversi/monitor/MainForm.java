@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 
 import javax.swing.ButtonGroup;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -19,10 +18,11 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JToolBar;
 
 import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
-import main.java.edu.miu.cs.cs525.reversi.action_adapters.ReversiActionEventFactory;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardViewToolBarActionAdapter;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.MainFormMenuActionAdapter;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.MainFormWindowAdapter;
+import main.java.edu.miu.cs.cs525.reversi.action_adapters.ReversiActionEventFactory;
+import main.java.edu.miu.cs.cs525.reversi.mediator.BoardEnum;
 import main.java.edu.miu.cs.cs525.reversi.network.NetworkPlayer;
 import main.java.edu.miu.cs.cs525.reversi.utils.ImageClass;
 
@@ -273,6 +273,7 @@ public class MainForm extends JFrame {
 		System.exit(0);
 	}
 
+	@SuppressWarnings("deprecation")
 	public void menuHelpAbout_actionPerformed(ActionEvent e) {
 		About dlg = new About(this);
 		Dimension dlgSize = dlg.getPreferredSize();
@@ -291,6 +292,7 @@ public class MainForm extends JFrame {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public void menuBlackPlayerComputer_actionPerformed(ActionEvent e) {
 		ChoosePlayerType dlg = new ChoosePlayerType(this, "Choose Black Player", true);
 		Dimension dlgSize = dlg.getPreferredSize();
@@ -298,7 +300,7 @@ public class MainForm extends JFrame {
 		Point loc = getLocation();
 		dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x, (frmSize.height - dlgSize.height) / 2 + loc.y);
 		dlg.show();
-		if (dlg.playerType == dlg.COMPUTER_PLAYER) {
+		if (dlg.playerType == BoardEnum.COMPUTER_PLAYER.value()) {
 			ReversiSingleton.getBoardView().playerBPointer = new ComputerPlayer();
 			ReversiSingleton.getMenuBlackPlayerComputer().setText("Computer");
 			ReversiSingleton.setCurrentPlayer(new BlackPlayer());
@@ -306,7 +308,7 @@ public class MainForm extends JFrame {
 	        ReversiSingleton.setCurrentPlayer(new WhitePlayer());
 	        ReversiSingleton.getCurrentPlayer().showPlayer("Other Team");
 
-		} else if (dlg.playerType == dlg.NET_PLAYER) {
+		} else if (dlg.playerType == BoardEnum.NET_PLAYER.value()) {
 			ReversiSingleton.getBoardView().playerBPointer = new NetworkPlayer(dlg.hostAddress, dlg.portNumber, dlg.portNumber2);
 			try {
 				String id = ((NetworkPlayer) ReversiSingleton.getBoardView().playerBPointer).identify();
@@ -331,6 +333,7 @@ public class MainForm extends JFrame {
 		ReversiSingleton.getMenuBlackPlayerHuman().setText("Human");
 	}
 
+	@SuppressWarnings("deprecation")
 	public void menuWhitePlayerComputer_actionPerformed(ActionEvent e) {
 		ChoosePlayerType dlg = new ChoosePlayerType(this, "Choose White Player", true);
 		Dimension dlgSize = dlg.getPreferredSize();
@@ -338,7 +341,7 @@ public class MainForm extends JFrame {
 		Point loc = getLocation();
 		dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x, (frmSize.height - dlgSize.height) / 2 + loc.y);
 		dlg.show();
-		if (dlg.playerType == dlg.COMPUTER_PLAYER) {
+		if (dlg.playerType == BoardEnum.COMPUTER_PLAYER.value()) {
 			ReversiSingleton.getBoardView().playerWPointer = new ComputerPlayer();
 			ReversiSingleton.getMenuWhitePlayerComputer().setText("Computer");
 			ReversiSingleton.setCurrentPlayer(new WhitePlayer());
@@ -346,7 +349,7 @@ public class MainForm extends JFrame {
 	        ReversiSingleton.setCurrentPlayer(new BlackPlayer());
 	        ReversiSingleton.getCurrentPlayer().showPlayer("Other Team");	
 
-		} else if (dlg.playerType == dlg.NET_PLAYER) {
+		} else if (dlg.playerType == BoardEnum.NET_PLAYER.value()) {
 			ReversiSingleton.getBoardView().playerWPointer = new NetworkPlayer(dlg.hostAddress, dlg.portNumber, dlg.portNumber2);
 			try {
 				String id = ((NetworkPlayer) ReversiSingleton.getBoardView().playerWPointer).identify();
@@ -380,6 +383,7 @@ public class MainForm extends JFrame {
 		repaint();
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void this_windowOpened(WindowEvent e) {
 		Dimension frmSize = getSize();
 		Point l = this.getLocationOnScreen();

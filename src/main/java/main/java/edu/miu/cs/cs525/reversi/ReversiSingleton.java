@@ -219,7 +219,6 @@ public class ReversiSingleton {
 		return moveList;
 	}
 
-	//
 	public static MainForm getMainForm() {
 		return mainForm;
 	}
