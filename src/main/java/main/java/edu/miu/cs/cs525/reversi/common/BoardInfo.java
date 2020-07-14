@@ -1,7 +1,5 @@
 package main.java.edu.miu.cs.cs525.reversi.common;
 
-import javax.swing.JLabel;
-
 import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
 import main.java.edu.miu.cs.cs525.reversi.mediator.BoardEnum;
 import main.java.edu.miu.cs.cs525.reversi.monitor.ShowCurrentPlayer;
