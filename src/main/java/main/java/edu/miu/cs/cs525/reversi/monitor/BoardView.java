@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
-import main.java.edu.miu.cs.cs525.reversi.action_adapters.ActionEventFactory;
+import main.java.edu.miu.cs.cs525.reversi.action_adapters.ReversiActionEventFactory;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardView_PBMTimer_Action;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardView_this_mouseAdapter;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardView_Timer_Action;
@@ -78,11 +78,11 @@ public class BoardView extends JPanel {
 	}
 
 	private void jbInit() throws Exception {
-		ActionEventFactory.getActionPerformed("BoardView_Timer_Action");
-		timer = new Timer(50, ActionEventFactory.ac.initializeInstance(this));
+		ReversiActionEventFactory.getActionPerformed("BoardView_Timer_Action");
+		timer = new Timer(50, ReversiActionEventFactory.ac.initializeInstance(this));
 		
-		ActionEventFactory.getActionPerformed("BoardView_PBMTimer_Action");
-		pauseBeforeMoveTimer = new Timer(100, ActionEventFactory.ac.initializeInstance(this));
+		ReversiActionEventFactory.getActionPerformed("BoardView_PBMTimer_Action");
+		pauseBeforeMoveTimer = new Timer(100, ReversiActionEventFactory.ac.initializeInstance(this));
 		
 		this.addMouseListener(new BoardView_this_mouseAdapter(this));
 		pieces = new ImageIcon(MainForm.class.getResource("../images/standard-1.png"));

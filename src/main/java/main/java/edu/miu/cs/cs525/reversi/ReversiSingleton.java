@@ -202,7 +202,7 @@ public class ReversiSingleton {
     public static MoveList getMoveList() {
     	return ml;
     }
-    
+//    
     public static MainForm getMainForm() {
     	return m;
     }
