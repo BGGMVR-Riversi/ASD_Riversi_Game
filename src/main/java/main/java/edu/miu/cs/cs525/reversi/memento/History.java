@@ -58,27 +58,37 @@ public class History {
 	}
 	
 	public void undoAllFromUndoList() {
+		int counter = 0;
 		MoveList moveList = new MoveList();
 		Iterator it = moveList.getIterator();
 		it.setType("undo");
 		while (it.hasNext()) {
-			System.out.println(it.next());
+			it.next();
+			counter++;
 			popFromUndoList();
 		}
+		System.out.println("undo " + counter + " moves");
 	}
 	
 	public void redoAllFromRedoList() {
+		int counter = 0;
 		MoveList moveList = new MoveList();
 		Iterator it = moveList.getIterator();
 		it.setType("redo");
 		while (it.hasNext()) {
-			System.out.println(it.next());
+			it.next();
+			counter++;
 			popFromRedoList();
 		}
+		System.out.println("redo " + counter + " moves");
 	}
 	
 	public void clearRedoHistory() {
 		redoList.removeAll(redoList);
+	}
+	
+	public void clearUndoHistory() {
+		undoList.removeAll(undoList);
 	}
 	
 	public int size(String type) {

@@ -6,6 +6,7 @@ import javax.swing.* ;
 import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.MoveListWindowAdapter;
 import main.java.edu.miu.cs.cs525.reversi.common.*;
+import main.java.edu.miu.cs.cs525.reversi.mediator.BoardEnum;
 
 import java.awt.event.* ;
 
@@ -62,7 +63,7 @@ public class MoveList extends JFrame
                 s = s + ( i + 1 ) + "." + board.moveHistory[i].getStandardForm() ;
             }
             if( i % 2 == 1 ) {
-                if( i <=board.MAX_MOVES) {
+                if( i <=BoardEnum.MAX_MOVES.value()) {
                     s = s + "\n" ;
                 }
             }
@@ -75,7 +76,7 @@ public class MoveList extends JFrame
 
     public void this_windowClosing( WindowEvent e )
     {
-        ( ( ReversiSingleton.getMainForm() ) ).menuShowMoveList.setState( false ) ;
+    	 ReversiSingleton.getMenuShowMoveList().setState( false ) ;
     }
 
 }

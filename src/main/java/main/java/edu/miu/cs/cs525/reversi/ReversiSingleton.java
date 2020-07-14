@@ -48,11 +48,11 @@ public class ReversiSingleton {
     private static JButton lastButton;
     
     // BoardView
-    private static BoardView b;
+    private static BoardView boardView;
     
     // Main form and move list
-    private static MainForm m;
-    private static MoveList ml;
+    private static MainForm mainForm;
+    private static MoveList moveList;
     
     // Radio Buttons
     private static JRadioButtonMenuItem menuBlackPlayerComputer;
@@ -62,6 +62,12 @@ public class ReversiSingleton {
 	
 	// Check Box
 	private static JCheckBoxMenuItem menuShowMoveList;
+	
+	// Players Label
+	private static JLabel lblBlackPlayer;
+	private static JLabel lblOrForBlackPlayer;
+	private static JLabel lblWhitePlayer;
+	private static JLabel lblOrForWhitePlayer;
 
     private ReversiSingleton(){}
 
@@ -114,13 +120,23 @@ public class ReversiSingleton {
                     menuShowMoveList = new JCheckBoxMenuItem(" Show Move List");
                     
                     // Move list
-                    ml = new MoveList("Move List", m);
+                    moveList = new MoveList("Move List", mainForm);
                     
                     // Create object board view
-                    b = new BoardView(ml, m, 1);
+                    boardView = new BoardView(moveList, mainForm, 1);
                     
                     // Main Form
-                    m = new MainForm();
+                    mainForm = new MainForm();
+                    
+                    // Player Label
+                    lblBlackPlayer = new JLabel();
+                    lblBlackPlayer.setForeground(aqua);
+                    lblOrForBlackPlayer = new JLabel("or");
+                    lblOrForBlackPlayer.setForeground(aqua);
+                    lblWhitePlayer = new JLabel();
+                    lblWhitePlayer.setForeground(aqua);
+                    lblOrForWhitePlayer = new JLabel("or");
+                    lblOrForWhitePlayer.setForeground(aqua);                    
                 }
             }
         }
@@ -196,15 +212,15 @@ public class ReversiSingleton {
     }
     
     public static BoardView getBoardView() {
-    	return b;
+    	return boardView;
     }
     
     public static MoveList getMoveList() {
-    	return ml;
+    	return moveList;
     }
-    
+//    
     public static MainForm getMainForm() {
-    	return m;
+    	return mainForm;
     }
     
     public static JRadioButtonMenuItem getMenuBlackPlayerComputer() {
@@ -225,5 +241,21 @@ public class ReversiSingleton {
     
     public static JCheckBoxMenuItem getMenuShowMoveList() {
     	return menuShowMoveList;
+    }
+    
+    public static JLabel getLabelBlackPlayer() {
+    	return lblBlackPlayer;
+    }
+    
+    public static JLabel getLabelOrForBlackPlayer() {
+    	return lblOrForBlackPlayer;
+    }
+    
+    public static JLabel getLabelWhitePlayer() {
+    	return lblWhitePlayer;
+    }
+    
+    public static JLabel getLabelOrForWhitePlayer() {
+    	return lblOrForWhitePlayer;
     }
 }

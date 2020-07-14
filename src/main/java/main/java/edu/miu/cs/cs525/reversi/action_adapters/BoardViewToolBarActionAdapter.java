@@ -8,7 +8,6 @@ import main.java.edu.miu.cs.cs525.reversi.monitor.MainForm;
 public class BoardViewToolBarActionAdapter implements java.awt.event.ActionListener
 {
     MainForm adaptee ;
-    Abstract ab = new BoardViewTemplate();
     String tbItem ;
 
     public BoardViewToolBarActionAdapter( MainForm adaptee, String toolbarItem )
@@ -20,19 +19,19 @@ public class BoardViewToolBarActionAdapter implements java.awt.event.ActionListe
     public void actionPerformed( ActionEvent e )
     {
         if( tbItem.equals( "pauseButton" ) ) {
-            ab.pauseButton_actionPerformed( e ) ;
+        	adaptee.pauseButton_actionPerformed( e ) ;
         }
         else if( tbItem.equals( "lastButton" ) ) {
-            ab.lastButton_actionPerformed( e ) ;
+        	adaptee.lastButton_actionPerformed( e ) ;
         }
         else if( tbItem.equals( "nextButton" ) ) {
-            ab.nextButton_actionPerformed( e ) ;
+        	adaptee.nextButton_actionPerformed( e ) ;
         }
         else if( tbItem.equals( "prevButton" ) ) {
-            ab.prevButton_actionPerformed( e ) ;
+        	adaptee.prevButton_actionPerformed( e ) ;
         }
         else if( tbItem.equals( "firstButton" ) ) {
-            ab.firstButton_actionPerformed( e ) ;
+            adaptee.firstButton_actionPerformed( e ) ;
         }
     }
 }

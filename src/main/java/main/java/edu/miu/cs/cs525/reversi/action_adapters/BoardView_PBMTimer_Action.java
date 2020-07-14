@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 
 import main.java.edu.miu.cs.cs525.reversi.monitor.BoardView;
 
-public class BoardView_PBMTimer_Action implements main.java.edu.miu.cs.cs525.reversi.action_adapters.ActionEvent
+public class BoardView_PBMTimer_Action implements ReversiActionEvent
 {
     BoardView adaptee ;
     
@@ -14,7 +14,7 @@ public class BoardView_PBMTimer_Action implements main.java.edu.miu.cs.cs525.rev
     }
 
 	@Override
-	public main.java.edu.miu.cs.cs525.reversi.action_adapters.ActionEvent initializeInstance(Object o) {
+	public ReversiActionEvent initializeInstance(Object o) {
 		adaptee = (BoardView) o;
 		return this;
 	}

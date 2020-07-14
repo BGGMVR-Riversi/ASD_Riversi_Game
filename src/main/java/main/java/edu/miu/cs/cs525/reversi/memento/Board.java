@@ -1,7 +1,9 @@
 package main.java.edu.miu.cs.cs525.reversi.memento;
 
+import main.java.edu.miu.cs.cs525.reversi.common.Location;
+
 public class Board {
-	private String move;
+	private Location move;
 	private static Board boardInstance;
 	
 	private Board(){}
@@ -25,11 +27,11 @@ public class Board {
 		move = state.getMove();
 	}
 		
-	public String getMove() {
+	public Location getMove() {
 		return move;
 	}
 		
-	public void setMove(String move) {
+	public void setMove(Location move) {
 		this.move = move;
 	}
 }

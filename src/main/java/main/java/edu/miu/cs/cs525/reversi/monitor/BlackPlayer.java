@@ -10,13 +10,13 @@ import main.java.edu.miu.cs.cs525.reversi.action_adapters.AboutFormOkButtonActio
 public class BlackPlayer implements ShowCurrentPlayer {
 
 	 @Override
-	    public void display() {
+	    public void displayCurrentTurn() {
 	        ReversiSingleton.getBlackTurn().setVisible(true);
 	        ReversiSingleton.getWhiteTurn().setVisible(false);
 	    }
 
 	@Override
-	public void winner() {
+	public void displayWinner() {
 		ReversiSingleton.getWinner().setVisible(true);
 		ReversiSingleton.getGameOverLabel().setVisible(true);
 		ReversiSingleton.getWinner().setText("<html><body><p>Black <br>is Winner !</p></body></html>");
@@ -25,8 +25,15 @@ public class BlackPlayer implements ShowCurrentPlayer {
 	}
 
 	@Override
-	public void notDisplay() {
+	public void notDisplayCurrentTurn() {
 		ReversiSingleton.getBlackTurn().setVisible(false);
         ReversiSingleton.getWhiteTurn().setVisible(false);		
+	}
+
+	@Override
+	public void showPlayer(String s) {
+		ReversiSingleton.getLabelBlackPlayer().setText(s);
+		ReversiSingleton.getLeftPane().add(ReversiSingleton.getLabelOrForBlackPlayer());
+		ReversiSingleton.getLeftPane().add(ReversiSingleton.getLabelBlackPlayer());
 	}
 }

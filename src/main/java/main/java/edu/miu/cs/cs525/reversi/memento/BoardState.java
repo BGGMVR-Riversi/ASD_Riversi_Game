@@ -1,13 +1,15 @@
 package main.java.edu.miu.cs.cs525.reversi.memento;
 
+import main.java.edu.miu.cs.cs525.reversi.common.Location;
+
 public class BoardState {
-	private final String move;
+	private final Location move;
 	
-	public BoardState(String move) {
+	public BoardState(Location move) {
 		this.move = move;
 	}
 	
-	public String getMove() {
+	public Location getMove() {
 		return move;
 	}
 }

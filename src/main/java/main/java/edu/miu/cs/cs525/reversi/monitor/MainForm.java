@@ -8,8 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 
 import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,11 +19,10 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JToolBar;
 
 import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
-import main.java.edu.miu.cs.cs525.reversi.action_adapters.Abstract;
-import main.java.edu.miu.cs.cs525.reversi.action_adapters.ActionEventFactory;
-import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardViewTemplate;
+import main.java.edu.miu.cs.cs525.reversi.action_adapters.ReversiActionEventFactory;
+import main.java.edu.miu.cs.cs525.reversi.memento.Board;
+import main.java.edu.miu.cs.cs525.reversi.memento.History;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardViewToolBarActionAdapter;
-import main.java.edu.miu.cs.cs525.reversi.action_adapters.ChoosePlayerOkAction;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.MainFormMenuActionAdapter;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.MainFormWindowAdapter;
 import main.java.edu.miu.cs.cs525.reversi.network.NetworkPlayer;
@@ -35,7 +32,6 @@ public class MainForm extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	ImageClass imgClass = new ImageClass();
-	Abstract ab = new BoardViewTemplate();
 	
 	JPanel contentPane;
 	JMenuBar menuBar = new JMenuBar();
@@ -61,16 +57,20 @@ public class MainForm extends JFrame {
 	JRadioButtonMenuItem menuSpeedItems[] = new JRadioButtonMenuItem[6];
 	ButtonGroup SGroup = new ButtonGroup(); // Animation Speed Group
 	
-	JCheckBoxMenuItem menuShowMoveList = new JCheckBoxMenuItem(" Show Move List");
+//	JCheckBoxMenuItem menuShowMoveList = new JCheckBoxMenuItem(" Show Move List");
 
 	JToolBar toolBar = new JToolBar();
 
-	JLabel lblTeam4 = new JLabel("Team 4");
-	JLabel lblOrForBlack = new JLabel("or");
+//	JLabel lblTeam4 = new JLabel("Team 4");
+//	JLabel lblOrForBlack = new JLabel("or");
 	JLabel lblBlackPlayer = new JLabel("Black Player");
-	JLabel lblOtherTeam = new JLabel("Other Team");
-	JLabel lblOrForWhite = new JLabel("or");
+//	JLabel lblOtherTeam = new JLabel("Other Team");
+//	JLabel lblOrForWhite = new JLabel("or");
 	JLabel lblWhitePlayer = new JLabel("White Player");
+	
+//	BoardView b;
+	
+//	MoveList ml;
 
 	// Construct the frame
 	public MainForm() {
@@ -100,11 +100,11 @@ public class MainForm extends JFrame {
 		ReversiSingleton.getMenuWhitePlayerComputer().addActionListener(new MainFormMenuActionAdapter(this, "WhitePlayerComputer"));
 		ReversiSingleton.getMenuWhitePlayerComputer().addActionListener(new MainFormMenuActionAdapter(this, "WhitePlayerHuman"));
 		menuHelpAbout.setIcon(imgClass.getAboutGameIcon());
-		menuShowMoveList.addActionListener(new MainFormMenuActionAdapter(this, "ShowMoveList"));
-		menuShowMoveList.setState(true);
+		ReversiSingleton.getMenuShowMoveList().addActionListener(new MainFormMenuActionAdapter(this, "ShowMoveList"));
+		ReversiSingleton.getMenuShowMoveList().setState(true);
 
 		WGroup.add(ReversiSingleton.getMenuWhitePlayerComputer());
-		WGroup.add(ReversiSingleton.getMenuWhitePlayerComputer());
+		WGroup.add(ReversiSingleton.getMenuWhitePlayerHuman());
 		ReversiSingleton.getMenuWhitePlayerComputer().setSelected(true);
 		ReversiSingleton.getMenuBlackPlayerComputer().setSelected(true);
 		BGroup.add(ReversiSingleton.getMenuBlackPlayerComputer());
@@ -127,7 +127,7 @@ public class MainForm extends JFrame {
 		menuBlackPlayer.add(ReversiSingleton.getMenuBlackPlayerComputer());
 		menuBlackPlayer.add(ReversiSingleton.getMenuBlackPlayerHuman());
 		menuWhitePlayer.add(ReversiSingleton.getMenuWhitePlayerComputer());
-		menuWhitePlayer.add(ReversiSingleton.getMenuWhitePlayerComputer());
+		menuWhitePlayer.add(ReversiSingleton.getMenuWhitePlayerHuman());
 		menuPlayers.add(menuBlackPlayer);
 		menuPlayers.add(menuWhitePlayer);
 		menuHelp.add(menuHelpAbout);
@@ -140,7 +140,7 @@ public class MainForm extends JFrame {
 		menuBar.add(menuGame);
 		menuOptions.add(menuPlayers);
 		menuOptions.add(menuSpeed);
-		menuOptions.add(menuShowMoveList);
+		menuOptions.add(ReversiSingleton.getMenuShowMoveList());
 		menuBar.add(menuOptions);
 		menuBar.add(menuHelp);
 		this.setJMenuBar(menuBar);
@@ -171,26 +171,253 @@ public class MainForm extends JFrame {
 		toolBar.add(ReversiSingleton.getNextButton());
 		toolBar.add(ReversiSingleton.getLastButton());
 
-		lblTeam4.setForeground(ReversiSingleton.getAqua());
-		lblOrForBlack.setForeground(ReversiSingleton.getAqua());
+//		lblTeam4.setForeground(ReversiSingleton.getAqua());
+//		lblOrForBlack.setForeground(ReversiSingleton.getAqua());
 		lblBlackPlayer.setForeground(ReversiSingleton.getAqua());
 		lblWhitePlayer.setForeground(ReversiSingleton.getAqua());
-		lblOrForWhite.setForeground(ReversiSingleton.getAqua());
-		lblOtherTeam.setForeground(ReversiSingleton.getAqua());
+//		lblOrForWhite.setForeground(ReversiSingleton.getAqua());
+//		lblOtherTeam.setForeground(ReversiSingleton.getAqua());
 
-		ReversiSingleton.getLeftPane().add(lblTeam4);
-		ReversiSingleton.getLeftPane().add(lblOrForBlack);
+//		ReversiSingleton.getLeftPane().add(lblTeam4);
+//		ReversiSingleton.getLeftPane().add(lblOrForBlack);
 		ReversiSingleton.getLeftPane().add(lblBlackPlayer);
-		ReversiSingleton.getRightPane().add(lblOtherTeam);
-		ReversiSingleton.getRightPane().add(lblOrForWhite);
+//		ReversiSingleton.getRightPane().add(lblOtherTeam);
+//		ReversiSingleton.getRightPane().add(lblOrForWhite);
 		ReversiSingleton.getRightPane().add(lblWhitePlayer);
+		
+//		 ml = new MoveList("Move List", this);
+		
+//		 b = new BoardView(ReversiSingleton.getMoveList(), this, 1);
 
 		contentPane.add(toolBar, BorderLayout.NORTH);
 		contentPane.add(ReversiSingleton.getLeftPane(), BorderLayout.WEST);
 		contentPane.add(ReversiSingleton.getBoardView(), BorderLayout.CENTER);
 		contentPane.add(ReversiSingleton.getRightPane(), BorderLayout.EAST);
 	}
+	
+	public void pauseGame() {
+		ReversiSingleton.getPauseButton().setIcon(imgClass.getPlayImg());
+		ReversiSingleton.getFirstButton().setEnabled(true);
+		ReversiSingleton.getPrevButton().setEnabled(true);
+		ReversiSingleton.getNextButton().setEnabled(true);
+		ReversiSingleton.getLastButton().setEnabled(true);
+		ReversiSingleton.getPauseButton().setToolTipText("Continue Game");
+		ReversiSingleton.getBoardView().gamePaused = true;
+	}
 
+	public void newGame() {
+		ReversiSingleton.getBoardView().board.initBoard();
+		repaint();
+		ReversiSingleton.getPauseButton().setEnabled(true);
+		continueGame();
+		if (History.getInstance().size("undo") > 0) {
+			System.out.println("!!Clearing all undo history!!");
+			History.getInstance().clearUndoHistory();
+		}
+		if (History.getInstance().size("redo") > 0) {
+			System.out.println("!!Clearing all redo history!!");
+			History.getInstance().clearRedoHistory();
+		}
+	}
+
+	public void continueGame() {
+		ReversiSingleton.getPauseButton().setIcon(imgClass.getPauseImg());
+		ReversiSingleton.getFirstButton().setEnabled(false);
+		ReversiSingleton.getPrevButton().setEnabled(false);
+		ReversiSingleton.getNextButton().setEnabled(false);
+		ReversiSingleton.getLastButton().setEnabled(false);
+		ReversiSingleton.getPauseButton().setToolTipText("Pause Game");
+		ReversiSingleton.getBoardView().gamePaused = false;
+		ReversiSingleton.getBoardView().updateTurn();
+	}
+
+	public void pauseButton_actionPerformed(ActionEvent e) {
+		if (ReversiSingleton.getPauseButton().getToolTipText().equals("Pause Game")) {
+			pauseGame();
+		} else {
+			continueGame();
+			if (History.getInstance().size("redo") > 0) {
+				System.out.println("!!Clearing all redo history!!");
+				History.getInstance().clearRedoHistory();
+			}
+		}
+	}
+
+	public void prevButton_actionPerformed(ActionEvent e) {
+		if (ReversiSingleton.getBoardView().timer.isRunning()) {
+			return;
+		}
+		ReversiSingleton.getBoardView().board.takeBackOneMove();
+		if (History.getInstance().size("undo") <= 0) {
+			System.out.println("Nothing to undo from Memento");
+		} else {
+			Board.getInstance().restore(History.getInstance().popFromUndoList());
+			System.out.println("undo from Memento ==========> " + Board.getInstance().getMove().getStandardForm());
+		}
+		ReversiSingleton.getBoardView().updateTurn();
+		repaint();
+	}
+
+	public void nextButton_actionPerformed(ActionEvent e) {
+		if (ReversiSingleton.getBoardView().timer.isRunning()) {
+			return;
+		}
+		ReversiSingleton.getBoardView().board.redoOneMove();
+		if (History.getInstance().size("redo") <= 0) {
+			System.out.println("Nothing to redo from Memento");
+		} else {
+			Board.getInstance().restore(History.getInstance().popFromRedoList());
+			System.out.println("redo from Memento ==========> " + Board.getInstance().getMove().getStandardForm());
+		}
+		ReversiSingleton.getBoardView().updateTurn();
+		repaint();
+	}
+
+	public void firstButton_actionPerformed(ActionEvent e) {
+		if (ReversiSingleton.getBoardView().timer.isRunning()) {
+			return;
+		}
+		ReversiSingleton.getBoardView().board.takeBackAllMoves();
+		if (History.getInstance().size("undo") <= 0) {
+			System.out.println("Nothing to undo from Memento");
+		} else {
+			System.out.println("========== undoALL from Memento ==========");
+			History.getInstance().undoAllFromUndoList();
+		}
+		ReversiSingleton.getBoardView().updateTurn();
+		repaint();
+	}
+
+	public void lastButton_actionPerformed(ActionEvent e) {
+		if (ReversiSingleton.getBoardView().timer.isRunning()) {
+			return;
+		}
+		ReversiSingleton.getBoardView().board.redoAllMoves();
+		if (History.getInstance().size("redo") <= 0) {
+			System.out.println("Nothing to redo from Memento");
+		} else {
+			System.out.println("========== redoALL from Memento ==========");
+			History.getInstance().redoAllFromRedoList();
+		}
+		ReversiSingleton.getBoardView().updateTurn();
+		repaint();
+	}
+
+	public void menuGameNew_actionPerformed(ActionEvent e) {
+		newGame();
+	}
+
+	public void menuGameExit_actionPerformed(ActionEvent e) {
+		System.exit(0);
+	}
+
+	public void menuHelpAbout_actionPerformed(ActionEvent e) {
+		About dlg = new About(this);
+		Dimension dlgSize = dlg.getPreferredSize();
+		Dimension frmSize = getSize();
+		Point loc = getLocation();
+		dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x, (frmSize.height - dlgSize.height) / 2 + loc.y);
+		dlg.setModal(true);
+		dlg.pack();
+		dlg.show();
+	}
+
+	public void processWindowEvent(ActionEvent e) {
+//		super.processWindowEvent(e);
+		if (e.getID() == WindowEvent.WINDOW_CLOSING) {
+			menuGameExit_actionPerformed(null);
+		}
+	}
+
+	public void menuBlackPlayerComputer_actionPerformed(ActionEvent e) {
+		ChoosePlayerType dlg = new ChoosePlayerType(this, "Choose Black Player", true);
+		Dimension dlgSize = dlg.getPreferredSize();
+		Dimension frmSize = getSize();
+		Point loc = getLocation();
+		dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x, (frmSize.height - dlgSize.height) / 2 + loc.y);
+		dlg.show();
+		if (dlg.playerType == dlg.COMPUTER_PLAYER) {
+			ReversiSingleton.getBoardView().playerBPointer = new ComputerPlayer();
+			ReversiSingleton.getMenuBlackPlayerComputer().setText("Computer");
+			ReversiSingleton.setCurrentPlayer(new BlackPlayer());
+	        ReversiSingleton.getCurrentPlayer().showPlayer("Team 4");	
+	        ReversiSingleton.setCurrentPlayer(new WhitePlayer());
+	        ReversiSingleton.getCurrentPlayer().showPlayer("Other Team");
+
+		} else if (dlg.playerType == dlg.NET_PLAYER) {
+			ReversiSingleton.getBoardView().playerBPointer = new NetworkPlayer(dlg.hostAddress, dlg.portNumber, dlg.portNumber2);
+			try {
+				String id = ((NetworkPlayer) ReversiSingleton.getBoardView().playerBPointer).identify();
+				ReversiSingleton.getMenuBlackPlayerComputer().setText(id + " @ ( " + dlg.hostAddress + ":" + dlg.portNumber + " )");
+			} catch (Exception exc) {
+			}
+		} else if (ReversiSingleton.getBoardView().playerBPointer == null) {
+			//Here we need to put the old code
+			ReversiSingleton.getMenuBlackPlayerComputer().setSelected(true);
+			ReversiSingleton.getMenuBlackPlayerComputer().setEnabled(true);
+			ReversiSingleton.getBoardView().playerBPointer = new ComputerPlayer();
+			dlg.radioComputerPlayer_actionPerformed(e);
+			dlg.radioComputerPlayer.setSelected(true);
+			ReversiActionEventFactory.getActionPerformed("ChoosePlayerOkAction");
+			dlg.radioComputerPlayer.addActionListener(ReversiActionEventFactory.ac.initializeInstance(dlg));
+			dlg.radioComputerPlayer.doClick();
+		}
+		ReversiSingleton.getBoardView().updateTurn();
+	}
+
+	public void menuBlackPlayerHuman_actionPerformed(ActionEvent e) {
+		ReversiSingleton.getMenuBlackPlayerHuman().setText("Human");
+	}
+
+	public void menuWhitePlayerComputer_actionPerformed(ActionEvent e) {
+		ChoosePlayerType dlg = new ChoosePlayerType(this, "Choose White Player", true);
+		Dimension dlgSize = dlg.getPreferredSize();
+		Dimension frmSize = getSize();
+		Point loc = getLocation();
+		dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x, (frmSize.height - dlgSize.height) / 2 + loc.y);
+		dlg.show();
+		if (dlg.playerType == dlg.COMPUTER_PLAYER) {
+			ReversiSingleton.getBoardView().playerWPointer = new ComputerPlayer();
+			ReversiSingleton.getMenuWhitePlayerComputer().setText("Computer");
+			ReversiSingleton.setCurrentPlayer(new WhitePlayer());
+	        ReversiSingleton.getCurrentPlayer().showPlayer("Team 4");
+	        ReversiSingleton.setCurrentPlayer(new BlackPlayer());
+	        ReversiSingleton.getCurrentPlayer().showPlayer("Other Team");	
+
+		} else if (dlg.playerType == dlg.NET_PLAYER) {
+			ReversiSingleton.getBoardView().playerWPointer = new NetworkPlayer(dlg.hostAddress, dlg.portNumber, dlg.portNumber2);
+			try {
+				String id = ((NetworkPlayer) ReversiSingleton.getBoardView().playerWPointer).identify();
+				ReversiSingleton.getMenuWhitePlayerComputer().setText(id + " @ ( " + dlg.hostAddress + ":" + dlg.portNumber + " )");
+			} catch (Exception exc) {
+			}
+		} else if (ReversiSingleton.getBoardView().playerWPointer == null) {
+			//Here we need to put the old code
+			ReversiSingleton.getMenuWhitePlayerComputer().setSelected(true);
+			ReversiSingleton.getBoardView().playerWPointer = new ComputerPlayer();
+			dlg.radioComputerPlayer_actionPerformed(e);
+			dlg.radioComputerPlayer.setSelected(true);
+			ReversiActionEventFactory.getActionPerformed("ChoosePlayerOkAction");
+			dlg.radioComputerPlayer.addActionListener(ReversiActionEventFactory.ac.initializeInstance(dlg));
+			dlg.radioComputerPlayer.doClick();
+
+		}
+		ReversiSingleton.getBoardView().updateTurn();
+	}
+
+	public void menuWhitePlayerHuman_actionPerformed(ActionEvent e) {
+		ReversiSingleton.getMenuWhitePlayerHuman().setText("Human");
+	}
+
+	public void menuSpeedItems_actionPerformed(ActionEvent e, int n) {
+		ReversiSingleton.getBoardView().animationSpeed = n;
+	}
+
+	public void menuShowMoveList_actionPerformed(ActionEvent e) {
+		ReversiSingleton.getMoveList().setVisible(ReversiSingleton.getMenuShowMoveList().getState());
+		repaint();
+	}
+	
 	public void this_windowOpened(WindowEvent e) {
 		Dimension frmSize = getSize();
 		Point l = this.getLocationOnScreen();

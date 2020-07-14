@@ -1,6 +1,5 @@
 package main.java.edu.miu.cs.cs525.reversi.monitor;
 
-import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
 import main.java.edu.miu.cs.cs525.reversi.algorithm.EndStrategy;
 import main.java.edu.miu.cs.cs525.reversi.algorithm.MidStrategy;
 import main.java.edu.miu.cs.cs525.reversi.algorithm.MoveStrategy;
@@ -12,7 +11,9 @@ import main.java.edu.miu.cs.cs525.reversi.memento.History;
 
 public class ComputerPlayer extends GeneralPlayer {
 
-	public Location getMove(BoardInfo b) {
+    public static int counterComputer =0;
+
+    public Location getMove(BoardInfo b) {
 		MoveStrategy strategy;
 		Location move = new Location(-1, -1); // Illegal Move
 
@@ -35,12 +36,14 @@ public class ComputerPlayer extends GeneralPlayer {
 			strategy.move(b, move);
 		}
 		System.out.println(" => Selected Move for " + b.getTurnString() + " : " + move.getStandardForm());
-		
-		Board.getInstance().setMove(move.getStandardForm());
+
+		Board.getInstance().setMove(move);
 		History.getInstance().pushToUndoList(Board.getInstance().createState());
 		
-		System.out.println("Selected move from Memento ==========> " + Board.getInstance().getMove());
+		System.out.println("Selected move from Memento => " + Board.getInstance().getMove().getStandardForm());
 
+		counterComputer++;
+		
 		return move;
 	}
 

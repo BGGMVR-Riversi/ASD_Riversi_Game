@@ -4,10 +4,7 @@ import java.awt.* ;
 import java.awt.event.* ;
 import javax.swing.* ;
 
-import main.java.edu.miu.cs.cs525.reversi.action_adapters.ActionEventFactory;
-import main.java.edu.miu.cs.cs525.reversi.action_adapters.ChoosePlayerOkAction;
-import main.java.edu.miu.cs.cs525.reversi.action_adapters.ChoosePlayerRadioComputerPlayerAction;
-import main.java.edu.miu.cs.cs525.reversi.action_adapters.ChoosePlayerRadioNetPlayerAction;
+import main.java.edu.miu.cs.cs525.reversi.action_adapters.ReversiActionEventFactory;
 
 public class ChoosePlayerType extends JDialog
 {
@@ -63,20 +60,20 @@ public class ChoosePlayerType extends JDialog
         txtPort.setText( "" ) ;
         txtPort2.setText( "" ) ;
         cmdOK.setText( "OK" ) ;
-        ActionEventFactory.getActionPerformed("ChoosePlayerOkAction");
-        cmdOK.addActionListener( ActionEventFactory.ac.initializeInstance( this ) ) ;
+        ReversiActionEventFactory.getActionPerformed("ChoosePlayerOkAction");
+        cmdOK.addActionListener( ReversiActionEventFactory.ac.initializeInstance( this ) ) ;
 //        radioNetPlayer.setSelected( true ) ;
         radioNetPlayer.setText( "Network Player :" ) ;
-        ActionEventFactory.getActionPerformed("ChoosePlayerRadioNetPlayerAction");
-        radioNetPlayer.addActionListener( ActionEventFactory.ac.initializeInstance( this ) ) ;
+        ReversiActionEventFactory.getActionPerformed("ChoosePlayerRadioNetPlayerAction");
+        radioNetPlayer.addActionListener( ReversiActionEventFactory.ac.initializeInstance( this ) ) ;
         //radioComputerPlayer.addActionListener(new choosePlayerDLG_radioComputerPlayer_actionAdapter(this));
 //        radioComputerPlayer.setEnabled();
         radioComputerPlayer.setSelected(true);
         radioComputerPlayer.setText( "Computer Player" ) ;
         cmdCancel.setActionCommand( "Close" ) ;
         cmdCancel.setText( "Close" ) ;
-        ActionEventFactory.getActionPerformed("ChoosePlayerRadioComputerPlayerAction");
-        cmdCancel.addActionListener( ActionEventFactory.ac.initializeInstance( this ) ) ;
+        ReversiActionEventFactory.getActionPerformed("ChoosePlayerRadioComputerPlayerAction");
+        cmdCancel.addActionListener( ReversiActionEventFactory.ac.initializeInstance( this ) ) ;
         getContentPane().add( panel1 ) ;
         panel1.add( radioNetPlayer, new GridBagConstraints( 0, 0, 1, 1, 0.0, 0.0
             , GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets( 20, 10, 0, 0 ), 0, 0 ) ) ;
@@ -100,8 +97,8 @@ public class ChoosePlayerType extends JDialog
                 , GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets( 0, 0, 0, 0 ), 0, 0 ) ) ;
         bgroup.add( radioNetPlayer ) ;
         bgroup.add( radioComputerPlayer ) ;
-        ActionEventFactory.getActionPerformed("ChoosePlayerRadioComputerPlayerAction");
-        radioComputerPlayer.addActionListener( ActionEventFactory.ac.initializeInstance( this ) ) ;
+        ReversiActionEventFactory.getActionPerformed("ChoosePlayerRadioComputerPlayerAction");
+        radioComputerPlayer.addActionListener( ReversiActionEventFactory.ac.initializeInstance( this ) ) ;
 //        radioComputerPlayer.doClick();
     }
 
