@@ -65,5 +65,53 @@ public class Utils {
         }
         return result;
     }
-
+//    private boolean isEmpty( int i, int j )
+//    {
+//        if( i < 0 || i >= ROW_COUNT || j < 0 || j >= COL_COUNT ) {
+//            return false ;
+//        }
+//        else if( b[i][j] == EMPTY ) {
+//            return true ;
+//        }
+//        else {
+//            return false ;
+//        }
+//    }
+//
+//    public int countFrontier( int player )
+//    {
+//        int f = 0 ;
+//        int i, j ;
+//        for( i = 0 ; i < ROW_COUNT ; i++ ) {
+//            for( j = 0 ; j < COL_COUNT ; j++ ) {
+//                if( b[i][j] == player ) {
+//                    if( isEmpty( i + 1, j ) ) {
+//                        f++ ;
+//                    }
+//                    if( isEmpty( i - 1, j ) ) {
+//                        f++ ;
+//                    }
+//                    if( isEmpty( i, j + 1 ) ) {
+//                        f++ ;
+//                    }
+//                    if( isEmpty( i, j - 1 ) ) {
+//                        f++ ;
+//                    }
+//                    if( isEmpty( i + 1, j + 1 ) ) {
+//                        f++ ;
+//                    }
+//                    if( isEmpty( i + 1, j - 1 ) ) {
+//                        f++ ;
+//                    }
+//                    if( isEmpty( i - 1, j + 1 ) ) {
+//                        f++ ;
+//                    }
+//                    if( isEmpty( i - 1, j - 1 ) ) {
+//                        f++ ;
+//                    }
+//                }
+//            }
+//        }
+//        return f ;
+//    }
 }

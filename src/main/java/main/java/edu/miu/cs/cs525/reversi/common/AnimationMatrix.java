@@ -44,15 +44,15 @@ public class AnimationMatrix
         for( i = 0 ; i < nr ; i++ ) {
             for( j = 0 ; j < nc ; j++ ) {
                 a = get( i, j ) ;
-                b = board.b[i][j] ;
+                b = board.board[i][j] ;
                 if( a == +1 && b < 31 ) {
-                    board.b[i][j] += a * animationSpeed ;
+                    board.board[i][j] += a * animationSpeed ;
                 }
                 else if( a == +1 && b == 31 ) {
                     count++ ;
                 }
                 else if( a == -1 && b > 1 ) {
-                    board.b[i][j] += a * animationSpeed ;
+                    board.board[i][j] += a * animationSpeed ;
                 }
                 else if( a == -1 && b == 1 ) {
                     count++ ;

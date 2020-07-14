@@ -1,19 +1,14 @@
 package main.java.edu.miu.cs.cs525.reversi.monitor;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-
 import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
-import main.java.edu.miu.cs.cs525.reversi.action_adapters.AboutFormOkButtonActionAdapter;
 
 public class BlackPlayer implements ShowCurrentPlayer {
 
-	 @Override
-	    public void display() {
-	        ReversiSingleton.getBlackTurn().setVisible(true);
-	        ReversiSingleton.getWhiteTurn().setVisible(false);
-	    }
+	@Override
+	public void display() {
+		ReversiSingleton.getBlackTurn().setVisible(true);
+		ReversiSingleton.getWhiteTurn().setVisible(false);
+	}
 
 	@Override
 	public void winner() {
@@ -27,6 +22,6 @@ public class BlackPlayer implements ShowCurrentPlayer {
 	@Override
 	public void notDisplay() {
 		ReversiSingleton.getBlackTurn().setVisible(false);
-        ReversiSingleton.getWhiteTurn().setVisible(false);		
+		ReversiSingleton.getWhiteTurn().setVisible(false);
 	}
 }

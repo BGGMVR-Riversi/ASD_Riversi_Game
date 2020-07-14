@@ -52,7 +52,7 @@ public class BoardView extends JPanel {
 			for (int j = 0; j < nc; j++) {
 				x = deltaX + 31 + j * 60;
 				y = deltaY + 31 + i * 60;
-				b = board.b[i][j];
+				b = board.board[i][j];
 				sx = (b % 8) * 60;
 				sy = (b / 8) * 60;
 				g.drawImage(pieces.getImage(), x, y, x + 60, y + 60, sx, sy, sx + 60, sy + 60, this);

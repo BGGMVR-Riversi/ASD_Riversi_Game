@@ -12,14 +12,15 @@ import main.java.edu.miu.cs.cs525.reversi.utils.Utils;
 
 public class NetworkPlayer extends GeneralPlayer {
 
-	public static int counterNetwork;
 	static Channel channel = new Channel();
 	static String hostAddress;
 	int portNumber;
 	static int portNumber2;
 	static InetSocketAddress address;
-	private  TargetJson targetJson = new JsonAdapter();
-	Utils utils = new Utils();
+	private static TargetJson targetJson = new JsonAdapter();
+	static Utils utils = new Utils();
+	public static int counterNetwork = 0;
+	private static boolean isSent = false;
 
 	public NetworkPlayer(String hostAddress, int portNumber, int portNumber2) {
 		try {
@@ -40,6 +41,8 @@ public class NetworkPlayer extends GeneralPlayer {
 			Location move = new Location();
 			address = new InetSocketAddress(hostAddress, portNumber2);
 			if (b.getStandardFormGame() != null && !b.getStandardFormGame().isEmpty()) {
+				counterNetwork++;
+				isSent = true;
 				String pos[] = b.getStandardFormGame().split(" ");
 				// System.out.println("A "+hostAddress);
 				if (hostAddress.startsWith("https://")) {
@@ -72,11 +75,67 @@ public class NetworkPlayer extends GeneralPlayer {
 					channel.sendTo(address, pos[pos.length - 1]);
 				}
 
+			} else {
+				System.out.println("is it getting called also at the end " + b.getStandardFormGame());
 			}
+			move.set(channel.receiveFrom());
+
+			System.out.println("CounterNetwork " + counterNetwork);
+			return move;
+		} catch (IOException e) {
+			// channel.stop();
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static Location getMove1(String boardInfo) {
+		try {
+			channel.start();
+			Location move = new Location();
+			address = new InetSocketAddress(hostAddress, portNumber2);
+
+		//	if (b.getStandardFormGame() != null && !b.getStandardFormGame().isEmpty()) {
+			//	String pos[] = boardInfo.split(" ");
+				// System.out.println("A "+hostAddress);
+				if (hostAddress.startsWith("https://")) {
+					String result = channel.postRequest(new URL(hostAddress), "POST", boardInfo);
+					System.out.println("getMove1 result " + result);
+					if (targetJson.isJson(result)) {
+						System.out.println("getMove1 AdapteeReceived: " + targetJson.JsontoString(result));
+						move.set(targetJson.JsontoString(result));
+						return move;
+					}
+
+				}
+//				else if (hostAddress.startsWith("http://")) {
+//					char[] positions = pos[pos.length - 1].toCharArray();
+//					StringBuilder url = new StringBuilder();
+//					url.append(hostAddress + "?");
+//					url.append("x=" + String.valueOf(utils.charToInt(positions[0])));
+//					url.append("&");
+//					url.append("y=" + Character.getNumericValue(positions[1] - 1));
+//					System.out.println("Team 2 URL equals " + url.toString());
+//					String result = channel.getRequestTeam2(new URL(url.toString()), "GET");
+//					System.out.println("Team 2 result: " + result);
+//					if (targetJson.isJson(result)) {
+//						System.out.println("AdapteeReceived: " + targetJson.JsontoString(result));
+//						move.set(targetJson.JsontoString(result));
+//						return move;
+//					}
+//				}
+
+//				else {
+//					channel.sendTo(address, pos[pos.length - 1]);
+//				}
+
+//			} else {
+//				System.out.println("is it getting called also at the end " + b.getStandardFormGame());
+//			}
 			move.set(channel.receiveFrom());
 			return move;
 		} catch (IOException e) {
-			channel.stop();
+			// channel.stop();
 			e.printStackTrace();
 		}
 		return null;
@@ -90,6 +149,7 @@ public class NetworkPlayer extends GeneralPlayer {
 	public static void getEndMove() {
 		try {
 			if (hostAddress != null) {
+				// here we need more modification for each type of communication and team
 				if (!hostAddress.startsWith("https://")) {
 					channel.start();
 					address = new InetSocketAddress(hostAddress, portNumber2);
@@ -107,6 +167,4 @@ public class NetworkPlayer extends GeneralPlayer {
 		}
 
 	}
-
-
 }
