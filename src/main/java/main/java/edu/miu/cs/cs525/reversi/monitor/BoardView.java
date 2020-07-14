@@ -46,7 +46,8 @@ public class BoardView extends JPanel {
 	public JFrame parent;
 	public int deltaX = 0, deltaY = 0;
 	public int boardBorder;
-
+	
+	
 	public void paint(Graphics g) {
 		super.paint(g);
 		g.setColor(new Color(200, 200, 200));
@@ -93,7 +94,7 @@ public class BoardView extends JPanel {
 		ReversiActionEventFactory.getActionPerformed("BoardView_PBMTimer_Action");
 		pauseBeforeMoveTimer = new Timer(100, ReversiActionEventFactory.ac.initializeInstance(this));
 
-		this.addMouseListener(new BoardView_this_mouseAdapter(this));
+		this.addMouseListener(BoardView_this_mouseAdapter.mouseAdapterFactory(this));
 		pieces = new ImageIcon(MainForm.class.getResource("../images/standard-1.png"));
 		border = new ImageIcon(MainForm.class.getResource("../images/540px-board-" + boardBorder + ".png"));
 		setLayout(borderLayout1);
