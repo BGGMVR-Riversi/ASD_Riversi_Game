@@ -140,6 +140,11 @@ public class BoardView extends JPanel {
 		} else if (board.turn == BoardEnum.PLAYER_WHITE.value() && playerWPointer != null) {
 			pauseBeforeMoveTimer.start();
 		}
+		/*if ((ComputerPlayer.counterComputer!=NetworkPlayer.counterNetwork+1)) {
+			System.out.println(" counterComputer " + ComputerPlayer.counterComputer);
+			System.out.println(" counterNetwork " + NetworkPlayer.counterNetwork);
+			updatePassTurn(board);
+		}*/
 
 	}
 
@@ -216,12 +221,12 @@ public class BoardView extends JPanel {
 				} else if (p1 > p2) {
 					s += " Black is Winner ! ";
 					ReversiSingleton.setCurrentPlayer(new BlackPlayer());
-					ReversiSingleton.getCurrentPlayer().winner();
+					ReversiSingleton.getCurrentPlayer().displayWinner();
 					playerBPointer.getMove(board);
 				} else {
 					s += " White is Winner ! ";
 					ReversiSingleton.setCurrentPlayer(new WhitePlayer());
-					ReversiSingleton.getCurrentPlayer().winner();
+					ReversiSingleton.getCurrentPlayer().displayWinner();
 					playerWPointer.getMove(board);
 				}
 				statusBar.setText(s);

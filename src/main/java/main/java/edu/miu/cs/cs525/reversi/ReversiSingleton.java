@@ -62,6 +62,12 @@ public class ReversiSingleton {
 	
 	// Check Box
 	private static JCheckBoxMenuItem menuShowMoveList;
+	
+	// Players Label
+	private static JLabel lblBlackPlayer;
+	private static JLabel lblOrForBlackPlayer;
+	private static JLabel lblWhitePlayer;
+	private static JLabel lblOrForWhitePlayer;
 
     private ReversiSingleton(){}
 
@@ -120,7 +126,17 @@ public class ReversiSingleton {
                     boardView = new BoardView(moveList, mainForm, 1);
                     
                     // Main Form
-                    mainForm = new MainForm();
+                    m = new MainForm();
+                    
+                    // Player Label
+                    lblBlackPlayer = new JLabel();
+                    lblBlackPlayer.setForeground(aqua);
+                    lblOrForBlackPlayer = new JLabel("or");
+                    lblOrForBlackPlayer.setForeground(aqua);
+                    lblWhitePlayer = new JLabel();
+                    lblWhitePlayer.setForeground(aqua);
+                    lblOrForWhitePlayer = new JLabel("or");
+                    lblOrForWhitePlayer.setForeground(aqua);                    
                 }
             }
         }
@@ -225,5 +241,21 @@ public class ReversiSingleton {
     
     public static JCheckBoxMenuItem getMenuShowMoveList() {
     	return menuShowMoveList;
+    }
+    
+    public static JLabel getLabelBlackPlayer() {
+    	return lblBlackPlayer;
+    }
+    
+    public static JLabel getLabelOrForBlackPlayer() {
+    	return lblOrForBlackPlayer;
+    }
+    
+    public static JLabel getLabelWhitePlayer() {
+    	return lblWhitePlayer;
+    }
+    
+    public static JLabel getLabelOrForWhitePlayer() {
+    	return lblOrForWhitePlayer;
     }
 }
