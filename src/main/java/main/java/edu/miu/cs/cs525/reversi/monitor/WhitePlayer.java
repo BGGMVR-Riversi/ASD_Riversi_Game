@@ -1,9 +1,5 @@
 package main.java.edu.miu.cs.cs525.reversi.monitor;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-
 import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
 
 public class WhitePlayer implements ShowCurrentPlayer {
