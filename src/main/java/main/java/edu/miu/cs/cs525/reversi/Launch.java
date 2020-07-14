@@ -1,12 +1,9 @@
 package main.java.edu.miu.cs.cs525.reversi;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.swing.UIManager;
-
-import main.java.edu.miu.cs.cs525.reversi.monitor.MainForm;
-
-//import edu.miu.cs.cs525.reversi.monitor.MainForm;
-
-import java.awt.*;
 
 public class Launch {
 	// Main method
@@ -22,9 +19,8 @@ public class Launch {
 
 	boolean packFrame = false;
 
-	
 	private Launch() {
-//		MainForm frame = new MainForm();
+		// MainForm frame = new MainForm();
 		// Validate frames that have preset sizes
 		// Pack frames that have useful preferred size info, e.g. from their layout
 		if (packFrame) {
@@ -41,7 +37,8 @@ public class Launch {
 		if (frameSize.width > screenSize.width) {
 			frameSize.width = screenSize.width;
 		}
-		ReversiSingleton.getMainForm().setLocation((screenSize.width - frameSize.width - 185), (screenSize.height - frameSize.height) / 2);
+		ReversiSingleton.getMainForm().setLocation((screenSize.width - frameSize.width - 185),
+				(screenSize.height - frameSize.height) / 2);
 		ReversiSingleton.getMainForm().setVisible(true);
 	}
 
