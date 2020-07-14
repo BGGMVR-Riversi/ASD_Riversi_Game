@@ -42,8 +42,8 @@ public class Channel implements Runnable {
         char[] positions = msg.toCharArray();
         int y = Character.getNumericValue(positions[1]) - 1;
         /*********** Team 5 Json InputString format******************************/
-        //String jsonInputString = "{\"row\":" + utils.charToInt(positions[0]) + ",\"col\":" + y + "}";
-        String jsonInputString = "{\"x\":" + y + ",\"y\":" + utils.charToInt(positions[0]) + "}";
+        String jsonInputString = "{\"x\":" + utils.charToInt(positions[0]) + ",\"y\":" + y + "}";
+     //   String jsonInputString = "{\"x\":" + y + ",\"y\":" + utils.charToInt(positions[0]) + "}";
         System.out.println("sent from json " + jsonInputString);
         byte[] buffer = jsonInputString.getBytes();
 

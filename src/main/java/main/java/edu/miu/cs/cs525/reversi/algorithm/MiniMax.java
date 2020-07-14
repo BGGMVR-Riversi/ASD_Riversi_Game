@@ -1,9 +1,13 @@
 package main.java.edu.miu.cs.cs525.reversi.algorithm ;
 
+import java.util.logging.Logger;
+
 import main.java.edu.miu.cs.cs525.reversi.common.*;
+import main.java.edu.miu.cs.cs525.reversi.mediator.BoardEnum;
 
 public class MiniMax extends Thread
 {
+	Logger logger =	Logger.getLogger(MiniMax.class.getSimpleName());
     int CUT_OFF ;
     int ME ;
     BoardInfo b ;
@@ -22,8 +26,8 @@ public class MiniMax extends Thread
     public float Evaluate( BoardInfo bs )
     {
         int mp = bs.getPieceCount( ME ) ;
-        int op = 64 - bs.getPieceCount( BoardInfo.EMPTY ) - mp ;
-        if( bs.turn == BoardInfo.GAME_OVER ) {
+        int op = 64 - bs.getPieceCount( BoardEnum.EMPTY.value() ) - mp ;
+        if( bs.turn == BoardEnum.GAME_OVER.value() ) {
             if( mp > op ) {
                 return +100 + mp - op ;
             }
@@ -36,7 +40,7 @@ public class MiniMax extends Thread
         }
         // else : evaluate the board position
         // *********************
-        int OPP = BoardInfo.getOpponent( ME ) ;
+        int OPP = b.getOpponent( ME ) ;
         float eval = bs.countStablePieces( ME ) - bs.countStablePieces( OPP ) ;
         eval += ( bs.countFrontier( OPP ) - bs.countFrontier( ME ) ) / 8.0 ;
         return eval ;
@@ -45,7 +49,7 @@ public class MiniMax extends Thread
 
     public float MaxValue( BoardInfo bs, int n, float alpha, float beta )
     {
-        if( bs.turn == BoardInfo.GAME_OVER || n == CUT_OFF ) {
+        if( bs.turn == BoardEnum.GAME_OVER.value() || n == CUT_OFF ) {
             return Evaluate( bs ) ;
         }
         String poss ;
@@ -73,7 +77,7 @@ public class MiniMax extends Thread
 
     public float MinValue( BoardInfo bs, int n, float alpha, float beta )
     {
-        if( bs.turn == BoardInfo.GAME_OVER || n == CUT_OFF ) {
+        if( bs.turn == BoardEnum.GAME_OVER.value() || n == CUT_OFF ) {
             return Evaluate( bs ) ;
         }
         String poss ;
@@ -102,14 +106,14 @@ public class MiniMax extends Thread
     public void run()
     {
         int i ;
-        System.out.println( "Start Running MiniMax Thread..." ) ;
+        logger.info("Start Running MiniMax Thread..." );
         for( i = 0 ; i <possibleMoves.length ; i++ ) {
             b.performMove( new Location( possibleMoves[i] ) ) ;
             moves[i] = MinValue( b, 1, -3000, +3000 ) ;
             b.takeBackOneMove() ;
-            System.out.println( "i = " + i + " Eval for " + possibleMoves[i] + " : " + moves[i] ) ;
+            System.out.println( "i = " + i + " Eval for " + possibleMoves[i] + " : " + moves[i]  );
         }
-        System.out.println( "Running MiniMax Thread Finished." ) ;
+        logger.info("Running MiniMax Thread Finished."  );
     }
 
 }
