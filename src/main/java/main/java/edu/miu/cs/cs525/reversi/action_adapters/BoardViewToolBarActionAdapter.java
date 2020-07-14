@@ -19,16 +19,16 @@ public class BoardViewToolBarActionAdapter implements java.awt.event.ActionListe
     public void actionPerformed( ActionEvent e )
     {
         if( tbItem.equals( "pauseButton" ) ) {
-            adaptee.pauseButton_actionPerformed( e ) ;
+        	adaptee.pauseButton_actionPerformed( e ) ;
         }
         else if( tbItem.equals( "lastButton" ) ) {
-            adaptee.lastButton_actionPerformed( e ) ;
+        	adaptee.lastButton_actionPerformed( e ) ;
         }
         else if( tbItem.equals( "nextButton" ) ) {
-            adaptee.nextButton_actionPerformed( e ) ;
+        	adaptee.nextButton_actionPerformed( e ) ;
         }
         else if( tbItem.equals( "prevButton" ) ) {
-            adaptee.prevButton_actionPerformed( e ) ;
+        	adaptee.prevButton_actionPerformed( e ) ;
         }
         else if( tbItem.equals( "firstButton" ) ) {
             adaptee.firstButton_actionPerformed( e ) ;
