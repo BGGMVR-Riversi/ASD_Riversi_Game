@@ -1,6 +1,9 @@
 package main.java.edu.miu.cs.cs525.reversi.common ;
 
+import javax.swing.JLabel;
+
 import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
+import main.java.edu.miu.cs.cs525.reversi.monitor.BlackPlayer;
 import main.java.edu.miu.cs.cs525.reversi.monitor.ShowCurrentPlayer;
 
 public class BoardInfo
@@ -206,19 +209,19 @@ public class BoardInfo
     {
         if( turn == PLAYER_BLACK ) {
         	changePlayer(ReversiSingleton.getBlackPlayer());
-            ReversiSingleton.getCurrentPlayer().display();
+            ReversiSingleton.getCurrentPlayer().displayCurrentTurn();
             return "Black's Turn" ;
         }
         else if( turn == PLAYER_WHITE ) {
         	changePlayer(ReversiSingleton.getWhitePlayer());
-            ReversiSingleton.getCurrentPlayer().display();
+            ReversiSingleton.getCurrentPlayer().displayCurrentTurn();
             return "White's Turn" ;
         }
         else if( turn == NO_GAME ) {
             return "" ;
         }
         else if( turn == GAME_OVER ) {
-        	ReversiSingleton.getCurrentPlayer().notDisplay();
+        	ReversiSingleton.getCurrentPlayer().notDisplayCurrentTurn();
             return "Game Over !!" ;
         }
         else {

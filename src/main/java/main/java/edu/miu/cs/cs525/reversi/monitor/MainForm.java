@@ -59,11 +59,11 @@ public class MainForm extends JFrame {
 
 	JToolBar toolBar = new JToolBar();
 
-	JLabel lblTeam4 = new JLabel("Team 4");
-	JLabel lblOrForBlack = new JLabel("or");
+//	JLabel lblTeam4 = new JLabel("Team 4");
+//	JLabel lblOrForBlack = new JLabel("or");
 	JLabel lblBlackPlayer = new JLabel("Black Player");
-	JLabel lblOtherTeam = new JLabel("Other Team");
-	JLabel lblOrForWhite = new JLabel("or");
+//	JLabel lblOtherTeam = new JLabel("Other Team");
+//	JLabel lblOrForWhite = new JLabel("or");
 	JLabel lblWhitePlayer = new JLabel("White Player");
 	
 //	BoardView b;
@@ -169,18 +169,18 @@ public class MainForm extends JFrame {
 		toolBar.add(ReversiSingleton.getNextButton());
 		toolBar.add(ReversiSingleton.getLastButton());
 
-		lblTeam4.setForeground(ReversiSingleton.getAqua());
-		lblOrForBlack.setForeground(ReversiSingleton.getAqua());
+//		lblTeam4.setForeground(ReversiSingleton.getAqua());
+//		lblOrForBlack.setForeground(ReversiSingleton.getAqua());
 		lblBlackPlayer.setForeground(ReversiSingleton.getAqua());
 		lblWhitePlayer.setForeground(ReversiSingleton.getAqua());
-		lblOrForWhite.setForeground(ReversiSingleton.getAqua());
-		lblOtherTeam.setForeground(ReversiSingleton.getAqua());
+//		lblOrForWhite.setForeground(ReversiSingleton.getAqua());
+//		lblOtherTeam.setForeground(ReversiSingleton.getAqua());
 
-		ReversiSingleton.getLeftPane().add(lblTeam4);
-		ReversiSingleton.getLeftPane().add(lblOrForBlack);
+//		ReversiSingleton.getLeftPane().add(lblTeam4);
+//		ReversiSingleton.getLeftPane().add(lblOrForBlack);
 		ReversiSingleton.getLeftPane().add(lblBlackPlayer);
-		ReversiSingleton.getRightPane().add(lblOtherTeam);
-		ReversiSingleton.getRightPane().add(lblOrForWhite);
+//		ReversiSingleton.getRightPane().add(lblOtherTeam);
+//		ReversiSingleton.getRightPane().add(lblOrForWhite);
 		ReversiSingleton.getRightPane().add(lblWhitePlayer);
 		
 //		 ml = new MoveList("Move List", this);
@@ -301,13 +301,16 @@ public class MainForm extends JFrame {
 		if (dlg.playerType == dlg.COMPUTER_PLAYER) {
 			ReversiSingleton.getBoardView().playerBPointer = new ComputerPlayer();
 			ReversiSingleton.getMenuBlackPlayerComputer().setText("Computer");
+			ReversiSingleton.setCurrentPlayer(new BlackPlayer());
+	        ReversiSingleton.getCurrentPlayer().showPlayer("Team 4");	
+	        ReversiSingleton.setCurrentPlayer(new WhitePlayer());
+	        ReversiSingleton.getCurrentPlayer().showPlayer("Other Team");
 
 		} else if (dlg.playerType == dlg.NET_PLAYER) {
 			ReversiSingleton.getBoardView().playerBPointer = new NetworkPlayer(dlg.hostAddress, dlg.portNumber, dlg.portNumber2);
 			try {
 				String id = ((NetworkPlayer) ReversiSingleton.getBoardView().playerBPointer).identify();
 				ReversiSingleton.getMenuBlackPlayerComputer().setText(id + " @ ( " + dlg.hostAddress + ":" + dlg.portNumber + " )");
-//				ReversiSingleton.txtTeam4=dlg.hostAddress ;
 			} catch (Exception exc) {
 			}
 		} else if (ReversiSingleton.getBoardView().playerBPointer == null) {
@@ -338,6 +341,10 @@ public class MainForm extends JFrame {
 		if (dlg.playerType == dlg.COMPUTER_PLAYER) {
 			ReversiSingleton.getBoardView().playerWPointer = new ComputerPlayer();
 			ReversiSingleton.getMenuWhitePlayerComputer().setText("Computer");
+			ReversiSingleton.setCurrentPlayer(new WhitePlayer());
+	        ReversiSingleton.getCurrentPlayer().showPlayer("Team 4");
+	        ReversiSingleton.setCurrentPlayer(new BlackPlayer());
+	        ReversiSingleton.getCurrentPlayer().showPlayer("Other Team");	
 
 		} else if (dlg.playerType == dlg.NET_PLAYER) {
 			ReversiSingleton.getBoardView().playerWPointer = new NetworkPlayer(dlg.hostAddress, dlg.portNumber, dlg.portNumber2);

@@ -9,13 +9,13 @@ import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
 public class WhitePlayer implements ShowCurrentPlayer {
 
     @Override
-    public void display() {
+    public void displayCurrentTurn() {
         ReversiSingleton.getWhiteTurn().setVisible(true);
         ReversiSingleton.getBlackTurn().setVisible(false);
     }
 
 	@Override
-	public void winner() {
+	public void displayWinner() {
 		ReversiSingleton.getWinner().setVisible(true);
 		ReversiSingleton.getGameOverLabel().setVisible(true);
 		ReversiSingleton.getWinner().setText("<html><body><p>White <br>is Winner !</p></body></html>");
@@ -24,8 +24,15 @@ public class WhitePlayer implements ShowCurrentPlayer {
 	}
 	
 	@Override
-	public void notDisplay() {
+	public void notDisplayCurrentTurn() {
 		ReversiSingleton.getBlackTurn().setVisible(false);
         ReversiSingleton.getWhiteTurn().setVisible(false);		
+	}
+
+	@Override
+	public void showPlayer(String s) {
+		ReversiSingleton.getLabelWhitePlayer().setText(s);
+		ReversiSingleton.getRightPane().add(ReversiSingleton.getLabelOrForWhitePlayer());
+		ReversiSingleton.getRightPane().add(ReversiSingleton.getLabelWhitePlayer());
 	}
 }

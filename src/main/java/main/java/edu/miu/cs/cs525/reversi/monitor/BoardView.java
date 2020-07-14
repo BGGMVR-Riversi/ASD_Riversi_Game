@@ -207,13 +207,13 @@ public class BoardView extends JPanel {
 				} else if (p1 > p2) {
 					s += " Black is Winner ! ";
 					ReversiSingleton.setCurrentPlayer(new BlackPlayer());
-					ReversiSingleton.getCurrentPlayer().winner();
+					ReversiSingleton.getCurrentPlayer().displayWinner();
 					playerBPointer.getMove(board);
 				} else {
 					s += " White is Winner ! ";
 					System.out.println(p2);
 					ReversiSingleton.setCurrentPlayer(new WhitePlayer());
-					ReversiSingleton.getCurrentPlayer().winner();
+					ReversiSingleton.getCurrentPlayer().displayWinner();
 					playerWPointer.getMove(board);
 				}
 				statusBar.setText(s);
