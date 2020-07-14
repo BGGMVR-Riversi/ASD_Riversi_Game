@@ -208,7 +208,7 @@ public class BoardView extends JPanel {
 					s += " White is Winner ! ";
 					System.out.println(p2);
 					ReversiSingleton.setCurrentPlayer(new WhitePlayer());
-					ReversiSingleton.getWinner();
+					ReversiSingleton.getCurrentPlayer().winner();
 					playerWPointer.getMove(board);
 				}
 				statusBar.setText(s);

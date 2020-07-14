@@ -5,9 +5,6 @@ import java.awt.event.* ;
 import javax.swing.* ;
 
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.ActionEventFactory;
-import main.java.edu.miu.cs.cs525.reversi.action_adapters.ChoosePlayerOkAction;
-import main.java.edu.miu.cs.cs525.reversi.action_adapters.ChoosePlayerRadioComputerPlayerAction;
-import main.java.edu.miu.cs.cs525.reversi.action_adapters.ChoosePlayerRadioNetPlayerAction;
 
 public class ChoosePlayerType extends JDialog
 {
