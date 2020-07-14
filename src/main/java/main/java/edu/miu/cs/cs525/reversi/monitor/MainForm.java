@@ -7,6 +7,7 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 
+
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
@@ -17,6 +18,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JToolBar;
+
 
 import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.ReversiActionEventFactory;
@@ -271,6 +273,8 @@ public class MainForm extends JFrame {
 
 	public void menuGameExit_actionPerformed(ActionEvent e) {
 		System.exit(0);
+
+
 	}
 
 	public void menuHelpAbout_actionPerformed(ActionEvent e) {
@@ -284,10 +288,11 @@ public class MainForm extends JFrame {
 		dlg.show();
 	}
 
-	public void processWindowEvent(ActionEvent e) {
-//		super.processWindowEvent(e);
-		if (e.getID() == WindowEvent.WINDOW_CLOSING) {
-			menuGameExit_actionPerformed(null);
+	protected void processWindowEvent( WindowEvent e )
+	{
+		super.processWindowEvent( e ) ;
+		if( e.getID() == WindowEvent.WINDOW_CLOSING ) {
+			menuGameExit_actionPerformed( null ) ;
 		}
 	}
 
