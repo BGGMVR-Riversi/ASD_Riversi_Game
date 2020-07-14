@@ -41,8 +41,9 @@ public class Channel implements Runnable {
     public void sendTo(SocketAddress address, String msg) throws IOException {
         char[] positions = msg.toCharArray();
         int y = Character.getNumericValue(positions[1]) - 1;
+        /*********** Team 5 Json InputString format******************************/
         //String jsonInputString = "{\"row\":" + utils.charToInt(positions[0]) + ",\"col\":" + y + "}";
-         String jsonInputString = "{\"x\":" + y + ",\"y\":" + utils.charToInt(positions[0]) + "}";
+        String jsonInputString = "{\"x\":" + y + ",\"y\":" + utils.charToInt(positions[0]) + "}";
         System.out.println("sent from json " + jsonInputString);
         byte[] buffer = jsonInputString.getBytes();
 
@@ -76,8 +77,11 @@ public class Channel implements Runnable {
         char[] positions = pos.toCharArray();
         System.out.println("B " + pos);
         int y = Character.getNumericValue(positions[1]) - 1;
-        //both  ways can be used for differnet board views or similar for team1
-//        String jsonInputString = "{\"row\":" + utils.charToInt(positions[0]) + ",\"col\":" + y + "}";
+        /***************  jsonInputString for Team 6****************************************/
+        //String jsonInputString = "{\"x\":" + utils.charToInt(positions[0]) + ",\"y\":" + y + "}";
+        /************************ jsonInputString for Team 1 and 3 use below one************************/
+        //both ways can be used for different board views or similar for team1
+         //String jsonInputString = "{\"row\":" + utils.charToInt(positions[0]) + ",\"col\":" + y + "}";
         String jsonInputString = "{\"row\":" + y + ",\"col\":" + utils.charToInt(positions[0]) + "}";
         System.out.println("C " + jsonInputString);
         StringBuilder response = new StringBuilder();

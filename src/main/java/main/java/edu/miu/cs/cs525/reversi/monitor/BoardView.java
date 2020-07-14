@@ -129,6 +129,11 @@ public class BoardView extends JPanel {
 		} else if (board.turn == board.PLAYER_WHITE && playerWPointer != null) {
 			pauseBeforeMoveTimer.start();
 		}
+		/*if ((ComputerPlayer.counterComputer!=NetworkPlayer.counterNetwork+1)) {
+			System.out.println(" counterComputer " + ComputerPlayer.counterComputer);
+			System.out.println(" counterNetwork " + NetworkPlayer.counterNetwork);
+			updatePassTurn(board);
+		}*/
 
 	}
 
