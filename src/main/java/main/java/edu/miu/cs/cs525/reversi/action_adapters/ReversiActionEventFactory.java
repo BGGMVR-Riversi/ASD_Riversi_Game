@@ -1,8 +1,8 @@
 package main.java.edu.miu.cs.cs525.reversi.action_adapters;
 
-public class ActionEventFactory {
+public class ReversiActionEventFactory {
 	
-	public static ActionEvent ac;
+	public static ReversiActionEvent ac;
 	
 	public static void getActionPerformed(String s) {
 		if(s == null) System.out.println("String is null");
