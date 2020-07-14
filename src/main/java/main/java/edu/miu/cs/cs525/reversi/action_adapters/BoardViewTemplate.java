@@ -3,6 +3,8 @@ package main.java.edu.miu.cs.cs525.reversi.action_adapters;
 import java.awt.event.ActionEvent;
 
 import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
+import main.java.edu.miu.cs.cs525.reversi.memento.Board;
+import main.java.edu.miu.cs.cs525.reversi.memento.History;
 import main.java.edu.miu.cs.cs525.reversi.utils.ImageClass;
 
 public class BoardViewTemplate extends Abstract {
@@ -55,6 +57,12 @@ public class BoardViewTemplate extends Abstract {
 			return;
 		}
 		ReversiSingleton.getBoardView().board.takeBackOneMove();
+		if (History.getInstance().size("undo") <= 0) {
+			System.out.println("Nothing to Undo");
+		} else {
+			Board.getInstance().restore(History.getInstance().popFromUndoList());
+		}
+		System.out.println("undo from Memento ==========> " + Board.getInstance().getMove());
 		ReversiSingleton.getBoardView().updateTurn();
 		ReversiSingleton.getMainForm().repaint();
 	}
@@ -65,6 +73,12 @@ public class BoardViewTemplate extends Abstract {
 			return;
 		}
 		ReversiSingleton.getBoardView().board.redoOneMove();
+		if (History.getInstance().size("redo") <= 0) {
+			System.out.println("Nothing to Redo");
+		} else {
+			Board.getInstance().restore(History.getInstance().popFromRedoList());
+		}
+		System.out.println("redo from Memento ==========> " + Board.getInstance().getMove());
 		ReversiSingleton.getBoardView().updateTurn();
 		ReversiSingleton.getMainForm().repaint();
 	}

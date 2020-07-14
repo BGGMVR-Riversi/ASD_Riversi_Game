@@ -1,6 +1,8 @@
 package main.java.edu.miu.cs.cs525.reversi.common ;
 
 import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
+import main.java.edu.miu.cs.cs525.reversi.memento.Board;
+import main.java.edu.miu.cs.cs525.reversi.memento.History;
 import main.java.edu.miu.cs.cs525.reversi.monitor.ShowCurrentPlayer;
 
 public class BoardInfo
