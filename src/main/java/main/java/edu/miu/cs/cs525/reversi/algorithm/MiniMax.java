@@ -14,10 +14,10 @@ public class MiniMax extends Thread
     String[] possibleMoves ;
     public float[] moves ;
     
-    public MiniMax(BoardInfo board) {
+    private MiniMax(BoardInfo board) {
     	this.board=board;
     }
-    public MiniMax( int iCutOff, int player, BoardInfo board, String[] possibleMoves )
+    private MiniMax( int iCutOff, int player, BoardInfo board, String[] possibleMoves )
     {
         CUT_OFF = iCutOff ;
         ME = player ;
@@ -25,6 +25,13 @@ public class MiniMax extends Thread
         this.possibleMoves = possibleMoves ;
         moves = new float[possibleMoves.length] ;
     }
+    public static MiniMax miniMaxFactory1(BoardInfo board){
+        return new MiniMax(board);
+    }
+    public static MiniMax miniMaxFactory2(int iCutOff, int player, BoardInfo board, String[] possibleMoves){
+        return new MiniMax(iCutOff, player,board,possibleMoves);
+    }
+
 
 	public int getOpponent(int player) {
 		if (player == BoardEnum.PLAYER_BLACK.value()) {
@@ -64,7 +71,7 @@ public class MiniMax extends Thread
 		for (i = 0; i < BoardEnum.ROW_COUNT.value(); i++) {
 			for (j = 0; j < BoardEnum.COL_COUNT.value(); j++) {
 				if (m.get(i, j) > 0) {
-					Location l = new Location(i, j);
+					Location l = Location.locationFactory3(i, j);
 					s = s + l.getStandardForm() + ",";
 				}
 			}

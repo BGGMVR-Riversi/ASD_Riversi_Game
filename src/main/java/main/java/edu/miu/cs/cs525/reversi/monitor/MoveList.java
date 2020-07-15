@@ -45,7 +45,7 @@ public class MoveList extends JFrame
         txtList.setMargin( new Insets( 15, 22, 0, 0 ) ) ;
         txtList.setText( "" ) ;
         jScrollPane1.setPreferredSize( new Dimension( 180, 600 ) ) ;
-        this.addWindowListener( new MoveListWindowAdapter( this ) ) ;
+        this.addWindowListener(MoveListWindowAdapter.MoveListWindowAdapter( this ) ) ;
         this.setResizable( false ) ;
         this.getContentPane().add( jScrollPane1, BorderLayout.CENTER ) ;
         jScrollPane1.getViewport().add( txtList, null ) ;

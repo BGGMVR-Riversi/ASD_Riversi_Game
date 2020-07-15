@@ -13,7 +13,7 @@ public class ComputerPlayer extends GeneralPlayer {
 
     public Location getMove(BoardInfo b) {
 		MoveStrategy strategy;
-		Location move = new Location(-1, -1); // Illegal Move
+		Location move = Location.locationFactory3(-1, -1); // Illegal Move
 
 		// if( b.moveCount < 10 ) {
 		// Opening moves

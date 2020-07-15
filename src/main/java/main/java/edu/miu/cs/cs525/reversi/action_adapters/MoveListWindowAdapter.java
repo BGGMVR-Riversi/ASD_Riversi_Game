@@ -9,9 +9,13 @@ class MoveListWindowAdapter extends java.awt.event.WindowAdapter
 {
     MoveList adaptee ;
 
-    public MoveListWindowAdapter( MoveList adaptee )
+    private MoveListWindowAdapter( MoveList adaptee )
     {
         this.adaptee = adaptee ;
+    }
+
+    public static MoveListWindowAdapter MoveListWindowAdapter(MoveList adaptee ){
+        return new MoveListWindowAdapter(adaptee);
     }
 
     public void windowClosing( WindowEvent e )

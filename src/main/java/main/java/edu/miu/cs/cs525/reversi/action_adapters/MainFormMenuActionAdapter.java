@@ -10,15 +10,25 @@ public class MainFormMenuActionAdapter implements ActionListener {
 	String menuItem;
 	int n;
 
-	public MainFormMenuActionAdapter(MainForm adaptee, String menuItem) {
+	private MainFormMenuActionAdapter(MainForm adaptee, String menuItem) {
 		this.adaptee = adaptee;
 		this.menuItem = menuItem;
 	}
 
-	public MainFormMenuActionAdapter(MainForm adaptee, String menuItem, int i) {
+	private MainFormMenuActionAdapter(MainForm adaptee, String menuItem, int i) {
 		this.adaptee = adaptee;
 		this.menuItem = menuItem;
 		n = i;
+	}
+
+	public static MainFormMenuActionAdapter mainFormMenuActionAdapterFactory1(MainForm adaptee, String menuItem){
+		return new MainFormMenuActionAdapter(adaptee,menuItem);
+
+	}
+
+	public static MainFormMenuActionAdapter mainFormMenuActionAdapterFactory2(MainForm adaptee, String menuItem, int i){
+		return new MainFormMenuActionAdapter(adaptee,menuItem, i);
+
 	}
 
 	public void actionPerformed(ActionEvent e) {
