@@ -40,7 +40,7 @@ public class NetworkPlayer extends GeneralPlayer {
 
 		try {
 			channel.start();
-			Location move = new Location();
+			Location move = Location.locationFactory1();
 			address = new InetSocketAddress(hostAddress, portNumber2);
 			if (b.getStandardFormGame() != null && !b.getStandardFormGame().isEmpty()) {
 				String pos[] = b.getStandardFormGame().split(" ");
@@ -93,7 +93,7 @@ public class NetworkPlayer extends GeneralPlayer {
 	public static Location getMove1(String boardInfo) {
 		try {
 			channel.start();
-			Location move = new Location();
+			Location move = Location.locationFactory1();
 			address = new InetSocketAddress(hostAddress, portNumber2);
 
 

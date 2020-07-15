@@ -7,7 +7,7 @@ public class BoardMatrix {
 	public int numberOfColumn = BoardEnum.COL_COUNT.value();
 	private int[][] mat = new int[numberOfRow][numberOfColumn];
 
-	public BoardMatrix() {
+	private BoardMatrix() {
 		int i, j;
 		for (i = 0; i < numberOfRow; i++) {
 			for (j = 0; j < numberOfColumn; j++) {
@@ -15,8 +15,11 @@ public class BoardMatrix {
 			}
 		}
 	}
+	public static BoardMatrix boardMatrixFactory1(){
+		return new BoardMatrix();
+	}
 
-	public BoardMatrix(BoardMatrix src) {
+	private BoardMatrix(BoardMatrix src) {
 		int i, j;
 		for (i = 0; i < numberOfRow; i++) {
 			for (j = 0; j < numberOfColumn; j++) {
@@ -24,8 +27,11 @@ public class BoardMatrix {
 			}
 		}
 	}
+	public static BoardMatrix boardMatrixFactory2(BoardMatrix src){
+		return new BoardMatrix(src);
+	}
 
-	public BoardMatrix(int[][] src) {
+	private BoardMatrix(int[][] src) {
 		int i, j;
 		for (i = 0; i < numberOfRow; i++) {
 			for (j = 0; j < numberOfColumn; j++) {
@@ -33,6 +39,10 @@ public class BoardMatrix {
 			}
 		}
 	}
+	public static BoardMatrix boardMatrixFactory3(int[][] src){
+		return new BoardMatrix(src);
+	}
+
 
 	public void set(int i, int j, int a) {
 		mat[i][j] = a;
@@ -67,7 +77,7 @@ public class BoardMatrix {
 	}
 
 	public Location getMaxLoc() {
-		Location l = new Location();
+		Location l = Location.locationFactory1();
 		int max = mat[0][0];
 		int i, j;
 		for (i = 0; i < numberOfRow; i++) {

@@ -8,9 +8,13 @@ public class AboutFormOkButtonActionAdapter implements java.awt.event.ActionList
 {
     About adaptee ;
 
-    public AboutFormOkButtonActionAdapter( About adaptee )
+    private AboutFormOkButtonActionAdapter( About adaptee )
     {
         this.adaptee = adaptee ;
+    }
+
+    public static AboutFormOkButtonActionAdapter aboutFormOkButtonActionAdapterFactory(About adaptee){
+        return new AboutFormOkButtonActionAdapter(adaptee);
     }
 
     public void actionPerformed( ActionEvent e )

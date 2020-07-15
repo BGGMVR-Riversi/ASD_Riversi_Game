@@ -9,22 +9,31 @@ public class Location
     public int row, column ;
     Convert convert;
 
-    public Location()
+    private Location()
     {
         row = 0 ;
         column = 0 ;
     }
+    public static Location locationFactory1(){
+        return new Location();
+    }
 
-    public Location( Location src )
+    private Location( Location src )
     {
         row = src.row ;
         column = src.column ;
     }
+    public static Location locationFactory2(Location src){
+        return new Location(src);
+    }
 
-    public Location( int ir, int ic )
+    private  Location( int ir, int ic )
     {
         row = ir ;
         column = ic ;
+    }
+    public static Location locationFactory3(int ir, int ic ){
+        return new Location(ir,ic);
     }
 
     public void set( Location src )

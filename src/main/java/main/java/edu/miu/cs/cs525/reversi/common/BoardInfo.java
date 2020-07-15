@@ -20,15 +20,18 @@ public class BoardInfo implements MediatorService {
 	public int moveCount;
 	public int validMoveCount;
 
-	public BoardInfo() {
+	private BoardInfo() {
 		int i;
 		for (i = 0; i < BoardEnum.MAX_MOVES.value(); i++) {
-			moveHistory[i] = new Location();
+			moveHistory[i] = Location.locationFactory1();
 		}
 		makeEmpty();
 	}
+	public static BoardInfo boardInfoFactory1(){
+		return new BoardInfo();
+	}
 
-	public BoardInfo(BoardInfo src) {
+	private BoardInfo(BoardInfo src) {
 		this();
 		copyBoard(src.board, this.board);
 		turn = src.turn;
@@ -40,6 +43,9 @@ public class BoardInfo implements MediatorService {
 		}
 		moveCount = src.moveCount;
 		validMoveCount = src.validMoveCount;
+	}
+	public static BoardInfo boardInfoFactory2(BoardInfo src){
+		return new BoardInfo(src);
 	}
 
 	@Override
@@ -129,7 +135,7 @@ public class BoardInfo implements MediatorService {
 
 	@Override
 	public AnimationMatrix calculateMoveAnimation(int r, int c) {
-		AnimationMatrix anim = new AnimationMatrix();
+		AnimationMatrix anim = AnimationMatrix.animationMatrixFactory1();
 		int iD, jD, dCount = 0;
 
 		if (turn == BoardEnum.NO_GAME.value() || turn == BoardEnum.GAME_OVER.value()
@@ -151,7 +157,7 @@ public class BoardInfo implements MediatorService {
 		}
 		if (dCount == 0) {
 			board[r][c] = BoardEnum.EMPTY.value();
-			return new AnimationMatrix();
+			return AnimationMatrix.animationMatrixFactory1();
 		}
 		moveHistory[moveCount].column = c;
 		moveHistory[moveCount].row = r;
@@ -226,7 +232,7 @@ public class BoardInfo implements MediatorService {
 
 	@Override
 	public BoardMatrix getGainMatrix() {
-		BoardMatrix m = new BoardMatrix();
+		BoardMatrix m = BoardMatrix.boardMatrixFactory1();
 		int r, c, iD, jD;
 
 		if (turn == BoardEnum.NO_GAME.value() || turn == BoardEnum.GAME_OVER.value()) {
@@ -397,7 +403,7 @@ public class BoardInfo implements MediatorService {
 	private int countCornerStablePieces(int player, Location corner, int rMAx, int cMax) {
 		int i, j, c = 0, rm = 0, cm = 0, rec = 0;
 		boolean e;
-		Location dir = new Location((corner.row <= BoardEnum.ROW_COUNT.value() / 2 ? +1 : -1),
+		Location dir = Location.locationFactory3((corner.row <= BoardEnum.ROW_COUNT.value() / 2 ? +1 : -1),
 				(corner.column <= BoardEnum.COL_COUNT.value() / 2 ? +1 : -1));
 		if (board[corner.row][corner.column] == player) {
 			c++;
@@ -438,7 +444,7 @@ public class BoardInfo implements MediatorService {
 				j = j + dir.column;
 			}
 			if (rec > 1) {
-				Location newCorner = new Location();
+				Location newCorner = Location.locationFactory1();
 				newCorner.row = corner.row + dir.row;
 				newCorner.column = corner.column + dir.column;
 				c += countCornerStablePieces(player, newCorner, rm, cm);
@@ -450,8 +456,8 @@ public class BoardInfo implements MediatorService {
 	
 	private int countRepetitions(int player, Location corner1, Location corner2, int n) {
 		int c = 0;
-		Location dir = new Location();
-		Location iter = new Location();
+		Location dir = Location.locationFactory1();
+		Location iter = Location.locationFactory1();
 		if (corner1.row == corner2.row) {
 			dir.set(0, 1);
 		} else {
@@ -484,15 +490,15 @@ public class BoardInfo implements MediatorService {
 	@Override
 	public int countStablePieces(int player) {
 		int sum = 0;
-		sum += countCornerStablePieces(player, new Location(0, 0), BoardEnum.ROW_COUNT.value(),
+		sum += countCornerStablePieces(player, Location.locationFactory3(0, 0), BoardEnum.ROW_COUNT.value(),
 				BoardEnum.COL_COUNT.value());
-		sum += countCornerStablePieces(player, new Location(0, 7), BoardEnum.ROW_COUNT.value(), -1);
-		sum += countCornerStablePieces(player, new Location(7, 0), -1, BoardEnum.COL_COUNT.value());
-		sum += countCornerStablePieces(player, new Location(7, 7), -1, -1);
-		sum -= countRepetitions(player, new Location(0, 0), new Location(0, 7), 1);
-		sum -= countRepetitions(player, new Location(0, 0), new Location(7, 0), 1);
-		sum -= countRepetitions(player, new Location(0, 7), new Location(7, 7), 1);
-		sum -= countRepetitions(player, new Location(7, 0), new Location(7, 7), 1);
+		sum += countCornerStablePieces(player, Location.locationFactory3(0, 7), BoardEnum.ROW_COUNT.value(), -1);
+		sum += countCornerStablePieces(player, Location.locationFactory3(7, 0), -1, BoardEnum.COL_COUNT.value());
+		sum += countCornerStablePieces(player, Location.locationFactory3(7, 7), -1, -1);
+		sum -= countRepetitions(player, Location.locationFactory3(0, 0), Location.locationFactory3(0, 7), 1);
+		sum -= countRepetitions(player, Location.locationFactory3(0, 0), Location.locationFactory3(7, 0), 1);
+		sum -= countRepetitions(player, Location.locationFactory3(0, 7), Location.locationFactory3(7, 7), 1);
+		sum -= countRepetitions(player, Location.locationFactory3(7, 0), Location.locationFactory3(7, 7), 1);
 		return sum;
 	}
 

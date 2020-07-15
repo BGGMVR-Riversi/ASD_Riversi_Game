@@ -8,7 +8,7 @@ public class AnimationMatrix {
 
 	private int[][] mat = new int[numberOfRow][numberOfColumn];
 
-	public AnimationMatrix() {
+	private AnimationMatrix() {
 		int i, j;
 		for (i = 0; i < numberOfRow; i++) {
 			for (j = 0; j < numberOfColumn; j++) {
@@ -17,13 +17,21 @@ public class AnimationMatrix {
 		}
 	}
 
-	public AnimationMatrix(AnimationMatrix src) {
+
+	private AnimationMatrix(AnimationMatrix src) {
 		int i, j;
 		for (i = 0; i < numberOfRow; i++) {
 			for (j = 0; j < numberOfColumn; j++) {
 				mat[i][j] = src.mat[i][j];
 			}
 		}
+	}
+
+	public static AnimationMatrix animationMatrixFactory1(){
+		return new AnimationMatrix();
+	}
+	public static AnimationMatrix animationMatrixFactory2(AnimationMatrix src){
+		return new AnimationMatrix(src);
 	}
 
 	public void set(int i, int j, int a) {

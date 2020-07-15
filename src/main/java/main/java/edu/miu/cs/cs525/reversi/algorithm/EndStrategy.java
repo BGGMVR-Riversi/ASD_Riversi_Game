@@ -13,14 +13,14 @@ public class EndStrategy implements MoveStrategy {
 	public Location move(BoardInfo b, Location move) {
 		String poss;
 		String[] pl;
-		MiniMax miniMax = new MiniMax(b);
+		MiniMax miniMax = MiniMax.miniMaxFactory1(b);
 		poss = miniMax.getPossibleMoves();
 		logger.info("EndStrategy move: " + poss);
 		if (!poss.isEmpty()) {
 			pl = poss.split(",");
 			move.set(pl[0]); // I have at least one Move !
 			if (pl.length > 1) {
-				MiniMax alg = new MiniMax(10, b.turn, b, pl);
+				MiniMax alg = MiniMax.miniMaxFactory2(10, b.turn, b, pl);
 				alg.run();
 				int i;
 				float max = -1000;
