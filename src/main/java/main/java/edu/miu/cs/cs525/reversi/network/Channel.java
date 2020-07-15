@@ -45,7 +45,7 @@ public class Channel implements Runnable {
        /**************use this for local testing************************************/
         //String jsonInputString = "{\"x\":" + utils.charToInt(positions[0]) + ",\"y\":" + y + "}";
         /*********** Team 5 Json InputString format******************************/
-        String jsonInputString = "{\"x\":" + y + ",\"y\":" + utils.charToInt(positions[0]) + "}";
+        String jsonInputString = "{\"x\":" + y + ",\"y\":" + convert.stringToInt(positions[0]) + "}";
         System.out.println("sent from json " + jsonInputString);
         byte[] buffer = jsonInputString.getBytes();
 
@@ -90,7 +90,7 @@ public class Channel implements Runnable {
             /************************ jsonInputString for Team 1 and 3 use below one************************/
             //both ways can be used for different board views or similar for team1
             //String jsonInputString = "{\"row\":" + utils.charToInt(positions[0]) + ",\"col\":" + y + "}";
-            jsonInputString = "{\"row\":" + y + ",\"col\":" + utils.charToInt(positions[0]) + "}";
+            jsonInputString = "{\"row\":" + y + ",\"col\":" + convert.stringToInt(positions[0]) + "}";
             System.out.println("C " + jsonInputString);
         }
         StringBuilder response = new StringBuilder();
@@ -128,7 +128,7 @@ public class Channel implements Runnable {
         System.out.println("B " + pos);
         int y = Character.getNumericValue(positions[1]) - 1;
         /***************  jsonInput Team 6****************************************/
-        String jsonInputString = "{\"x\":" + utils.charToInt(positions[0]) + ",\"y\":" + y + "}";
+        String jsonInputString = "{\"x\":" + convert.stringToInt(positions[0]) + ",\"y\":" + y + "}";
         System.out.println("CTem6 " + jsonInputString);
         StringBuilder response = new StringBuilder();
         byte[] postDataBytes = jsonInputString.toString().getBytes("UTF-8");
