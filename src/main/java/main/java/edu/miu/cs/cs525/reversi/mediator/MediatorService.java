@@ -22,7 +22,13 @@ public interface MediatorService {
 	public int countStablePieces(int player);
 	public int countFrontier(int player);
 	
-	
+	public void showBoard();
+	public void setStandardFormGame(String s);
+	public String getStandardFormGame();
+	public void redoAllMoves();
+	public boolean redoOneMove();
+	public void takeBackAllMoves();
+	public boolean takeBackOneMove() ;
 	
 	default void copyBoard(int[][] src, int[][] dest) {
 		int i, j;

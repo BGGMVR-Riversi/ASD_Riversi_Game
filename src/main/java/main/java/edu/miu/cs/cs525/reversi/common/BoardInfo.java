@@ -27,7 +27,8 @@ public class BoardInfo implements MediatorService {
 		}
 		makeEmpty();
 	}
-	public static BoardInfo boardInfoFactory1(){
+
+	public static BoardInfo boardInfoFactory1() {
 		return new BoardInfo();
 	}
 
@@ -44,7 +45,8 @@ public class BoardInfo implements MediatorService {
 		moveCount = src.moveCount;
 		validMoveCount = src.validMoveCount;
 	}
-	public static BoardInfo boardInfoFactory2(BoardInfo src){
+
+	public static BoardInfo boardInfoFactory2(BoardInfo src) {
 		return new BoardInfo(src);
 	}
 
@@ -294,14 +296,14 @@ public class BoardInfo implements MediatorService {
 
 	// Move History methods :
 
-	public void copyBoardToHistory(int k) {
+	private void copyBoardToHistory(int k) {
 		copyBoard(this.board, this.boardHistory[k]);
 	}
 
-	public void copyHistoryToBoard(int k) {
+	private void copyHistoryToBoard(int k) {
 		copyBoard(this.boardHistory[k], this.board);
 	}
-
+	@Override
 	public boolean takeBackOneMove() {
 		if (moveCount <= 0) {
 			return false;
@@ -311,7 +313,7 @@ public class BoardInfo implements MediatorService {
 		turn = turnHistory[moveCount];
 		return true;
 	}
-
+	@Override
 	public void takeBackAllMoves() {
 		if (validMoveCount <= 0) {
 			return;
@@ -320,7 +322,7 @@ public class BoardInfo implements MediatorService {
 		copyHistoryToBoard(moveCount);
 		turn = turnHistory[moveCount];
 	}
-
+	@Override
 	public boolean redoOneMove() {
 		if (validMoveCount <= 0) {
 			return false;
@@ -337,7 +339,7 @@ public class BoardInfo implements MediatorService {
 		}
 		return true;
 	}
-
+	@Override
 	public void redoAllMoves() {
 		if (validMoveCount <= 0) {
 			return;
@@ -347,7 +349,7 @@ public class BoardInfo implements MediatorService {
 		turn = turnHistory[moveCount];
 		redoOneMove();
 	}
-
+	@Override
 	public String getStandardFormGame() {
 		String s = "";
 		int i;
@@ -357,7 +359,7 @@ public class BoardInfo implements MediatorService {
 		}
 		return s;
 	}
-
+	@Override
 	public void setStandardFormGame(String s) {
 		String[] sa = s.split(" ");
 		int i;
@@ -369,6 +371,7 @@ public class BoardInfo implements MediatorService {
 		}
 	}
 
+	@Override
 	public void showBoard() {
 		System.out.println("Current Board Position :");
 		System.out.println("  A B C D E F G H");
@@ -453,7 +456,6 @@ public class BoardInfo implements MediatorService {
 		return c;
 	}
 
-	
 	private int countRepetitions(int player, Location corner1, Location corner2, int n) {
 		int c = 0;
 		Location dir = Location.locationFactory1();
