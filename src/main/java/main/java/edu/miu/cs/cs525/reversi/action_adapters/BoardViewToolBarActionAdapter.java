@@ -10,10 +10,15 @@ public class BoardViewToolBarActionAdapter implements java.awt.event.ActionListe
     MainForm adaptee ;
     String tbItem ;
 
-    public BoardViewToolBarActionAdapter( MainForm adaptee, String toolbarItem )
+    private BoardViewToolBarActionAdapter( MainForm adaptee, String toolbarItem )
     {
         this.adaptee = adaptee ;
         tbItem = toolbarItem ;
+    }
+
+    public static BoardViewToolBarActionAdapter toolBarActionAdapterFactory(MainForm adaptee, String toolbarItem){
+        return new BoardViewToolBarActionAdapter(adaptee,toolbarItem);
+
     }
 
     public void actionPerformed( ActionEvent e )

@@ -27,8 +27,8 @@ import main.java.edu.miu.cs.cs525.reversi.mediator.BoardEnum;
 public class BoardView extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	public BoardInfo board = new BoardInfo(); // Game Board Information
-	public AnimationMatrix am = new AnimationMatrix(); // Animation Direction for each cell : -1 , 0 , +1
+	public BoardInfo board = BoardInfo.boardInfoFactory1(); // Game Board Information
+	public AnimationMatrix am = AnimationMatrix.animationMatrixFactory1(); // Animation Direction for each cell : -1 , 0 , +1
 	public int animationSpeed = 5;
 	public GeneralPlayer playerBPointer;
 	public GeneralPlayer playerWPointer;
@@ -46,13 +46,14 @@ public class BoardView extends JPanel {
 	public JFrame parent;
 	public int deltaX = 0, deltaY = 0;
 	public int boardBorder;
-
+	
+	
 	public void paint(Graphics g) {
 		super.paint(g);
 		g.setColor(new Color(200, 200, 200));
 		g.setFont(new Font("Default", 1, 12));
 		int x, y, sx, sy, b;
-		BoardMatrix m = new BoardMatrix();
+		BoardMatrix m = BoardMatrix.boardMatrixFactory1();
 		if (!timer.isRunning()) {
 			m = board.getGainMatrix();
 		}
@@ -93,7 +94,7 @@ public class BoardView extends JPanel {
 		ReversiActionEventFactory.getActionPerformed("BoardView_PBMTimer_Action");
 		pauseBeforeMoveTimer = new Timer(100, ReversiActionEventFactory.ac.initializeInstance(this));
 
-		this.addMouseListener(new BoardView_this_mouseAdapter(this));
+		this.addMouseListener(BoardView_this_mouseAdapter.mouseAdapterFactory(this));
 		pieces = new ImageIcon(MainForm.class.getResource("../images/standard-1.png"));
 		border = new ImageIcon(MainForm.class.getResource("../images/540px-board-" + boardBorder + ".png"));
 		setLayout(borderLayout1);
@@ -181,9 +182,9 @@ public class BoardView extends JPanel {
 			return;
 		}
 		if (board.turn == BoardEnum.PLAYER_BLACK.value() && playerBPointer == null) {
-			startMove(new Location(r, c));
+			startMove(Location.locationFactory3(r, c));
 		} else if (board.turn == BoardEnum.PLAYER_WHITE.value() && playerWPointer == null) {
-			startMove(new Location(r, c));
+			startMove(Location.locationFactory3(r, c));
 		}
 	}
 

@@ -15,7 +15,7 @@ public class ComputerPlayer extends GeneralPlayer {
 
     public Location getMove(BoardInfo b) {
 		MoveStrategy strategy;
-		Location move = new Location(-1, -1); // Illegal Move
+		Location move = Location.locationFactory3(-1, -1); // Illegal Move
 
 		// if( b.moveCount < 10 ) {
 		// Opening moves
@@ -36,16 +36,15 @@ public class ComputerPlayer extends GeneralPlayer {
 			strategy.move(b, move);
 		}
 		System.out.println(" => Selected Move for " + b.getTurnString() + " : " + move.getStandardForm());
-
 		Board.getInstance().setMove(move);
 		History.getInstance().pushToUndoList(Board.getInstance().createState());
-		
 		System.out.println("Selected move from Memento => " + Board.getInstance().getMove().getStandardForm());
 
-		counterComputer++;
-		
+           counterComputer++;
+		System.out.println("movecount " + b.validMoveCount);
 		return move;
 	}
+
 
 	public String identify() throws Exception {
 		return this.getClass().getName();

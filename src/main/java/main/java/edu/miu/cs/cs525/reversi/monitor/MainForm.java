@@ -7,8 +7,8 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 
+
 import javax.swing.ButtonGroup;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -18,13 +18,15 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JToolBar;
 
+
 import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
-import main.java.edu.miu.cs.cs525.reversi.action_adapters.ReversiActionEventFactory;
 import main.java.edu.miu.cs.cs525.reversi.memento.Board;
 import main.java.edu.miu.cs.cs525.reversi.memento.History;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardViewToolBarActionAdapter;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.MainFormMenuActionAdapter;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.MainFormWindowAdapter;
+import main.java.edu.miu.cs.cs525.reversi.action_adapters.ReversiActionEventFactory;
+import main.java.edu.miu.cs.cs525.reversi.mediator.BoardEnum;
 import main.java.edu.miu.cs.cs525.reversi.network.NetworkPlayer;
 import main.java.edu.miu.cs.cs525.reversi.utils.ImageClass;
 
@@ -90,17 +92,17 @@ public class MainForm extends JFrame {
 		this.setSize(new Dimension(636 + 60, 543 + 95));
 		this.setTitle("Java Othello / Reversi");
 		
-		this.addWindowListener(new MainFormWindowAdapter(this));
+		this.addWindowListener(MainFormWindowAdapter.mainFormWindowAdapterFactory(this));
 		menuGameNew.setIcon(imgClass.getNewGameIcon());
-		menuGameNew.addActionListener(new MainFormMenuActionAdapter(this, "GameNew"));
+		menuGameNew.addActionListener(MainFormMenuActionAdapter.mainFormMenuActionAdapterFactory1(this, "GameNew"));
 		menuGameExit.setIcon(imgClass.getExitGameIcon());
-		menuGameExit.addActionListener(new MainFormMenuActionAdapter(this, "GameExit"));
-		ReversiSingleton.getMenuBlackPlayerComputer().addActionListener(new MainFormMenuActionAdapter(this, "BlackPlayerComputer"));
-		ReversiSingleton.getMenuBlackPlayerHuman().addActionListener(new MainFormMenuActionAdapter(this, "BlackPlayerHuman"));
-		ReversiSingleton.getMenuWhitePlayerComputer().addActionListener(new MainFormMenuActionAdapter(this, "WhitePlayerComputer"));
-		ReversiSingleton.getMenuWhitePlayerComputer().addActionListener(new MainFormMenuActionAdapter(this, "WhitePlayerHuman"));
+		menuGameExit.addActionListener(MainFormMenuActionAdapter.mainFormMenuActionAdapterFactory1(this, "GameExit"));
+		ReversiSingleton.getMenuBlackPlayerComputer().addActionListener(MainFormMenuActionAdapter.mainFormMenuActionAdapterFactory1(this, "BlackPlayerComputer"));
+		ReversiSingleton.getMenuBlackPlayerHuman().addActionListener(MainFormMenuActionAdapter.mainFormMenuActionAdapterFactory1(this, "BlackPlayerHuman"));
+		ReversiSingleton.getMenuWhitePlayerComputer().addActionListener(MainFormMenuActionAdapter.mainFormMenuActionAdapterFactory1(this, "WhitePlayerComputer"));
+		ReversiSingleton.getMenuWhitePlayerComputer().addActionListener(MainFormMenuActionAdapter.mainFormMenuActionAdapterFactory1(this, "WhitePlayerHuman"));
 		menuHelpAbout.setIcon(imgClass.getAboutGameIcon());
-		ReversiSingleton.getMenuShowMoveList().addActionListener(new MainFormMenuActionAdapter(this, "ShowMoveList"));
+		ReversiSingleton.getMenuShowMoveList().addActionListener(MainFormMenuActionAdapter.mainFormMenuActionAdapterFactory1(this, "ShowMoveList"));
 		ReversiSingleton.getMenuShowMoveList().setState(true);
 
 		WGroup.add(ReversiSingleton.getMenuWhitePlayerComputer());
@@ -115,13 +117,13 @@ public class MainForm extends JFrame {
 		menuSpeedItems[3] = new JRadioButtonMenuItem("5.0 x", true);
 		menuSpeedItems[4] = new JRadioButtonMenuItem("10.0 x");
 		menuSpeedItems[5] = new JRadioButtonMenuItem("No Animation");
-		menuSpeedItems[0].addActionListener(new MainFormMenuActionAdapter(this, "SpeedItems", 1));
-		menuSpeedItems[1].addActionListener(new MainFormMenuActionAdapter(this, "SpeedItems", 2));
-		menuSpeedItems[2].addActionListener(new MainFormMenuActionAdapter(this, "SpeedItems", 3));
-		menuSpeedItems[3].addActionListener(new MainFormMenuActionAdapter(this, "SpeedItems", 5));
-		menuSpeedItems[4].addActionListener(new MainFormMenuActionAdapter(this, "SpeedItems", 10));
-		menuSpeedItems[5].addActionListener(new MainFormMenuActionAdapter(this, "SpeedItems", 30));
-		menuHelpAbout.addActionListener(new MainFormMenuActionAdapter(this, "HelpAbout"));
+		menuSpeedItems[0].addActionListener(MainFormMenuActionAdapter.mainFormMenuActionAdapterFactory2(this, "SpeedItems", 1));
+		menuSpeedItems[1].addActionListener(MainFormMenuActionAdapter.mainFormMenuActionAdapterFactory2(this, "SpeedItems", 2));
+		menuSpeedItems[2].addActionListener(MainFormMenuActionAdapter.mainFormMenuActionAdapterFactory2(this, "SpeedItems", 3));
+		menuSpeedItems[3].addActionListener(MainFormMenuActionAdapter.mainFormMenuActionAdapterFactory2(this, "SpeedItems", 5));
+		menuSpeedItems[4].addActionListener(MainFormMenuActionAdapter.mainFormMenuActionAdapterFactory2(this, "SpeedItems", 10));
+		menuSpeedItems[5].addActionListener(MainFormMenuActionAdapter.mainFormMenuActionAdapterFactory2(this, "SpeedItems", 30));
+		menuHelpAbout.addActionListener(MainFormMenuActionAdapter.mainFormMenuActionAdapterFactory1(this, "HelpAbout"));
 		menuGame.add(menuGameNew);
 		menuGame.add(menuGameExit);
 		menuBlackPlayer.add(ReversiSingleton.getMenuBlackPlayerComputer());
@@ -146,19 +148,19 @@ public class MainForm extends JFrame {
 		this.setJMenuBar(menuBar);
 		ReversiSingleton.getFirstButton().setEnabled(false);
 		ReversiSingleton.getFirstButton().setToolTipText("First Move");
-		ReversiSingleton.getFirstButton().addActionListener(new BoardViewToolBarActionAdapter(this, "firstButton"));
+		ReversiSingleton.getFirstButton().addActionListener(BoardViewToolBarActionAdapter.toolBarActionAdapterFactory(this, "firstButton"));
 		ReversiSingleton.getPrevButton().setEnabled(false);
 		ReversiSingleton.getPrevButton().setToolTipText("Previous Move");
-		ReversiSingleton.getPrevButton().addActionListener(new BoardViewToolBarActionAdapter(this, "prevButton"));
+		ReversiSingleton.getPrevButton().addActionListener(BoardViewToolBarActionAdapter.toolBarActionAdapterFactory(this, "prevButton"));
 		ReversiSingleton.getNextButton().setEnabled(false);
 		ReversiSingleton.getNextButton().setToolTipText("Next Move");
-		ReversiSingleton.getNextButton().addActionListener(new BoardViewToolBarActionAdapter(this, "nextButton"));
+		ReversiSingleton.getNextButton().addActionListener(BoardViewToolBarActionAdapter.toolBarActionAdapterFactory(this, "nextButton"));
 		ReversiSingleton.getLastButton().setEnabled(false);
 		ReversiSingleton.getLastButton().setToolTipText("Last Move");
-		ReversiSingleton.getLastButton().addActionListener(new BoardViewToolBarActionAdapter(this, "lastButton"));
+		ReversiSingleton.getLastButton().addActionListener(BoardViewToolBarActionAdapter.toolBarActionAdapterFactory(this, "lastButton"));
 		ReversiSingleton.getPauseButton().setEnabled(false);
 		ReversiSingleton.getPauseButton().setToolTipText("Pause Game");
-		ReversiSingleton.getPauseButton().addActionListener(new BoardViewToolBarActionAdapter(this, "pauseButton"));
+		ReversiSingleton.getPauseButton().addActionListener(BoardViewToolBarActionAdapter.toolBarActionAdapterFactory(this, "pauseButton"));
 		ReversiSingleton.getFirstButton().setIcon(imgClass.getFirstImg());
 		ReversiSingleton.getPrevButton().setIcon(imgClass.getPrevImg());
 		ReversiSingleton.getPauseButton().setIcon(imgClass.getPauseImg());
@@ -309,8 +311,11 @@ public class MainForm extends JFrame {
 
 	public void menuGameExit_actionPerformed(ActionEvent e) {
 		System.exit(0);
+
+
 	}
 
+	@SuppressWarnings("deprecation")
 	public void menuHelpAbout_actionPerformed(ActionEvent e) {
 		About dlg = new About(this);
 		Dimension dlgSize = dlg.getPreferredSize();
@@ -322,13 +327,15 @@ public class MainForm extends JFrame {
 		dlg.show();
 	}
 
-	public void processWindowEvent(ActionEvent e) {
-//		super.processWindowEvent(e);
-		if (e.getID() == WindowEvent.WINDOW_CLOSING) {
-			menuGameExit_actionPerformed(null);
+	protected void processWindowEvent( WindowEvent e )
+	{
+		super.processWindowEvent( e ) ;
+		if( e.getID() == WindowEvent.WINDOW_CLOSING ) {
+			menuGameExit_actionPerformed( null ) ;
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public void menuBlackPlayerComputer_actionPerformed(ActionEvent e) {
 		ChoosePlayerType dlg = new ChoosePlayerType(this, "Choose Black Player", true);
 		Dimension dlgSize = dlg.getPreferredSize();
@@ -336,7 +343,7 @@ public class MainForm extends JFrame {
 		Point loc = getLocation();
 		dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x, (frmSize.height - dlgSize.height) / 2 + loc.y);
 		dlg.show();
-		if (dlg.playerType == dlg.COMPUTER_PLAYER) {
+		if (dlg.playerType == BoardEnum.COMPUTER_PLAYER.value()) {
 			ReversiSingleton.getBoardView().playerBPointer = new ComputerPlayer();
 			ReversiSingleton.getMenuBlackPlayerComputer().setText("Computer");
 			ReversiSingleton.setCurrentPlayer(new BlackPlayer());
@@ -344,7 +351,7 @@ public class MainForm extends JFrame {
 	        ReversiSingleton.setCurrentPlayer(new WhitePlayer());
 	        ReversiSingleton.getCurrentPlayer().showPlayer("Other Team");
 
-		} else if (dlg.playerType == dlg.NET_PLAYER) {
+		} else if (dlg.playerType == BoardEnum.NET_PLAYER.value()) {
 			ReversiSingleton.getBoardView().playerBPointer = new NetworkPlayer(dlg.hostAddress, dlg.portNumber, dlg.portNumber2);
 			try {
 				String id = ((NetworkPlayer) ReversiSingleton.getBoardView().playerBPointer).identify();
@@ -369,6 +376,7 @@ public class MainForm extends JFrame {
 		ReversiSingleton.getMenuBlackPlayerHuman().setText("Human");
 	}
 
+	@SuppressWarnings("deprecation")
 	public void menuWhitePlayerComputer_actionPerformed(ActionEvent e) {
 		ChoosePlayerType dlg = new ChoosePlayerType(this, "Choose White Player", true);
 		Dimension dlgSize = dlg.getPreferredSize();
@@ -376,7 +384,7 @@ public class MainForm extends JFrame {
 		Point loc = getLocation();
 		dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x, (frmSize.height - dlgSize.height) / 2 + loc.y);
 		dlg.show();
-		if (dlg.playerType == dlg.COMPUTER_PLAYER) {
+		if (dlg.playerType == BoardEnum.COMPUTER_PLAYER.value()) {
 			ReversiSingleton.getBoardView().playerWPointer = new ComputerPlayer();
 			ReversiSingleton.getMenuWhitePlayerComputer().setText("Computer");
 			ReversiSingleton.setCurrentPlayer(new WhitePlayer());
@@ -384,7 +392,7 @@ public class MainForm extends JFrame {
 	        ReversiSingleton.setCurrentPlayer(new BlackPlayer());
 	        ReversiSingleton.getCurrentPlayer().showPlayer("Other Team");	
 
-		} else if (dlg.playerType == dlg.NET_PLAYER) {
+		} else if (dlg.playerType == BoardEnum.NET_PLAYER.value()) {
 			ReversiSingleton.getBoardView().playerWPointer = new NetworkPlayer(dlg.hostAddress, dlg.portNumber, dlg.portNumber2);
 			try {
 				String id = ((NetworkPlayer) ReversiSingleton.getBoardView().playerWPointer).identify();
@@ -418,6 +426,7 @@ public class MainForm extends JFrame {
 		repaint();
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void this_windowOpened(WindowEvent e) {
 		Dimension frmSize = getSize();
 		Point l = this.getLocationOnScreen();

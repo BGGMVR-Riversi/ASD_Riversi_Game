@@ -43,7 +43,7 @@ public class About extends JDialog
         setResizable( false ) ;
         mainPanel.setLayout( gridBagLayout1 ) ;
         btnOK.setText( "OK" ) ;
-        btnOK.addActionListener( new AboutFormOkButtonActionAdapter( this ) ) ;
+        btnOK.addActionListener( AboutFormOkButtonActionAdapter.aboutFormOkButtonActionAdapterFactory( this ) ) ;
         lblTitle.setFont( new java.awt.Font( "Default", 1, 30 ) ) ;
         lblTitle.setIcon( iagnoImg ) ;
         lblTitle.setIconTextGap( 15 ) ;

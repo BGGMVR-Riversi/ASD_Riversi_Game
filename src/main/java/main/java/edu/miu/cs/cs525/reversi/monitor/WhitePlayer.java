@@ -1,18 +1,14 @@
 package main.java.edu.miu.cs.cs525.reversi.monitor;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-
 import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
 
 public class WhitePlayer implements ShowCurrentPlayer {
 
-    @Override
-    public void displayCurrentTurn() {
-        ReversiSingleton.getWhiteTurn().setVisible(true);
-        ReversiSingleton.getBlackTurn().setVisible(false);
-    }
+	@Override
+	public void displayCurrentTurn() {
+		ReversiSingleton.getWhiteTurn().setVisible(true);
+		ReversiSingleton.getBlackTurn().setVisible(false);
+	}
 
 	@Override
 	public void displayWinner() {
@@ -22,11 +18,11 @@ public class WhitePlayer implements ShowCurrentPlayer {
 		ReversiSingleton.getRightPane().add(ReversiSingleton.getWinner());
 		ReversiSingleton.getLeftPane().add(ReversiSingleton.getGameOverLabel());
 	}
-	
+
 	@Override
 	public void notDisplayCurrentTurn() {
 		ReversiSingleton.getBlackTurn().setVisible(false);
-        ReversiSingleton.getWhiteTurn().setVisible(false);		
+		ReversiSingleton.getWhiteTurn().setVisible(false);
 	}
 
 	@Override
