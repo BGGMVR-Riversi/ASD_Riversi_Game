@@ -45,7 +45,7 @@ public class NetworkPlayer extends GeneralPlayer {
 			if (b.getStandardFormGame() != null && !b.getStandardFormGame().isEmpty()) {
 				String pos[] = b.getStandardFormGame().split(" ");
 				// System.out.println("A "+hostAddress);
-				if (hostAddress.startsWith("https://")) {
+				if (hostAddress.startsWith("https://") && !(hostAddress.startsWith("https://reversi-app-asd"))) {
 					String result = channel.postRequest(new URL(hostAddress), "POST", pos[pos.length - 1]);
 					logger.info("result from postRequest " + result);
 					if (targetJson.isJson(result)) {
@@ -54,7 +54,20 @@ public class NetworkPlayer extends GeneralPlayer {
 						return move;
 					}
 
-				} else if (hostAddress.startsWith("http://")) {
+				}
+				/**************  Added for Team 6 *******************************/
+				else if (hostAddress.startsWith("https://reversi-app-asd")) {
+					String result = channel.postRequestTeam6(new URL(hostAddress), "POST", pos[pos.length - 1]);
+					System.out.println("BTeam6 " + result);
+					if (targetJson.isJson(result)) {
+						System.out.println("AdapteeReceivedTeam6: " + targetJson.JsontoString(result));
+						move.set(targetJson.JsontoString(result));
+						return move;
+					}
+
+				}
+
+				else if (hostAddress.startsWith("http://")) {
 					char[] positions = pos[pos.length - 1].toCharArray();
 					StringBuilder url = new StringBuilder();
 					url.append(hostAddress + "?");
@@ -101,6 +114,7 @@ public class NetworkPlayer extends GeneralPlayer {
 			//    if (b.getStandardFormGame() != null && !b.getStandardFormGame().isEmpty()) {
 			//    String pos[] = boardInfo.split(" ");
 			// System.out.println("A "+hostAddress);
+
 			if (hostAddress.startsWith("https://")) {
 				String result = channel.postRequest(new URL(hostAddress), "POST", boardInfo);
 				logger.info("getMove1 result " + result);
@@ -141,6 +155,9 @@ public class NetworkPlayer extends GeneralPlayer {
 //            } else {
 //                System.out.println("is it getting called also at the end " + b.getStandardFormGame());
 //            }
+			else{
+				channel.sendTo(address, boardInfo);
+			}
 			move.set(channel.receiveFrom());
 			return move;
 		} catch (IOException e) {
@@ -159,8 +176,8 @@ public class NetworkPlayer extends GeneralPlayer {
 					channel.stop();
 					return;
 				} else if (hostAddress.startsWith("https://")) {
-					String result = channel.postRequest(new URL(hostAddress), "POST", "Game over!!!");
-					logger.info("End game message  " + result);
+					String result = channel.postRequest(new URL(hostAddress), "POST", "-1-1");
+					System.out.println("B1 " + result);
 				}
 			}
 		} catch (IOException e) {

@@ -31,17 +31,17 @@ public class AdapteeJson {
 
     public String JsonString(String str) {
         JsonData data = new Gson().fromJson(str, JsonData.class);
-        //updated for both teams
+        //updated for All teams
         String result = "";
 //        System.out.println("resTeam3: " + data.getHomeNewPiece().getRow());
-          /************Team 3************************************************/
+        /************Team 3************************************************/
         if (data.getHomeNewPiece().getRow() != null && data.getHomeNewPiece().getCol() != null) {
 //          result = util.intToString(data.getHomeNewPiece().getRow()) + (data.getHomeNewPiece().getCol() + 1);
         	result = convert.intToString(data.getHomeNewPiece().getCol()) + (data.getHomeNewPiece().getRow() + 1);
 
         }
 
-           /*****************Team 2, 5 and 6*********************/
+         /*****************Team 2, 5 and 6*********************/
         if (data.getX() != null & data.getY() != null) {
             result = convert.intToString(data.getX()) + (data.getY() + 1);
            /******************use this for Team5 to match to  view********/
