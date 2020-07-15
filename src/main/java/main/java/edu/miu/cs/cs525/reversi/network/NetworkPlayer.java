@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
 import java.net.URL;
+import java.util.logging.Logger;
 
 import main.java.edu.miu.cs.cs525.reversi.common.BoardInfo;
 import main.java.edu.miu.cs.cs525.reversi.common.GeneralPlayer;
@@ -12,6 +13,7 @@ import main.java.edu.miu.cs.cs525.reversi.utils.Convert;
 import main.java.edu.miu.cs.cs525.reversi.utils.ConvertToInt;
 
 public class NetworkPlayer extends GeneralPlayer {
+	static Logger logger =	Logger.getLogger(NetworkPlayer.class.getSimpleName());
 
 	public static int counterNetwork;
 	static Channel channel = new Channel();
@@ -38,32 +40,45 @@ public class NetworkPlayer extends GeneralPlayer {
 
 		try {
 			channel.start();
-			Location move = new Location();
+			Location move = Location.locationFactory1();
 			address = new InetSocketAddress(hostAddress, portNumber2);
 			if (b.getStandardFormGame() != null && !b.getStandardFormGame().isEmpty()) {
 				String pos[] = b.getStandardFormGame().split(" ");
 				// System.out.println("A "+hostAddress);
-				if (hostAddress.startsWith("https://")) {
+				if (hostAddress.startsWith("https://") && !(hostAddress.startsWith("https://reversi-app-asd"))) {
 					String result = channel.postRequest(new URL(hostAddress), "POST", pos[pos.length - 1]);
-					System.out.println("B " + result);
+					logger.info("result from postRequest " + result);
 					if (targetJson.isJson(result)) {
-						System.out.println("AdapteeReceived: " + targetJson.JsontoString(result));
+						logger.info("targetJson.isJson(result): " + targetJson.JsontoString(result));
 						move.set(targetJson.JsontoString(result));
 						return move;
 					}
 
-				} else if (hostAddress.startsWith("http://")) {
+				}
+				/**************  Added for Team 6 *******************************/
+				else if (hostAddress.startsWith("https://reversi-app-asd")) {
+					String result = channel.postRequestTeam6(new URL(hostAddress), "POST", pos[pos.length - 1]);
+					System.out.println("BTeam6 " + result);
+					if (targetJson.isJson(result)) {
+						System.out.println("AdapteeReceivedTeam6: " + targetJson.JsontoString(result));
+						move.set(targetJson.JsontoString(result));
+						return move;
+					}
+
+				}
+
+				else if (hostAddress.startsWith("http://")) {
 					char[] positions = pos[pos.length - 1].toCharArray();
 					StringBuilder url = new StringBuilder();
 					url.append(hostAddress + "?");
 					url.append("x=" + String.valueOf(convert.stringToInt(positions[0])));
 					url.append("&");
 					url.append("y=" + Character.getNumericValue(positions[1] - 1));
-					System.out.println("Team 2 URL equals " + url.toString());
+					logger.info("Team 2 URL equals " + url.toString());
 					String result = channel.getRequestTeam2(new URL(url.toString()), "GET");
-					System.out.println("Team 2 result: " + result);
+					logger.info("Team 2 result: " + result);
 					if (targetJson.isJson(result)) {
-						System.out.println("AdapteeReceived: " + targetJson.JsontoString(result));
+						logger.info("AdapteeReceived: " + targetJson.JsontoString(result));
 						move.set(targetJson.JsontoString(result));
 						return move;
 					}
@@ -91,7 +106,7 @@ public class NetworkPlayer extends GeneralPlayer {
 	public static Location getMove1(String boardInfo) {
 		try {
 			channel.start();
-			Location move = new Location();
+			Location move = Location.locationFactory1();
 			address = new InetSocketAddress(hostAddress, portNumber2);
 
 
@@ -99,11 +114,12 @@ public class NetworkPlayer extends GeneralPlayer {
 			//    if (b.getStandardFormGame() != null && !b.getStandardFormGame().isEmpty()) {
 			//    String pos[] = boardInfo.split(" ");
 			// System.out.println("A "+hostAddress);
+
 			if (hostAddress.startsWith("https://")) {
 				String result = channel.postRequest(new URL(hostAddress), "POST", boardInfo);
-				System.out.println("getMove1 result " + result);
+				logger.info("getMove1 result " + result);
 				if (targetJson.isJson(result)) {
-					System.out.println("getMove1 AdapteeReceived: " + targetJson.JsontoString(result));
+					logger.info("getMove1 AdapteeReceived: " + targetJson.JsontoString(result));
 					move.set(targetJson.JsontoString(result));
 					return move;
 				}
@@ -139,6 +155,9 @@ public class NetworkPlayer extends GeneralPlayer {
 //            } else {
 //                System.out.println("is it getting called also at the end " + b.getStandardFormGame());
 //            }
+			else{
+				channel.sendTo(address, boardInfo);
+			}
 			move.set(channel.receiveFrom());
 			return move;
 		} catch (IOException e) {
@@ -157,7 +176,7 @@ public class NetworkPlayer extends GeneralPlayer {
 					channel.stop();
 					return;
 				} else if (hostAddress.startsWith("https://")) {
-					String result = channel.postRequest(new URL(hostAddress), "POST", "Game over!!!");
+					String result = channel.postRequest(new URL(hostAddress), "POST", "-1-1");
 					System.out.println("B1 " + result);
 				}
 			}

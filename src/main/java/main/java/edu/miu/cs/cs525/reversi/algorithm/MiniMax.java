@@ -10,19 +10,37 @@ public class MiniMax extends Thread
 	Logger logger =	Logger.getLogger(MiniMax.class.getSimpleName());
     int CUT_OFF ;
     int ME ;
-    BoardInfo b ;
+    BoardInfo board ;
     String[] possibleMoves ;
     public float[] moves ;
-
-    public MiniMax( int iCutOff, int player, BoardInfo b, String[] possibleMoves )
+    
+    private MiniMax(BoardInfo board) {
+    	this.board=board;
+    }
+    private MiniMax( int iCutOff, int player, BoardInfo board, String[] possibleMoves )
     {
         CUT_OFF = iCutOff ;
         ME = player ;
-        this.b = b ;
+        this.board = board ;
         this.possibleMoves = possibleMoves ;
         moves = new float[possibleMoves.length] ;
     }
+    public static MiniMax miniMaxFactory1(BoardInfo board){
+        return new MiniMax(board);
+    }
+    public static MiniMax miniMaxFactory2(int iCutOff, int player, BoardInfo board, String[] possibleMoves){
+        return new MiniMax(iCutOff, player,board,possibleMoves);
+    }
 
+
+	public int getOpponent(int player) {
+		if (player == BoardEnum.PLAYER_BLACK.value()) {
+			return BoardEnum.PLAYER_WHITE.value();
+		} else {
+			return BoardEnum.PLAYER_BLACK.value();
+		}
+	}
+	
     public float Evaluate( BoardInfo bs )
     {
         int mp = bs.getPieceCount( ME ) ;
@@ -40,13 +58,29 @@ public class MiniMax extends Thread
         }
         // else : evaluate the board position
         // *********************
-        int OPP = b.getOpponent( ME ) ;
+        int OPP = getOpponent( ME ) ;
         float eval = bs.countStablePieces( ME ) - bs.countStablePieces( OPP ) ;
         eval += ( bs.countFrontier( OPP ) - bs.countFrontier( ME ) ) / 8.0 ;
         return eval ;
         // *********************
     }
-
+	public String getPossibleMoves() {
+		String s = "";
+		BoardMatrix m = board.getGainMatrix();
+		int i, j;
+		for (i = 0; i < BoardEnum.ROW_COUNT.value(); i++) {
+			for (j = 0; j < BoardEnum.COL_COUNT.value(); j++) {
+				if (m.get(i, j) > 0) {
+					Location l = Location.locationFactory3(i, j);
+					s = s + l.getStandardForm() + ",";
+				}
+			}
+		}
+		if (s.length() > 0) {
+			s = s.substring(0, s.length() - 1);
+		}
+		return s;
+	}
     public float MaxValue( BoardInfo bs, int n, float alpha, float beta )
     {
         if( bs.turn == BoardEnum.GAME_OVER.value() || n == CUT_OFF ) {
@@ -55,7 +89,7 @@ public class MiniMax extends Thread
         String poss ;
         String[] pl ;
         int i, t ;
-        poss = bs.getPossibleMoves() ;
+        poss = getPossibleMoves() ;
         pl = poss.split( "," ) ;
         for( i = 0 ; i < pl.length ; i++ ) {
             t = bs.performMove( new Location( pl[i] ) ) ;
@@ -83,7 +117,7 @@ public class MiniMax extends Thread
         String poss ;
         String[] pl ;
         int i, t ;
-        poss = bs.getPossibleMoves() ;
+        poss = getPossibleMoves() ;
         pl = poss.split( "," ) ;
         for( i = 0 ; i < pl.length ; i++ ) {
             t = bs.performMove( new Location( pl[i] ) ) ;
@@ -108,9 +142,9 @@ public class MiniMax extends Thread
         int i ;
         logger.info("Start Running MiniMax Thread..." );
         for( i = 0 ; i <possibleMoves.length ; i++ ) {
-            b.performMove( new Location( possibleMoves[i] ) ) ;
-            moves[i] = MinValue( b, 1, -3000, +3000 ) ;
-            b.takeBackOneMove() ;
+            board.performMove( new Location( possibleMoves[i] ) ) ;
+            moves[i] = MinValue( board, 1, -3000, +3000 ) ;
+            board.takeBackOneMove() ;
             System.out.println( "i = " + i + " Eval for " + possibleMoves[i] + " : " + moves[i]  );
         }
         logger.info("Running MiniMax Thread Finished."  );
