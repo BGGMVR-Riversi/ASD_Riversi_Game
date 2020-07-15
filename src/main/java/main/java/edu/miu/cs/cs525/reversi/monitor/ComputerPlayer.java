@@ -35,8 +35,10 @@ public class ComputerPlayer extends GeneralPlayer {
 		}
 		System.out.println(" => Selected Move for " + b.getTurnString() + " : " + move.getStandardForm());
            counterComputer++;
+		System.out.println("movecount " + b.validMoveCount);
 		return move;
 	}
+
 
 	public String identify() throws Exception {
 		return this.getClass().getName();
