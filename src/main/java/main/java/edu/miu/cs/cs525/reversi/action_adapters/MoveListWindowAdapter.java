@@ -14,7 +14,7 @@ class MoveListWindowAdapter extends java.awt.event.WindowAdapter
         this.adaptee = adaptee ;
     }
 
-    public static MoveListWindowAdapter MoveListWindowAdapter(MoveList adaptee ){
+    public static MoveListWindowAdapter moveListWindowAdapter(MoveList adaptee ){
         return new MoveListWindowAdapter(adaptee);
     }
 
