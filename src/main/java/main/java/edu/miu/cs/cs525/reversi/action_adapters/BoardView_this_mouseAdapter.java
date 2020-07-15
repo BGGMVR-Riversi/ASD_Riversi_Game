@@ -8,7 +8,7 @@ public class BoardView_this_mouseAdapter extends java.awt.event.MouseAdapter
 {
     BoardView adaptee ;
 
-    public BoardView_this_mouseAdapter( BoardView adaptee )
+    private BoardView_this_mouseAdapter( BoardView adaptee )
     {
         this.adaptee = adaptee ;
     }
@@ -17,4 +17,9 @@ public class BoardView_this_mouseAdapter extends java.awt.event.MouseAdapter
     {
         adaptee.this_mouseClicked( e ) ;
     }
+    
+    public static BoardView_this_mouseAdapter mouseAdapterFactory(BoardView adaptee) {
+    	return new BoardView_this_mouseAdapter(adaptee);
+    }
+    
 }

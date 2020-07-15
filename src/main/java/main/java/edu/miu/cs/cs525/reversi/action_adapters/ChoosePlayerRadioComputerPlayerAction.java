@@ -4,20 +4,20 @@ import java.awt.event.ActionEvent;
 
 import main.java.edu.miu.cs.cs525.reversi.monitor.ChoosePlayerType;
 
-public class ChoosePlayerRadioComputerPlayerActionAdapter implements java.awt.event.ActionListener
+public class ChoosePlayerRadioComputerPlayerAction implements ReversiActionEvent
 {
     ChoosePlayerType adaptee ;
-
-    public ChoosePlayerRadioComputerPlayerActionAdapter( ChoosePlayerType adaptee )
-    {
-    	
-        this.adaptee = adaptee ;
-    }
 
     public void actionPerformed( ActionEvent e )
     {
         adaptee.radioComputerPlayer_actionPerformed( e ) ;
     }
+
+	@Override
+	public ReversiActionEvent initializeInstance(Object o) {
+		adaptee = (ChoosePlayerType) o;
+		return null;
+	}
     
     
 }

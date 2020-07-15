@@ -10,15 +10,25 @@ public class MainFormMenuActionAdapter implements ActionListener {
 	String menuItem;
 	int n;
 
-	public MainFormMenuActionAdapter(MainForm adaptee, String menuItem) {
+	private MainFormMenuActionAdapter(MainForm adaptee, String menuItem) {
 		this.adaptee = adaptee;
 		this.menuItem = menuItem;
 	}
 
-	public MainFormMenuActionAdapter(MainForm adaptee, String menuItem, int i) {
+	private MainFormMenuActionAdapter(MainForm adaptee, String menuItem, int i) {
 		this.adaptee = adaptee;
 		this.menuItem = menuItem;
 		n = i;
+	}
+
+	public static MainFormMenuActionAdapter mainFormMenuActionAdapterFactory1(MainForm adaptee, String menuItem){
+		return new MainFormMenuActionAdapter(adaptee,menuItem);
+
+	}
+
+	public static MainFormMenuActionAdapter mainFormMenuActionAdapterFactory2(MainForm adaptee, String menuItem, int i){
+		return new MainFormMenuActionAdapter(adaptee,menuItem, i);
+
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -26,8 +36,6 @@ public class MainFormMenuActionAdapter implements ActionListener {
 			adaptee.menuGameNew_actionPerformed(e);
 		} else if (menuItem.equals("GameExit")) {
 			adaptee.menuGameExit_actionPerformed(e);
-		} else if (menuItem.equals("PieceSetItems")) {
-			adaptee.menuPieceSetItems_actionPerformed(e, n);
 		} else if (menuItem.equals("BlackPlayerHuman")) {
 			adaptee.menuBlackPlayerHuman_actionPerformed(e);
 		} else if (menuItem.equals("BlackPlayerComputer")) {
@@ -40,14 +48,8 @@ public class MainFormMenuActionAdapter implements ActionListener {
 			adaptee.menuHelpAbout_actionPerformed(e);
 		} else if (menuItem.equals("SpeedItems")) {
 			adaptee.menuSpeedItems_actionPerformed(e, n);
-		} else if (menuItem.equals("ShowGuides")) {
-			adaptee.menuShowGuides_actionPerformed(e);
-		} else if (menuItem.equals("ShowMoveList")) {
+		}else if (menuItem.equals("ShowMoveList")) {
 			adaptee.menuShowMoveList_actionPerformed(e);
-		} else if (menuItem.equals("CopyGame")) {
-			adaptee.menuCopyGame_actionPerformed(e);
-		} else if (menuItem.equals("PasteGame")) {
-			adaptee.menuPasteGame_actionPerformed(e);
 		}
 	}
 }

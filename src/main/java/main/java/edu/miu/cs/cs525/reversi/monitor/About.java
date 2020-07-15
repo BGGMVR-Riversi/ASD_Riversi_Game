@@ -43,19 +43,19 @@ public class About extends JDialog
         setResizable( false ) ;
         mainPanel.setLayout( gridBagLayout1 ) ;
         btnOK.setText( "OK" ) ;
-        btnOK.addActionListener( new AboutFormOkButtonActionAdapter( this ) ) ;
+        btnOK.addActionListener( AboutFormOkButtonActionAdapter.aboutFormOkButtonActionAdapterFactory( this ) ) ;
         lblTitle.setFont( new java.awt.Font( "Default", 1, 30 ) ) ;
         lblTitle.setIcon( iagnoImg ) ;
         lblTitle.setIconTextGap( 15 ) ;
-        lblTitle.setText( "jothello" ) ;
+        lblTitle.setText( "Othello/Riversi" ) ;
         jTextArea1.setBackground( new Color( 255, 194, 159 ) ) ;
         jTextArea1.setEnabled( false ) ;
         jTextArea1.setFont( new java.awt.Font( "Default", 1, 16 ) ) ;
         jTextArea1.setDisabledTextColor( Color.darkGray ) ;
         jTextArea1.setEditable( false ) ;
         jTextArea1.setMargin( new Insets( 10, 20, 10, 20 ) ) ;
-        jTextArea1.setText( "Java Othello\n" + "version 1.0\n" + "By : Mohsen Zohrevandi\n" +
-                            "Email : zohrevandi@yahoo.com" ) ;
+        jTextArea1.setText( "Java Othello/Riversi \n" + "Version 1.0\n" + "By : Team 4\n" +
+                            "Advanced Software Design course project" ) ;
         this.getContentPane().add( mainPanel, BorderLayout.CENTER ) ;
         mainPanel.add( lblTitle, new GridBagConstraints( 0, 0, 1, 1, 0.0, 0.0
             , GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets( 25, 15, 10, 15 ), 0, 0 ) ) ;

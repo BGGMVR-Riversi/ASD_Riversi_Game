@@ -5,7 +5,16 @@ public class JsonData {
 	private Integer y;
 	private Integer row;
 	private Integer col;
-	
+	private HomeNewPiece homeNewPiece= new HomeNewPiece();
+
+	public HomeNewPiece getHomeNewPiece() {
+		return homeNewPiece;
+	}
+
+	public void setHomeNewPiece(HomeNewPiece homeNewPiece) {
+		this.homeNewPiece = homeNewPiece;
+	}
+
 	public void setX(Integer x) {
 		this.x = x;
 	}

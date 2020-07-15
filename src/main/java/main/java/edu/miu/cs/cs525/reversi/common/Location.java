@@ -1,68 +1,58 @@
 package main.java.edu.miu.cs.cs525.reversi.common ;
 
+import main.java.edu.miu.cs.cs525.reversi.utils.Convert;
+import main.java.edu.miu.cs.cs525.reversi.utils.ConvertToInt;
+import main.java.edu.miu.cs.cs525.reversi.utils.ConvertToString;
+
 public class Location
 {
-    public int r, c ;
+    public int row, column ;
+    Convert convert;
 
-    public Location()
+    private Location()
     {
-        r = 0 ;
-        c = 0 ;
+        row = 0 ;
+        column = 0 ;
+    }
+    public static Location locationFactory1(){
+        return new Location();
     }
 
-    public Location( Location src )
+    private Location( Location src )
     {
-        r = src.r ;
-        c = src.c ;
+        row = src.row ;
+        column = src.column ;
+    }
+    public static Location locationFactory2(Location src){
+        return new Location(src);
     }
 
-    public Location( int ir, int ic )
+    private  Location( int ir, int ic )
     {
-        r = ir ;
-        c = ic ;
+        row = ir ;
+        column = ic ;
+    }
+    public static Location locationFactory3(int ir, int ic ){
+        return new Location(ir,ic);
     }
 
     public void set( Location src )
     {
-        r = src.r ;
-        c = src.c ;
+        row = src.row ;
+        column = src.column ;
     }
 
     public void set( int ir, int ic )
     {
-        r = ir ;
-        c = ic ;
+        row = ir ;
+        column = ic ;
     }
 
     public void set( String standardForm )
     {
-        switch( standardForm.charAt( 0 ) ) {
-            case 'A':
-                c = 0 ;
-                break ;
-            case 'B':
-                c = 1 ;
-                break ;
-            case 'C':
-                c = 2 ;
-                break ;
-            case 'D':
-                c = 3 ;
-                break ;
-            case 'E':
-                c = 4 ;
-                break ;
-            case 'F':
-                c = 5 ;
-                break ;
-            case 'G':
-                c = 6 ;
-                break ;
-            case 'H':
-                c = 7 ;
-                break ;
-        }
-        r = ( int ) ( standardForm.charAt( 1 ) ) - 49 ;
+    	convert = new ConvertToInt();
+    	column = convert.stringToInt(standardForm.charAt( 0 ));
+        row = (int)(standardForm.charAt( 1 )) - 49 ;
     }
 
     public Location( String standardForm )
@@ -73,41 +63,17 @@ public class Location
     public String getStandardForm()
     {
         String s = "" ;
-        switch( c ) {
-            case 0:
-                s = "A" ;
-                break ;
-            case 1:
-                s = "B" ;
-                break ;
-            case 2:
-                s = "C" ;
-                break ;
-            case 3:
-                s = "D" ;
-                break ;
-            case 4:
-                s = "E" ;
-                break ;
-            case 5:
-                s = "F" ;
-                break ;
-            case 6:
-                s = "G" ;
-                break ;
-            case 7:
-                s = "H" ;
-                break ;
-        }
-        s = s + ( r + 1 ) ;
+        convert = new ConvertToString();
+        s = convert.intToString(column);
+        s = s + ( row + 1 ) ;
         return s ;
     }
 
     public static Location add( Location x , Location y )
     {
         Location result = new Location(x);
-        result.r += y.r ;
-        result.c += y.c ;
+        result.row += y.row ;
+        result.column += y.column ;
         return result;
     }
 }

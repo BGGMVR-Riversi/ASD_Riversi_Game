@@ -3,8 +3,10 @@ package main.java.edu.miu.cs.cs525.reversi.monitor ;
 import java.awt.* ;
 import javax.swing.* ;
 
+import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.MoveListWindowAdapter;
 import main.java.edu.miu.cs.cs525.reversi.common.*;
+import main.java.edu.miu.cs.cs525.reversi.mediator.BoardEnum;
 
 import java.awt.event.* ;
 
@@ -36,14 +38,14 @@ public class MoveList extends JFrame
 
     private void jbInit() throws Exception
     {
-        txtList.setBackground( new Color( 40, 149, 206 ) ) ;
+        txtList.setBackground( ReversiSingleton.getDarkGray() ) ;
         txtList.setFont( new java.awt.Font( "Default", 0, 14 ) ) ;
-        txtList.setForeground( Color.white ) ;
+        txtList.setForeground( ReversiSingleton.getAqua()) ;
         txtList.setEditable( false ) ;
         txtList.setMargin( new Insets( 15, 22, 0, 0 ) ) ;
         txtList.setText( "" ) ;
         jScrollPane1.setPreferredSize( new Dimension( 180, 600 ) ) ;
-        this.addWindowListener( new MoveListWindowAdapter( this ) ) ;
+        this.addWindowListener(MoveListWindowAdapter.moveListWindowAdapter( this ) ) ;
         this.setResizable( false ) ;
         this.getContentPane().add( jScrollPane1, BorderLayout.CENTER ) ;
         jScrollPane1.getViewport().add( txtList, null ) ;
@@ -61,7 +63,7 @@ public class MoveList extends JFrame
                 s = s + ( i + 1 ) + "." + board.moveHistory[i].getStandardForm() ;
             }
             if( i % 2 == 1 ) {
-                if( i <=board.MAX_MOVES) {
+                if( i <=BoardEnum.MAX_MOVES.value()) {
                     s = s + "\n" ;
                 }
             }
@@ -74,7 +76,7 @@ public class MoveList extends JFrame
 
     public void this_windowClosing( WindowEvent e )
     {
-        ( ( MainForm ) parent ).menuShowMoveList.setState( false ) ;
+    	 ReversiSingleton.getMenuShowMoveList().setState( false ) ;
     }
 
 }

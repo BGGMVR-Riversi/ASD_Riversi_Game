@@ -10,34 +10,30 @@ public class BoardViewToolBarActionAdapter implements java.awt.event.ActionListe
     MainForm adaptee ;
     String tbItem ;
 
-    public BoardViewToolBarActionAdapter( MainForm adaptee, String toolbarItem )
+    private BoardViewToolBarActionAdapter( MainForm adaptee, String toolbarItem )
     {
         this.adaptee = adaptee ;
         tbItem = toolbarItem ;
     }
 
+    public static BoardViewToolBarActionAdapter toolBarActionAdapterFactory(MainForm adaptee, String toolbarItem){
+        return new BoardViewToolBarActionAdapter(adaptee,toolbarItem);
+
+    }
+
     public void actionPerformed( ActionEvent e )
     {
-        if( tbItem.equals( "exitGameButton" ) ) {
-            adaptee.exitGameButton_actionPerformed( e ) ;
-        }
-        else if( tbItem.equals( "aboutButton" ) ) {
-            adaptee.aboutButton_actionPerformed( e ) ;
-        }
-        else if( tbItem.equals( "newGameButton" ) ) {
-            adaptee.newGameButton_actionPerformed( e ) ;
-        }
-        else if( tbItem.equals( "pauseButton" ) ) {
-            adaptee.pauseButton_actionPerformed( e ) ;
+        if( tbItem.equals( "pauseButton" ) ) {
+        	adaptee.pauseButton_actionPerformed( e ) ;
         }
         else if( tbItem.equals( "lastButton" ) ) {
-            adaptee.lastButton_actionPerformed( e ) ;
+        	adaptee.lastButton_actionPerformed( e ) ;
         }
         else if( tbItem.equals( "nextButton" ) ) {
-            adaptee.nextButton_actionPerformed( e ) ;
+        	adaptee.nextButton_actionPerformed( e ) ;
         }
         else if( tbItem.equals( "prevButton" ) ) {
-            adaptee.prevButton_actionPerformed( e ) ;
+        	adaptee.prevButton_actionPerformed( e ) ;
         }
         else if( tbItem.equals( "firstButton" ) ) {
             adaptee.firstButton_actionPerformed( e ) ;
