@@ -20,6 +20,8 @@ import javax.swing.JToolBar;
 
 
 import main.java.edu.miu.cs.cs525.reversi.ReversiSingleton;
+import main.java.edu.miu.cs.cs525.reversi.memento.Board;
+import main.java.edu.miu.cs.cs525.reversi.memento.History;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.BoardViewToolBarActionAdapter;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.MainFormMenuActionAdapter;
 import main.java.edu.miu.cs.cs525.reversi.action_adapters.MainFormWindowAdapter;
@@ -210,6 +212,14 @@ public class MainForm extends JFrame {
 		repaint();
 		ReversiSingleton.getPauseButton().setEnabled(true);
 		continueGame();
+		if (History.getInstance().size("undo") > 0) {
+			System.out.println("!!Clearing all undo history!!");
+			History.getInstance().clearUndoHistory();
+		}
+		if (History.getInstance().size("redo") > 0) {
+			System.out.println("!!Clearing all redo history!!");
+			History.getInstance().clearRedoHistory();
+		}
 	}
 
 	public void continueGame() {
@@ -228,6 +238,10 @@ public class MainForm extends JFrame {
 			pauseGame();
 		} else {
 			continueGame();
+			if (History.getInstance().size("redo") > 0) {
+				System.out.println("!!Clearing all redo history!!");
+				History.getInstance().clearRedoHistory();
+			}
 		}
 	}
 
@@ -236,6 +250,12 @@ public class MainForm extends JFrame {
 			return;
 		}
 		ReversiSingleton.getBoardView().board.takeBackOneMove();
+		if (History.getInstance().size("undo") <= 0) {
+			System.out.println("Nothing to undo from Memento");
+		} else {
+			Board.getInstance().restore(History.getInstance().popFromUndoList());
+			System.out.println("undo from Memento ==========> " + Board.getInstance().getMove().getStandardForm());
+		}
 		ReversiSingleton.getBoardView().updateTurn();
 		repaint();
 	}
@@ -245,6 +265,12 @@ public class MainForm extends JFrame {
 			return;
 		}
 		ReversiSingleton.getBoardView().board.redoOneMove();
+		if (History.getInstance().size("redo") <= 0) {
+			System.out.println("Nothing to redo from Memento");
+		} else {
+			Board.getInstance().restore(History.getInstance().popFromRedoList());
+			System.out.println("redo from Memento ==========> " + Board.getInstance().getMove().getStandardForm());
+		}
 		ReversiSingleton.getBoardView().updateTurn();
 		repaint();
 	}
@@ -254,6 +280,12 @@ public class MainForm extends JFrame {
 			return;
 		}
 		ReversiSingleton.getBoardView().board.takeBackAllMoves();
+		if (History.getInstance().size("undo") <= 0) {
+			System.out.println("Nothing to undo from Memento");
+		} else {
+			System.out.println("========== undoALL from Memento ==========");
+			History.getInstance().undoAllFromUndoList();
+		}
 		ReversiSingleton.getBoardView().updateTurn();
 		repaint();
 	}
@@ -263,6 +295,12 @@ public class MainForm extends JFrame {
 			return;
 		}
 		ReversiSingleton.getBoardView().board.redoAllMoves();
+		if (History.getInstance().size("redo") <= 0) {
+			System.out.println("Nothing to redo from Memento");
+		} else {
+			System.out.println("========== redoALL from Memento ==========");
+			History.getInstance().redoAllFromRedoList();
+		}
 		ReversiSingleton.getBoardView().updateTurn();
 		repaint();
 	}
