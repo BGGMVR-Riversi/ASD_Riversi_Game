@@ -296,7 +296,7 @@ public class BoardInfo implements MediatorService {
 
 	// Move History methods :
 
-	private void copyBoardToHistory(int k) {
+	public void copyBoardToHistory(int k) {
 		copyBoard(this.board, this.boardHistory[k]);
 	}
 
